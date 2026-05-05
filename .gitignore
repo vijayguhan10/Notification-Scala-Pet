@@ -16,8 +16,16 @@ project/project/
 .bloop/
 .bsp/
 
+# Also ignore them if they appear in subfolders
+**/.metals/
+**/.bloop/
+**/.bsp/
+
 # scala-cli / Scala build server outputs
 .scala-build/
+
+# Also ignore nested scala-cli build dirs
+**/.scala-build/
 
 # IDE/editor
 .idea/

@@ -15,18 +15,7 @@ import scala.util.Random
 class EventGenerator @Inject() () {
   private val random = new Random()
 
-  private val eventTypes = Vector(
-    "SCROLL",
-    "CLICK",
-    "NAVIGATION",
-    "SEARCH",
-    "VEHICLE_SELECTION",
-    "BOOKING_INITIATION",
-    "PAYMENT",
-    "LOGIN",
-    "LOGOUT",
-    "SESSION_ACTIVITY"
-  )
+
 
   private val pages = Vector(
     "/parking/home",

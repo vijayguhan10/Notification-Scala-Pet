@@ -10,6 +10,8 @@ scalaVersion := "2.13.18"
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.2" % Test
 
+libraryDependencies += "org.apache.kafka" % "kafka-clients" % "3.7.0"
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.metropolis.pet.controllers._"
 

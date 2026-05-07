@@ -7,6 +7,10 @@ import java.util.UUID
 import javax.inject.{Inject, Singleton}
 import scala.util.Random
 
+
+
+
+//vector used for optimized datastructure 
 @Singleton
 class EventGenerator @Inject() () {
   private val random = new Random()

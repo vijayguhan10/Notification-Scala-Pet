@@ -85,6 +85,7 @@ class EventStreamManager @Inject() (
           kafka.publish(topic, event.userId, payload)
           published.incrementAndGet()
           i += 1
+          print("data: " + payload + "\n\n")
         }
       } catch {
         case t: Throwable =>

@@ -1,0 +1,27 @@
+@()
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notification Server</title>
+
+    <link rel="stylesheet" media="screen" href='@routes.Assets.versioned("stylesheets/main.css")'>
+  </head>
+  <body>
+    <main>
+      <h1>Notification Server</h1>
+      <p>Server is running.</p>
+      <p>Event endpoints:</p>
+      <ul>
+        <li><code>POST /api/events</code></li>
+        <li><code>POST /api/events/stop/:streamId</code></li>
+        <li><code>GET /api/events/status/:streamId</code></li>
+        <li><code>GET /api/events/ws</code></li>
+      </ul>
+    </main>
+
+    <script src='@routes.Assets.versioned("javascripts/main.js")' type="text/javascript"></script>
+  </body>
+</html>

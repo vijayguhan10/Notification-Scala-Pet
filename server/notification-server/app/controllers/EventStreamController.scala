@@ -13,7 +13,7 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
 @Singleton
-class EventStreamController @Inject()(
+class EventStreamController @Inject() (
     val controllerComponents: ControllerComponents,
     manager: EventStreamManager
 )(implicit ec: ExecutionContext, mat: Materializer)
@@ -22,11 +22,17 @@ class EventStreamController @Inject()(
   def start() = Action { implicit request =>
     val bodyJson: Option[JsValue] = request.body.asJson
 
-    val ratePerSecond = bodyJson.flatMap(js => (js \ "ratePerSecond").headOption.flatMap(_.asOpt[Int]))
-    val topic = bodyJson.flatMap(js => (js \ "topic").headOption.flatMap(_.asOpt[String]))
-    val batchEveryMillis = bodyJson.flatMap(js => (js \ "batchEveryMillis").headOption.flatMap(_.asOpt[Int]))
+    val ratePerSecond =
+      bodyJson.flatMap(js => (js \ "ratePerSecond").asOpt[Int])
+    val topic = bodyJson.flatMap(js => (js \ "topic").asOpt[String])
+    val batchEveryMillis =
+      bodyJson.flatMap(js => (js \ "batchEveryMillis").asOpt[Int])
 
-    val session = manager.start(ratePerSecondOpt = ratePerSecond, topicOpt = topic, batchEveryMillisOpt = batchEveryMillis)
+    val session = manager.start(
+      ratePerSecondOpt = ratePerSecond,
+      topicOpt = topic,
+      batchEveryMillisOpt = batchEveryMillis
+    )
 
     Created(
       Json.obj(
@@ -47,22 +53,27 @@ class EventStreamController @Inject()(
   def status(streamId: String) = Action {
     manager.status(streamId) match {
       case Some(s) => Ok(Json.toJson(s))
-      case None    => NotFound(Json.obj("status" -> "not_found", "streamId" -> streamId))
+      case None    =>
+        NotFound(Json.obj("status" -> "not_found", "streamId" -> streamId))
     }
   }
 
-  /**
-    * WebSocket endpoint: connecting starts publishing; disconnect stops.
-    * Send "stop" to terminate from the client side.
+  /** WebSocket endpoint: connecting starts publishing; disconnect stops. Send
+    * "stop" to terminate from the client side.
     */
   def ws() = WebSocket.accept[String, String] { request =>
     val running = new AtomicBoolean(true)
 
     val rate = request.getQueryString("ratePerSecond").flatMap(_.toIntOption)
     val topic = request.getQueryString("topic")
-    val batchEveryMillis = request.getQueryString("batchEveryMillis").flatMap(_.toIntOption)
+    val batchEveryMillis =
+      request.getQueryString("batchEveryMillis").flatMap(_.toIntOption)
 
-    val session = manager.start(ratePerSecondOpt = rate, topicOpt = topic, batchEveryMillisOpt = batchEveryMillis)
+    val session = manager.start(
+      ratePerSecondOpt = rate,
+      topicOpt = topic,
+      batchEveryMillisOpt = batchEveryMillis
+    )
 
     val sink: Sink[String, _] = Sink.foreach { msg =>
       if (msg.trim.equalsIgnoreCase("stop")) {
@@ -76,7 +87,8 @@ class EventStreamController @Inject()(
         .tick(0.seconds, 1.second, ())
         .takeWhile(_ => running.get())
         .map { _ =>
-          val published = manager.status(session.streamId).map(_.published).getOrElse(0L)
+          val published =
+            manager.status(session.streamId).map(_.published).getOrElse(0L)
           Json
             .obj(
               "type" -> "heartbeat",
@@ -88,11 +100,12 @@ class EventStreamController @Inject()(
             .toString()
         }
 
-    Flow.fromSinkAndSourceCoupled(sink, source).watchTermination() { (_, done) =>
-      done.onComplete { _ =>
-        running.set(false)
-        manager.stop(session.streamId)
-      }
+    Flow.fromSinkAndSourceCoupled(sink, source).watchTermination() {
+      (_, done) =>
+        done.onComplete { _ =>
+          running.set(false)
+          manager.stop(session.streamId)
+        }
     }
   }
 }

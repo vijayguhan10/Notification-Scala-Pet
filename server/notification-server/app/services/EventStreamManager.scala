@@ -27,7 +27,7 @@ object StreamSessionStatus {
 }
 
 @Singleton
-class EventStreamManager @Inject()(
+class EventStreamManager @Inject() (
     actorSystem: ActorSystem,
     config: Configuration,
     generator: EventGenerator,
@@ -48,8 +48,10 @@ class EventStreamManager @Inject()(
   private val sessions = new ConcurrentHashMap[String, Session]()
 
   private val defaultTopic = config.get[String]("kafka.topic")
-  private val defaultRatePerSecond = config.getOptional[Int]("eventStream.ratePerSecond").getOrElse(2000)
-  private val defaultBatchEveryMillis = config.getOptional[Int]("eventStream.batchEveryMillis").getOrElse(10)
+  private val defaultRatePerSecond =
+    config.getOptional[Int]("eventStream.ratePerSecond").getOrElse(2000)
+  private val defaultBatchEveryMillis =
+    config.getOptional[Int]("eventStream.batchEveryMillis").getOrElse(10)
 
   def start(
       ratePerSecondOpt: Option[Int] = None,
@@ -60,14 +62,21 @@ class EventStreamManager @Inject()(
     val streamId = UUID.randomUUID().toString
     val topic = topicOpt.getOrElse(defaultTopic)
     val ratePerSecond = ratePerSecondOpt.getOrElse(defaultRatePerSecond)
-    val batchEveryMillis = batchEveryMillisOpt.getOrElse(defaultBatchEveryMillis)
+    val batchEveryMillis =
+      batchEveryMillisOpt.getOrElse(defaultBatchEveryMillis)
 
     val published = new AtomicLong(0L)
     val startedAt = Instant.now()
 
-    val batchSize = math.max(1, (ratePerSecond.toLong * batchEveryMillis.toLong / 1000L).toInt)
+    val batchSize = math.max(
+      1,
+      (ratePerSecond.toLong * batchEveryMillis.toLong / 1000L).toInt
+    )
 
-    val cancellable = actorSystem.scheduler.scheduleAtFixedRate(0.millis, batchEveryMillis.millis) { () =>
+    val cancellable = actorSystem.scheduler.scheduleAtFixedRate(
+      0.millis,
+      batchEveryMillis.millis
+    ) { () =>
       try {
         var i = 0
         while (i < batchSize) {
@@ -112,7 +121,8 @@ class EventStreamManager @Inject()(
 
     try removed.cancellable.cancel()
     catch {
-      case t: Throwable => logger.warn(s"Failed cancelling streamId=$streamId", t)
+      case t: Throwable =>
+        logger.warn(s"Failed cancelling streamId=$streamId", t)
     }
 
     true

@@ -12,6 +12,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
+
 @Singleton
 class EventStreamController @Inject() (
     val controllerComponents: ControllerComponents,

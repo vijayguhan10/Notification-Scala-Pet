@@ -24,6 +24,15 @@ Small notification app with a Scala (Play Framework) backend and a Vite/React fr
 └──────────┬───────────┘
            │
            │
+           ▼ 
+┌──────────────────────┐
+│        storing       │
+│   the metrics in the │
+│   reddis for traffic │
+│      Monitoring      │      
+│  Event Collection    │
+│  + Durable Storage   │
+└──────────┬───────────┘
  ┌─────────┴──────────────────────────┐
  │                                    │
  ▼                                    ▼

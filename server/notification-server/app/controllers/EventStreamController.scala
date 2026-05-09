@@ -74,7 +74,7 @@ class EventStreamController @Inject() (
       ratePerSecondOpt = rate,
       topicOpt = topic,
       batchEveryMillisOpt = batchEveryMillis
-    )
+    ) 
 
     val sink: Sink[String, _] = Sink.foreach { msg =>
       if (msg.trim.equalsIgnoreCase("stop")) {

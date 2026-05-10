@@ -1,6 +1,6 @@
 package services
 
-import org.apache.pekko.actor.{ActorSystem, Cancellable}
+import akka.actor.{ActorSystem, Cancellable}
 import play.api.{Configuration, Logging}
 import play.api.libs.json.Json
 

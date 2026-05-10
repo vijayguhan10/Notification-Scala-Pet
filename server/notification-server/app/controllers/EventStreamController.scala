@@ -4,14 +4,13 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{BaseController, ControllerComponents, WebSocket}
 import services.EventStreamManager
 
-import org.apache.pekko.stream.Materializer
-import org.apache.pekko.stream.scaladsl.{Flow, Sink, Source}
+import akka.stream.Materializer
+import akka.stream.scaladsl.{Flow, Sink, Source}
 
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
-
 
 @Singleton
 class EventStreamController @Inject() (
@@ -74,7 +73,7 @@ class EventStreamController @Inject() (
       ratePerSecondOpt = rate,
       topicOpt = topic,
       batchEveryMillisOpt = batchEveryMillis
-    ) 
+    )
 
     val sink: Sink[String, _] = Sink.foreach { msg =>
       if (msg.trim.equalsIgnoreCase("stop")) {

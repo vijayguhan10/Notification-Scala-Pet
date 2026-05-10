@@ -1,0 +1,16 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index()
+
+# Event streaming (Kafka publishing)
+POST    /api/events                  controllers.EventStreamController.start()
+POST    /api/events/stop/:streamId   controllers.EventStreamController.stop(streamId: String)
+GET     /api/events/status/:streamId controllers.EventStreamController.status(streamId: String)
+GET     /api/events/ws               controllers.EventStreamController.ws()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

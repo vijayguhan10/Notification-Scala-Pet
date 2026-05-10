@@ -5,10 +5,10 @@ case class UserActivityEventRow(
     userId: String,
     sessionId: String,
     eventType: String,
-    page:String,
+    page: String,
     timestamp: Instant,
-    device:String,
-    browser:String,
-    scrollDepth:Int,
-    localtion:String
+    device: String,
+    browser: String,
+    scrollDepth: Int,
+    location: String
 )

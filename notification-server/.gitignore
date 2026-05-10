@@ -1,6 +1,15 @@
 logs
 target
 /.bsp
+/.bloop
+/.metals
+metals.sbt
+project/metals.sbt
+project/project/metals.sbt
+
+# Giter8 / g8 (template/cache artifacts)
+/.g8
+*.g8
 /.idea
 /.idea_modules
 /.classpath

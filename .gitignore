@@ -1,0 +1,9 @@
+# Scala tooling artifacts (Metals / Bloop / BSP)
+.metals/
+.bloop/
+.bsp/
+metals.sbt
+
+# Giter8 / g8 (template/cache artifacts)
+.g8/
+*.g8

@@ -2,15 +2,15 @@
     "version": "1.4.0",
     "project": {
         "name": "notification-server-build-build",
-        "directory": "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project",
-        "workspaceDir": "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project",
+        "directory": "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project",
+        "workspaceDir": "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project",
         "sources": [
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/src/main/scala",
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/src/main/scala-2.12",
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/src/main/scala-2",
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/src/main/java",
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/src/main/scala-sbt-1.0",
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/target/scala-2.12/sbt-1.0/src_managed/main"
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/src/main/scala",
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/src/main/scala-2.12",
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/src/main/scala-2",
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/src/main/java",
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/src/main/scala-sbt-1.0",
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/target/scala-2.12/sbt-1.0/src_managed/main"
         ],
         "dependencies": [
             
@@ -104,11 +104,11 @@
             "/home/v-guhan-techy/.cache/coursier/v1/https/repo1.maven.org/maven2/net/java/dev/jna/jna-platform/5.12.0/jna-platform-5.12.0.jar",
             "/home/v-guhan-techy/.cache/coursier/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.4.5/config-1.4.5.jar"
         ],
-        "out": "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/.bloop/notification-server-build-build",
-        "classesDir": "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/.bloop/notification-server-build-build/scala-2.12/sbt-1.0/classes",
+        "out": "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/.bloop/notification-server-build-build",
+        "classesDir": "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/.bloop/notification-server-build-build/scala-2.12/sbt-1.0/classes",
         "resources": [
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/src/main/resources",
-            "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/target/scala-2.12/sbt-1.0/resource_managed/main"
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/src/main/resources",
+            "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/target/scala-2.12/sbt-1.0/resource_managed/main"
         ],
         "scala": {
             "organization": "org.scala-lang",
@@ -216,7 +216,7 @@
             "config": {
                 "home": "/home/v-guhan-techy/.sdkman/candidates/java/21-tem",
                 "options": [
-                    "-Duser.dir=/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project"
+                    "-Duser.dir=/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project"
                 ]
             },
             "mainClass": [
@@ -225,11 +225,11 @@
             "runtimeConfig": {
                 "home": "/home/v-guhan-techy/.sdkman/candidates/java/21-tem",
                 "options": [
-                    "-Duser.dir=/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project"
+                    "-Duser.dir=/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project"
                 ]
             },
             "classpath": [
-                "/home/v-guhan-techy/projects/Notification-Scala-Pet/server/notification-server/project/project/.bloop/notification-server-build-build/scala-2.12/sbt-1.0/classes",
+                "/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/project/project/.bloop/notification-server-build-build/scala-2.12/sbt-1.0/classes",
                 "/home/v-guhan-techy/.cache/coursier/v1/https/repo1.maven.org/maven2/ch/epfl/scala/sbt-bloop_2.12_1.0/2.0.19/sbt-bloop_2.12_1.0-2.0.19.jar",
                 "/home/v-guhan-techy/.cache/coursier/v1/https/repo1.maven.org/maven2/ch/epfl/scala/bloop-config_2.12/2.3.3/bloop-config_2.12-2.3.3.jar",
                 "/home/v-guhan-techy/.cache/coursier/v1/https/repo1.maven.org/maven2/com/github/plokhotnyuk/jsoniter-scala/jsoniter-scala-core_2.12/2.13.5.2/jsoniter-scala-core_2.12-2.13.5.2.jar",

@@ -1,9 +1,12 @@
 package modules
 
-import javax.inject._
-import play.api.inject._
 import org.flywaydb.core.Flyway
-import com.typesafe.config.Config
+import play.api.{Configuration, Environment, Logging, Mode}
+import play.api.inject._
+
+import java.io.File
+
+import javax.inject._
 
 // Module to register FlywayRunner
 class DatabaseModule
@@ -13,36 +16,95 @@ class DatabaseModule
 
 // Runner class
 @Singleton
-class FlywayRunner @Inject() (config: Config) {
-
-  private def getStringOpt(path: String): Option[String] =
-    if (config.hasPath(path)) Some(config.getString(path)) else None
+class FlywayRunner @Inject() (
+    config: Configuration,
+    environment: Environment
+) extends Logging {
 
   private val dbUrl: String =
-    getStringOpt("flyway.url").getOrElse(
-      config.getString("slick.dbs.default.db.url")
-    )
+    config
+      .getOptional[String]("flyway.url")
+      .getOrElse(config.get[String]("slick.dbs.default.db.url"))
 
   private val dbUser: String =
-    getStringOpt("flyway.user").getOrElse(
-      config.getString("slick.dbs.default.db.user")
-    )
+    config
+      .getOptional[String]("flyway.user")
+      .getOrElse(config.get[String]("slick.dbs.default.db.user"))
 
   private val dbPassword: String =
-    getStringOpt("flyway.password").getOrElse(
-      config.getString("slick.dbs.default.db.password")
-    )
+    config
+      .getOptional[String]("flyway.password")
+      .getOrElse(config.get[String]("slick.dbs.default.db.password"))
 
-  private val locations: String =
-    getStringOpt("flyway.locations").getOrElse("classpath:db/migration")
+  private val locations: Seq[String] =
+    config
+      .getOptional[Seq[String]]("flyway.locations")
+      .getOrElse(Seq("classpath:db/migration"))
 
-  // Build Flyway instance using DB config
-  private val flyway: Flyway = Flyway
-    .configure()
-    .dataSource(dbUrl, dbUser, dbPassword)
-    .locations(locations)
-    .load()
+  private val cleanOnStart: Boolean =
+    config
+      .getOptional[Boolean]("flyway.cleanOnStart")
+      .getOrElse(false)
 
-  // Run migrations when class is initialized
-  flyway.migrate()
+  private def resolveLocation(location: String): String = {
+    val prefix = "filesystem:"
+    if (!location.startsWith(prefix)) return location
+
+    val rawPath = location.stripPrefix(prefix)
+    val file = new File(rawPath)
+    val resolved =
+      if (file.isAbsolute) file
+      else new File(environment.rootPath, rawPath)
+
+    prefix + resolved.getAbsolutePath
+  }
+
+  private val resolvedLocations = locations.map(resolveLocation)
+
+  logger.info(
+    s"[startup] Flyway migrate (url=$dbUrl, locations=${resolvedLocations.mkString(",")})"
+  )
+  println(
+    s"[startup] Flyway migrate (locations=${resolvedLocations.mkString(",")})"
+  )
+
+  private val flywayConfig = {
+    val base =
+      Flyway
+        .configure()
+        .dataSource(dbUrl, dbUser, dbPassword)
+        .locations(resolvedLocations: _*)
+
+    // Flyway disables clean by default; only enable if explicitly requested.
+    if (cleanOnStart && environment.mode == Mode.Dev) base.cleanDisabled(false)
+    else base
+  }
+
+  private val flyway = flywayConfig.load()
+
+  if (cleanOnStart) {
+    if (environment.mode == Mode.Dev) {
+      logger.warn(
+        "[startup] Flyway cleanOnStart=true (DEV ONLY) — cleaning schema before migrate"
+      )
+      println(
+        "[startup] Flyway cleanOnStart=true (DEV ONLY) — cleaning schema before migrate"
+      )
+      flyway.clean()
+    } else {
+      logger.warn(
+        "[startup] Flyway cleanOnStart=true ignored (not in DEV mode)"
+      )
+      println("[startup] Flyway cleanOnStart=true ignored (not in DEV mode)")
+    }
+  }
+
+  private val result = flyway.migrate()
+
+  logger.info(
+    s"[startup] Flyway done (migrationsExecuted=${result.migrationsExecuted})"
+  )
+  println(
+    s"[startup] Flyway done (migrationsExecuted=${result.migrationsExecuted})"
+  )
 }

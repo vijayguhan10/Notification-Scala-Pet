@@ -5,6 +5,7 @@ import models.UserActivityEvent
 import models.db.UserActivityEventRow
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import org.apache.kafka.common.serialization.StringDeserializer
+import play.api.Configuration
 import play.api.Logging
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
@@ -18,18 +19,43 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.jdk.CollectionConverters._
 
 @Singleton
-class KafkaDbConsumer @Inject()(
+class KafkaDbConsumer @Inject() (
     consumerConfig: KafkaConsumerConfig,
+    config: Configuration,
     repository: UserActivityEventRepository,
     lifecycle: ApplicationLifecycle
 )(implicit ec: ExecutionContext)
     extends Logging {
 
-  private val running =
-    new AtomicBoolean(true)
+  private val kafka =
+    config.get[Configuration]("kafka")
 
-  private val props =
-    new Properties()
+  private val dbWriter =
+    kafka.get[Configuration]("dbWriter")
+
+  private val groupId =
+    dbWriter.get[String]("groupId")
+
+  private val pollTimeoutMillis =
+    dbWriter.get[Int]("pollTimeoutMillis")
+
+  private val batchSize =
+    dbWriter.get[Int]("batchSize")
+
+  private val enableAutoCommit =
+    dbWriter.get[Boolean]("enableAutoCommit")
+
+  private val autoOffsetReset =
+    dbWriter.get[String]("autoOffsetReset")
+
+  private val maxPollRecords =
+    dbWriter
+      .getOptional[Int]("maxPollRecords")
+      .getOrElse(batchSize)
+
+  private val running = new AtomicBoolean(true)
+
+  private val props = new Properties()
 
   props.put(
     ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -38,7 +64,7 @@ class KafkaDbConsumer @Inject()(
 
   props.put(
     ConsumerConfig.GROUP_ID_CONFIG,
-    consumerConfig.groupId
+    groupId
   )
 
   props.put(
@@ -53,19 +79,17 @@ class KafkaDbConsumer @Inject()(
 
   props.put(
     ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,
-    "false"
+    enableAutoCommit.toString
   )
 
   props.put(
     ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
-    "earliest"
+    autoOffsetReset
   )
 
-  // Kafka-side batch control
-  // poll() will now return at most batchSize records
   props.put(
     ConsumerConfig.MAX_POLL_RECORDS_CONFIG,
-    consumerConfig.batchSize.toString
+    maxPollRecords.toString
   )
 
   private val consumer =
@@ -81,59 +105,36 @@ class KafkaDbConsumer @Inject()(
     new Thread(() => consumeLoop())
 
   thread.setDaemon(true)
-
   thread.start()
 
   private def consumeLoop(): Unit = {
-
     while (running.get()) {
-
       try {
-
-        // Poll Kafka for records
-        // Kafka internally handles:
-        // - fetching
-        // - heartbeats
-        // - partition assignment
-        // - metadata refresh
         val records =
           consumer.poll(
             Duration.ofMillis(
-              consumerConfig.pollTimeoutMillis
+              pollTimeoutMillis
             )
           )
 
-        // Convert Java collection -> Scala List
-        // No Scala-side .take() anymore
-        // Kafka itself limits batch size using:
-        // MAX_POLL_RECORDS_CONFIG
         val batch =
-          records
-            .asScala
-            .toList
+          records.asScala.toList
 
         if (batch.nonEmpty) {
-
-          // Transform Kafka JSON messages
-          // into DB row objects
           val rows =
             batch.map { record =>
-
-              // Extract JSON payload from Kafka record
               val event =
-                Json.parse(record.value())
+                Json
+                  .parse(record.value())
                   .as[UserActivityEvent]
 
-              // Convert domain event -> DB row
               UserActivityEventRow(
                 eventId = event.eventId,
                 userId = event.userId,
                 sessionId = event.sessionId,
                 eventType = event.eventType,
                 page = event.page,
-                timestamp = Instant.parse(
-                  event.timestamp
-                ),
+                timestamp = Instant.parse(event.timestamp),
                 device = event.device,
                 browser = event.browser,
                 scrollDepth = event.scrollDepth,
@@ -141,28 +142,21 @@ class KafkaDbConsumer @Inject()(
               )
             }
 
-          // Async DB batch insert
           val future =
             repository.insertBatch(rows)
 
-          // After successful DB insert
-          // commit Kafka offsets
           future.foreach { _ =>
-
-            // Store committed offsets into Kafka
-            // so consumer can recover correctly
-            consumer.commitSync()
+            if (!enableAutoCommit) {
+              consumer.commitSync()
+            }
 
             logger.info(
               s"Inserted batch size=${rows.size}"
             )
           }
         }
-
       } catch {
-
         case t: Throwable =>
-
           logger.error(
             "Kafka DB consumer failed",
             t
@@ -172,16 +166,8 @@ class KafkaDbConsumer @Inject()(
   }
 
   lifecycle.addStopHook { () =>
-
-    // Stop infinite polling loop
     running.set(false)
-
-    // Gracefully close Kafka consumer
-    // - leaves consumer group
-    // - closes sockets
-    // - cleans resources
     consumer.close()
-
     Future.successful(())
   }
 }

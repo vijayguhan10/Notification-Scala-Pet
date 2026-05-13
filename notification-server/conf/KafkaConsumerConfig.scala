@@ -5,20 +5,19 @@ import play.api.Configuration
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class KafkaConsumerConfig @Inject()(config: Configuration) {
+class KafkaConsumerConfig @Inject() (config: Configuration) {
+
+  private val kafka =
+    config.get[Configuration]("kafka")
 
   val bootstrapServers: String =
-    config.get[String]("kafka.bootstrapServers")
+    kafka.get[String]("bootstrapServers")
 
   val topic: String =
-    config.get[String]("kafka.topic")
+    kafka.get[String]("topic")
 
-  val groupId: String =
-    config.get[String]("kafka.consumer.groupId")
-
-  val batchSize: Int =
-    config.get[Int]("consumer.batchSize")
-
-  val pollTimeoutMillis: Int =
-    config.get[Int]("consumer.pollTimeoutMillis")
+  val clientId: String =
+    kafka
+      .getOptional[String]("clientId")
+      .getOrElse("notification-server")
 }

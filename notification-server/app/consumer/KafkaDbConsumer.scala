@@ -10,6 +10,7 @@ import play.api.Logging
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
 import repositories.UserActivityEventRepository
+import startup.FlywayMigrator
 
 import java.time.{Duration, Instant}
 import java.util.{Collections, Properties}
@@ -22,10 +23,14 @@ import scala.jdk.CollectionConverters._
 class KafkaDbConsumer @Inject() (
     consumerConfig: KafkaConsumerConfig,
     config: Configuration,
+    flyway: FlywayMigrator,
     repository: UserActivityEventRepository,
     lifecycle: ApplicationLifecycle
 )(implicit ec: ExecutionContext)
     extends Logging {
+
+  logger.info("KafkaDbConsumer starting")
+  println("[kafka-db-consumer] starting")
 
   private val kafka =
     config.get[Configuration]("kafka")
@@ -121,6 +126,14 @@ class KafkaDbConsumer @Inject() (
           records.asScala.toList
 
         if (batch.nonEmpty) {
+          println(s"[kafka-db-consumer] polled=${batch.size}")
+          logger.info(s"Kafka polled batchSize=${batch.size}")
+          batch.take(5).foreach { r =>
+            println(s"[kafka-db-consumer] msg=${r.value()}")
+          }
+        }
+
+        if (batch.nonEmpty) {
           val rows =
             batch.map { record =>
               val event =
@@ -146,6 +159,8 @@ class KafkaDbConsumer @Inject() (
             repository.insertBatch(rows)
 
           future.foreach { _ =>
+            println(s"[kafka-db-consumer] db-inserted batchSize=${rows.size}")
+            logger.info(s"DB inserted batchSize=${rows.size}")
             if (!enableAutoCommit) {
               consumer.commitSync()
             }

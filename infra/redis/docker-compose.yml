@@ -9,8 +9,7 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
 
     volumes:
-      - ./data:/data
-
+     - ./data:/var/lib/redis
     networks:
       - redis_network
 

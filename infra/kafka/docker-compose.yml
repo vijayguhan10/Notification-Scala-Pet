@@ -4,16 +4,19 @@ services:
     container_name: kafka
 
     ports:
-      # External access from host machine
+      # Host access (your app running on host should use localhost:29092)
       - "29092:29092"
 
     environment:
       KAFKA_NODE_ID: 1
 
-      # KRaft mode (No Zookeeper)
+      # KRaft mode (no Zookeeper)
       KAFKA_PROCESS_ROLES: broker,controller
 
       # Listeners
+      # - PLAINTEXT: internal Docker network
+      # - PLAINTEXT_HOST: host-accessible
+      # - CONTROLLER: KRaft controller
       KAFKA_LISTENERS: PLAINTEXT://:9092,PLAINTEXT_HOST://:29092,CONTROLLER://:9093
 
       # What Kafka advertises to clients
@@ -37,7 +40,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
 
     volumes:
-      - kafka_data:/var/lib/kafka/data
+      - ./data:/var/lib/kafka/data
 
     networks:
       - kafka_network
@@ -59,38 +62,6 @@ services:
     networks:
       - kafka_network
 
-  rabbitmq:
-    image: rabbitmq:4-management
-    container_name: rabbitmq
-
-    ports:
-      # AMQP
-      - "5672:5672"
-
-      # Management UI
-      - "15672:15672"
-
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin123
-
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-
-    networks:
-      - rabbitmq_network
-
-volumes:
-  kafka_data:
-  rabbitmq_data:
-
 networks:
   kafka_network:
     driver: bridge
-
-  rabbitmq_network:
-    driver: bridge
-
-#its like same server with two ports opened One will be used to write the data form 
-#the users form the public the 29092 and 9092 will be used to 
-#communictate interanly but however data will be entered as I am right in short!?

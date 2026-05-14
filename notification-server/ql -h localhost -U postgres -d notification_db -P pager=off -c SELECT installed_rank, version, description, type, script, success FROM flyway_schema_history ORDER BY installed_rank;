@@ -1,0 +1,5 @@
+ installed_rank | version |         description         | type |               script                | success 
+----------------+---------+-----------------------------+------+-------------------------------------+---------
+              1 | 1       | create user activity events | SQL  | V1__create_user_activity_events.sql | t
+(1 row)
+

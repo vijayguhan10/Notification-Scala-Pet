@@ -40,7 +40,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
 
     volumes:
-         - ./data:/var/lib/rabbitmq
+         - ./data:/var/lib/kafka
 
     networks:
       - kafka_network

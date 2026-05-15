@@ -191,9 +191,9 @@ class KafkaDbConsumer @Inject() (
           partitions: java.util.Collection[TopicPartition]
       ): Unit = {
 
-        println(
-          s"[kafka-db-consumer] partitions assigned = ${partitions.asScala.mkString(", ")}"
-        )
+        // println(
+        //   s"[kafka-db-consumer] partitions assigned = ${partitions.asScala.mkString(", ")}"
+        // )
 
         logger.info(
           s"Partitions assigned: ${partitions.asScala.mkString(", ")}"
@@ -204,9 +204,9 @@ class KafkaDbConsumer @Inject() (
           partitions: java.util.Collection[TopicPartition]
       ): Unit = {
 
-        println(
-          s"[kafka-db-consumer] partitions revoked = ${partitions.asScala.mkString(", ")}"
-        )
+        // println(
+        //   s"[kafka-db-consumer] partitions revoked = ${partitions.asScala.mkString(", ")}"
+        // )
 
         logger.warn(
           s"Partitions revoked: ${partitions.asScala.mkString(", ")}"
@@ -276,25 +276,25 @@ class KafkaDbConsumer @Inject() (
               s"$partition -> ${consumer.position(partition)}"
             }
 
-          println(
-            s"""
-               |====================================================
-               |[kafka-db-consumer]
-               |polledRecords=${batch.size}
-               |assignments=$assignments
-               |positions=$positions
-               |====================================================
-               |""".stripMargin
-          )
+          // println(
+          //   s"""
+          //      |====================================================
+          //      |[kafka-db-consumer]
+          //      |polledRecords=${batch.size}
+          //      |assignments=$assignments
+          //      |positions=$positions
+          //      |====================================================
+          //      |""".stripMargin
+          // )
 
           // ====================================================
           // Empty Poll
           // ====================================================
 
           if (batch.isEmpty) {
-            println(
-              "[kafka-db-consumer] no records polled"
-            )
+            // println(
+            //   "[kafka-db-consumer] no records polled"
+            // )
           }
 
           // ====================================================
@@ -304,9 +304,9 @@ class KafkaDbConsumer @Inject() (
           if (batch.nonEmpty) {
 
             batch.take(5).foreach { record =>
-              println(
-                s"[kafka-db-consumer] received=${record.value()}"
-              )
+              // println(
+              //   s"[kafka-db-consumer] received=${record.value()}"
+              // )
             }
 
             val rows =
@@ -368,15 +368,15 @@ class KafkaDbConsumer @Inject() (
               val elapsed =
                 System.currentTimeMillis() - start
 
-              println(
-                s"""
-                   |====================================================
-                   |DB INSERT SUCCESS
-                   |batchSize=${rows.size}
-                   |insertTimeMs=$elapsed
-                   |====================================================
-                   |""".stripMargin
-              )
+              // println(
+              //   s"""
+              //      |====================================================
+              //      |DB INSERT SUCCESS
+              //      |batchSize=${rows.size}
+              //      |insertTimeMs=$elapsed
+              //      |====================================================
+              //      |""".stripMargin
+              // )
 
               logger.info(
                 s"DB inserted batchSize=${rows.size}"
@@ -390,29 +390,29 @@ class KafkaDbConsumer @Inject() (
 
                 consumer.commitSync()
 
-                println(
-                  s"""
-                     |====================================================
-                     |OFFSET COMMIT SUCCESS
-                     |committedBatchSize=${rows.size}
-                     |====================================================
-                     |""".stripMargin
-                )
+                // println(
+                //   s"""
+                //      |====================================================
+                //      |OFFSET COMMIT SUCCESS
+                //      |committedBatchSize=${rows.size}
+                //      |====================================================
+                //      |""".stripMargin
+                // )
               }
 
             } catch {
 
               case ex: Throwable =>
 
-                println(
-                  s"""
-                     |====================================================
-                     |DB INSERT FAILED
-                     |batchSize=${rows.size}
-                     |error=${ex.getMessage}
-                     |====================================================
-                     |""".stripMargin
-                )
+                // println(
+                //   s"""
+                //      |====================================================
+                //      |DB INSERT FAILED
+                //      |batchSize=${rows.size}
+                //      |error=${ex.getMessage}
+                //      |====================================================
+                //      |""".stripMargin
+                // )
 
                 ex.printStackTrace()
 

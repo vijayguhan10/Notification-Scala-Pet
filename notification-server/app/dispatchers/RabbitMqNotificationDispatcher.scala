@@ -4,7 +4,7 @@ package dispatchers
 import com.rabbitmq.client._
 
 // Application RabbitMQ configuration
-import config.{NotificationConfig, RabbitMqConfig}
+import config.RabbitMqConfig
 
 // Play logging support
 import play.api.Logging
@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class RabbitMqNotificationDispatcher @Inject()(
+class RabbitMqNotificationDispatcher @Inject() (
     rabbitConfig: RabbitMqConfig,
     pushService: NotificationPushService
 ) extends Logging {
@@ -34,6 +34,15 @@ class RabbitMqNotificationDispatcher @Inject()(
 
   // Configure RabbitMQ host
   factory.setHost(rabbitConfig.host)
+
+  // Configure RabbitMQ port + credentials (compose uses admin/admin123)
+  factory.setPort(rabbitConfig.port)
+  factory.setUsername(rabbitConfig.username)
+  factory.setPassword(rabbitConfig.password)
+
+  // Helps the client recover if the broker restarts
+  factory.setAutomaticRecoveryEnabled(true)
+  factory.setNetworkRecoveryInterval(5000)
 
   // ============================================================
   // RabbitMQ Connection
@@ -58,11 +67,11 @@ class RabbitMqNotificationDispatcher @Inject()(
 
   // Maximum unacknowledged messages allowed at once
   //
-  // RabbitMQ will send at most 100 messages
+  // RabbitMQ will send at most 1 messages
   // before waiting for ACKs.
   //
   // Provides backpressure control.
-  channel.basicQos(100)
+  channel.basicQos(1)
 
   // ============================================================
   // RabbitMQ Consumer
@@ -162,11 +171,11 @@ class RabbitMqNotificationDispatcher @Inject()(
   // - basicNack()
   //
   // before considering message completed.
-  channel.basicConsume(
-    rabbitConfig.queue,
-    false,
-    consumer
-  )
+  // channel.basicConsume(
+  //   rabbitConfig.queue,
+  //   false,
+  //   consumer
+  // )
 }
 
 // clustering

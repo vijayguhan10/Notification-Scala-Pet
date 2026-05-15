@@ -14,6 +14,7 @@ PlayKeys.playDefaultPort := 7000
 val slickVersion = "3.5.2"
 val flywayVersion = "10.20.0"
 val postgresDriverVersion = "42.7.4"
+val rabbitMqClientVersion = "5.23.0"
 
 // Only override core Jackson modules IF needed.
 // Play 2.9.x already manages Jackson versions internally.
@@ -26,7 +27,6 @@ dependencyOverrides ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-
   // Play
   guice,
 
@@ -35,6 +35,9 @@ libraryDependencies ++= Seq(
 
   // Kafka
   "org.apache.kafka" % "kafka-clients" % "3.7.0",
+
+  // RabbitMQ
+  "com.rabbitmq" % "amqp-client" % rabbitMqClientVersion,
 
   // Slick
   "com.typesafe.slick" %% "slick" % slickVersion,

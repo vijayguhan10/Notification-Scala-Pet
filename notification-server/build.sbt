@@ -29,6 +29,7 @@ dependencyOverrides ++= Seq(
 libraryDependencies ++= Seq(
   // Play
   guice,
+  ws,
 
   // Testing
   "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.2" % Test,

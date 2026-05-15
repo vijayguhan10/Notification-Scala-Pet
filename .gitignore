@@ -4,11 +4,16 @@
 .bsp/
 metals.sbt
 
+# Editor settings
+.vscode/
+
+# Formatting tools (note: many teams commit this; ignore only if desired)
+.scalafmt.conf
+scalamt.conf
+
 # Giter8 / g8 (template/cache artifacts)
 .g8/
 *.g8
 
 # Local infra data volumes (Kafka/RabbitMQ/Redis, etc.)
 infra/**/data/
-
-    

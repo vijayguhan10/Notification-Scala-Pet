@@ -1,4 +1,3 @@
-
 package services
 
 import models._
@@ -11,19 +10,20 @@ import javax.inject.Singleton
 class NotificationBuilder {
 
   def build(
-      event: UserActivityEvent
+      event: UserActivityEvent,
+      intentScore: Int,
+      intentCategory: String
   ): NotificationMessage = {
 
     NotificationMessage(
-      notificationId =
-        UUID.randomUUID().toString,
+      notificationId = UUID.randomUUID().toString,
 
       userId = event.userId,
 
-      eventType = event.eventType,
+      eventType = s"INTENT_${intentCategory.toUpperCase}",
 
       message =
-        s"User ${event.userId} performed ${event.eventType}",
+        s"Intent score=$intentScore (${intentCategory}) for user=${event.userId}",
 
       createdAt = Instant.now().toString
     )

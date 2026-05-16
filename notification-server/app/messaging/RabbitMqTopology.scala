@@ -160,6 +160,34 @@ object RabbitMqTopology {
     )
 
     // ------------------------------------------------------------
+    // CREATE DELAY QUEUE (PER-MESSAGE TTL)
+    // ------------------------------------------------------------
+
+    // Messages published to the delay queue can carry a per-message TTL.
+    // When they expire, RabbitMQ dead-letters them into the main exchange
+    // using the main routing key (config.routingKey).
+    val delayArgs =
+      new java.util.HashMap[String, Object]()
+
+    delayArgs.put(
+      "x-dead-letter-exchange",
+      config.exchange
+    )
+
+    delayArgs.put(
+      "x-dead-letter-routing-key",
+      config.routingKey
+    )
+
+    channel.queueDeclare(
+      config.delayQueue,
+      true,
+      false,
+      false,
+      delayArgs
+    )
+
+    // ------------------------------------------------------------
     // BIND QUEUE TO EXCHANGE
     // ------------------------------------------------------------
 
@@ -186,6 +214,13 @@ object RabbitMqTopology {
       config.queue,
       config.exchange,
       config.routingKey
+    )
+
+    // Bind delay queue so producers can publish to it.
+    channel.queueBind(
+      config.delayQueue,
+      config.exchange,
+      config.delayRoutingKey
     )
   }
 }

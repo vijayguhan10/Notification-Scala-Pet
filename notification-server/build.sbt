@@ -15,6 +15,7 @@ val slickVersion = "3.5.2"
 val flywayVersion = "10.20.0"
 val postgresDriverVersion = "42.7.4"
 val rabbitMqClientVersion = "5.23.0"
+val jedisVersion = "5.1.3"
 
 // Only override core Jackson modules IF needed.
 // Play 2.9.x already manages Jackson versions internally.
@@ -39,6 +40,9 @@ libraryDependencies ++= Seq(
 
   // RabbitMQ
   "com.rabbitmq" % "amqp-client" % rabbitMqClientVersion,
+
+  // Redis
+  "redis.clients" % "jedis" % jedisVersion,
 
   // Slick
   "com.typesafe.slick" %% "slick" % slickVersion,

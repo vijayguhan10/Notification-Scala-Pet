@@ -1,4 +1,3 @@
-
 package config
 
 import play.api.Configuration
@@ -6,7 +5,7 @@ import play.api.Configuration
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class RabbitMqConfig @Inject()(
+class RabbitMqConfig @Inject() (
     config: Configuration
 ) {
 
@@ -28,8 +27,16 @@ class RabbitMqConfig @Inject()(
   val queue =
     config.get[String]("rabbitmq.queue")
 
+  // Delayed queue (TTL + DLX) that forwards to the main queue after expiration.
+  val delayQueue =
+    config.get[String]("rabbitmq.delayQueue")
+
   val routingKey =
     config.get[String]("rabbitmq.routingKey")
+
+  // Routing key used to publish into the delay queue.
+  val delayRoutingKey =
+    config.get[String]("rabbitmq.delayRoutingKey")
 
   val dlq =
     config.get[String]("rabbitmq.dlq")

@@ -11,6 +11,11 @@ import play.api.{Configuration, Logging}
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
 import services.NotificationBuilder
+import services.{
+  IntentScoringEngine,
+  NotificationDelayPolicy,
+  RedisBehavioralStateStore
+}
 
 import java.time.Duration
 import java.util.{Collections, Properties}
@@ -25,6 +30,9 @@ class KafkaNotificationConsumer @Inject() (
     consumerConfig: KafkaConsumerConfig,
     config: Configuration,
     notificationBuilder: NotificationBuilder,
+    behavioralStateStore: RedisBehavioralStateStore,
+    intentScoring: IntentScoringEngine,
+    delayPolicy: NotificationDelayPolicy,
     rabbitPublisher: RabbitMqPublisher,
     lifecycle: ApplicationLifecycle
 )(implicit ec: ExecutionContext)
@@ -284,7 +292,6 @@ class KafkaNotificationConsumer @Inject() (
           if (batch.nonEmpty) {
 
             batch.foreach { record =>
-
               try {
 
                 val event =
@@ -292,14 +299,27 @@ class KafkaNotificationConsumer @Inject() (
                     .parse(record.value())
                     .as[UserActivityEvent]
 
-                val notification:
-                  NotificationMessage =
-                  notificationBuilder
-                    .build(event)
+                val intent =
+                  try {
+                    behavioralStateStore.store(event)
+                    intentScoring.updateAndGet(event)
+                  } catch {
+                    case t: Throwable =>
+                      logger.warn(
+                        s"Redis intent scoring failed (userId=${event.userId}); continuing without delay",
+                        t
+                      )
+                      services.IntentScoreResult(0, "low")
+                  }
 
-                rabbitPublisher.publish(
-                  notification
-                )
+                val notification: NotificationMessage =
+                  notificationBuilder
+                    .build(event, intent.score, intent.category)
+
+                val delayMs =
+                  delayPolicy.delayMs(intent.category)
+
+                rabbitPublisher.publish(notification, delayMs)
 
               } catch {
 
@@ -328,8 +348,7 @@ class KafkaNotificationConsumer @Inject() (
 
         } catch {
 
-          case _: WakeupException
-              if !running.get() =>
+          case _: WakeupException if !running.get() =>
 
             logger.info(
               "Kafka notification consumer shutting down"
@@ -372,7 +391,6 @@ class KafkaNotificationConsumer @Inject() (
   // ============================================================
 
   lifecycle.addStopHook { () =>
-
     logger.info(
       "Kafka notification shutdown initiated"
     )

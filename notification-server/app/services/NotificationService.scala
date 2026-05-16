@@ -7,7 +7,6 @@ import play.api.libs.json.Json
 import repositories.NotificationRepository
 
 import java.time.Instant
-import java.util.UUID
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -39,16 +38,14 @@ class NotificationService @Inject() (
 
       case Left(t) =>
         logger.warn(
-          s"Failed to parse NotificationMessage JSON; recording as ignored. payload=$payload",
+          s"Failed to parse NotificationMessage JSON; sending message to DLQ via NACK. payload=$payload",
           t
         )
-        repo.create(
-          notificationId = UUID.randomUUID().toString,
-          userId = "unknown",
-          eventType = "unknown",
-          message = payload,
-          status = Status.Ignored,
-          createdAt = Instant.now()
+        Future.failed(
+          new IllegalArgumentException(
+            "Invalid NotificationMessage JSON payload",
+            t
+          )
         )
     }
   }

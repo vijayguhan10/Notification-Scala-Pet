@@ -171,11 +171,11 @@ class RabbitMqNotificationDispatcher @Inject() (
   // - basicNack()
   //
   // before considering message completed.
-  // channel.basicConsume(
-  //   rabbitConfig.queue,
-  //   false,
-  //   consumer
-  // )
+  channel.basicConsume(
+    rabbitConfig.queue,
+    false,
+    consumer
+  )
 }
 
 // clustering

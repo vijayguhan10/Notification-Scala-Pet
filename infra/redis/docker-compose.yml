@@ -9,7 +9,24 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
 
     volumes:
-     - ./data:/var/lib/redis
+      - ./data:/var/lib/redis
+    networks:
+      - redis_network
+
+  redis-ui:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-ui
+
+    depends_on:
+      - redis
+
+    environment:
+      # Name:host:port (inside the redis_network, redis is reachable as 'redis')
+      REDIS_HOSTS: local:redis:6379
+
+    ports:
+      - "8081:8081"
+
     networks:
       - redis_network
 

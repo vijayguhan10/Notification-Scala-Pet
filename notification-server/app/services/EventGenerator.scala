@@ -22,7 +22,7 @@ class EventGenerator @Inject() () {
 
   def generate(): UserActivityEvent = {
     UserActivityEvent(
-      userId = s"user_${random.between(1, 100000)}",
+      userId = s"user_${random.between(1, 1000)}",
       parkingSearches = random.between(0, 25),
       slotViews = random.between(0, 80),
       bookingAttempts = random.between(0, 6),

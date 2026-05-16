@@ -15,7 +15,9 @@ final case class UserActivityEvent(
     location: String
 )
 
+
 object UserActivityEvent {
   implicit val format: OFormat[UserActivityEvent] =
     Json.format[UserActivityEvent]
 }
+

@@ -15,7 +15,7 @@ class NotificationTable(tag: Tag)
     column[String]("notification_id")
 
   def userId =
-    column[String]("user_id")
+    column [String]("user_id")
 
   def eventType =
     column[String]("event_type")

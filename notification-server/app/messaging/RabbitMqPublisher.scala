@@ -9,7 +9,7 @@ import play.api.libs.json.Json
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class RabbitMqPublisher @Inject()(
+class RabbitMqPublisher @Inject() (
     config: RabbitMqConfig
 ) extends Logging {
 
@@ -33,18 +33,38 @@ class RabbitMqPublisher @Inject()(
   )
 
   def publish(
-      notification: NotificationMessage
+      notification: NotificationMessage,
+      delayMs: Long
   ): Unit = {
 
     val payload =
-      Json.toJson(notification)
+      Json
+        .toJson(notification)
         .toString()
         .getBytes()
 
+    val propsBuilder =
+      new AMQP.BasicProperties.Builder()
+        .contentType("application/json")
+        .deliveryMode(2)
+
+    val (routingKey, props) =
+      if (delayMs > 0) {
+        (
+          config.delayRoutingKey,
+          propsBuilder.expiration(delayMs.toString).build()
+        )
+      } else {
+        (
+          config.routingKey,
+          propsBuilder.build()
+        )
+      }
+
     channel.basicPublish(
       config.exchange,
-      config.routingKey,
-      MessageProperties.PERSISTENT_TEXT_PLAIN,
+      routingKey,
+      props,
       payload
     )
   }

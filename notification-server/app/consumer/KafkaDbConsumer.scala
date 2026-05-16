@@ -319,16 +319,14 @@ class KafkaDbConsumer @Inject() (
                       .as[UserActivityEvent]
 
                   UserActivityEventRow(
-                    eventId = event.eventId,
                     userId = event.userId,
-                    sessionId = event.sessionId,
-                    eventType = event.eventType,
-                    page = event.page,
-                    timestamp = Instant.parse(event.timestamp),
-                    device = event.device,
-                    browser = event.browser,
-                    scrollDepth = event.scrollDepth,
-                    location = event.location
+                    parkingSearches = event.parkingSearches,
+                    slotViews = event.slotViews,
+                    bookingAttempts = event.bookingAttempts,
+                    avgScrollDepth = event.avgScrollDepth,
+                    lastLocation = event.lastLocation,
+                    lastActivity = Instant.parse(event.lastActivity),
+                    sessionDuration = event.sessionDuration
                   )
 
                 } catch {

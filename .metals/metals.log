@@ -2314,3 +2314,67 @@ WARNING: Unmatched cancel notification for request id 780
 2026.05.16 08:45:36 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala. Using presentation compiler with project's scala-library version: 2.13.18
 2026.05.16 08:45:36 WARN  no build target for: /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala
 2026.05.16 08:45:36 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:52 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:52 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:52 WARN  no build target for: /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala
+2026.05.16 08:45:52 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:54 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/services/NotificationPushService.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:54 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/services/NotificationBuilder.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:54 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/messaging/RabbitMqTopology.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:54 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/services/EventStreamManager.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:54 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/services/EventGenerator.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:54 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/services/KafkaPublisher.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:54 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/build.sbt. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:59 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/config/NotificationConfig.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:59 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/config/RabbitMqConfig.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:59 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/config/KafkaConsumerConfig.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:45:59 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/modules/AppModule.scala. Using presentation compiler with project's scala-library version: 2.13.18
+May 16, 2026 8:46:03 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleNotification
+WARNING: Notification threw an exception: {
+  "jsonrpc": "2.0",
+  "method": "metals/didFocusTextDocument",
+  "params": [
+    "chat-editing-snapshot-text-model:/home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala?%7B%22session%22%3A%7B%22%24mid%22%3A1%2C%22external%22%3A%22vscode-chat-session%3A%2F%2Flocal%2FZTY0MmRjN2UtZWYwMS00ZTMyLTg2ZTAtZGQyNGQyZDc2ZTdl%22%2C%22path%22%3A%22%2FZTY0MmRjN2UtZWYwMS00ZTMyLTg2ZTAtZGQyNGQyZDc2ZTdl%22%2C%22scheme%22%3A%22vscode-chat-session%22%2C%22authority%22%3A%22local%22%7D%2C%22requestId%22%3A%22request_07a06121-555c-483c-826b-a0f31d95e1d0%22%2C%22undoStop%22%3A%22__epoch_9007199254740991%22%7D"
+  ]
+}
+java.nio.file.FileSystemNotFoundException: Provider "chat-editing-snapshot-text-model" not installed
+	at java.base/java.nio.file.Path.of(Path.java:213)
+	at java.base/java.nio.file.Paths.get(Paths.java:98)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionURIMtags.toAbsolutePath(MtagsEnrichments.scala:149)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionStringMtags.toAbsolutePath(MtagsEnrichments.scala:209)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:787)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:784)
+	at scala.meta.internal.metals.WorkspaceLspService.didFocus(WorkspaceLspService.scala:808)
+	at scala.meta.metals.lsp.DelegatingScalaService.didFocus(DelegatingScalaService.scala:42)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$recursiveFindRpcMethods$0(GenericEndpoint.java:65)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:160)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:225)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:192)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:189)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:97)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:97)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026.05.16 08:46:06 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:06 WARN  no build target for: /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala
+2026.05.16 08:46:06 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:06 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/UserActivityEvent.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:09 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/Tables/UserActivityEventTable.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:09 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/repositories/UserActivityEventRepository.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:11 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:11 WARN  no build target for: /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala
+2026.05.16 08:46:11 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:11 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:15 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/Tables/UserActivityEventTable.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:15 WARN  no build target for: /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/Tables/UserActivityEventTable.scala
+2026.05.16 08:46:15 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/Tables/UserActivityEventTable.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:15 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:15 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/Tables/UserActivityEventTable.scala. Using presentation compiler with project's scala-library version: 2.13.18
+2026.05.16 08:46:15 WARN  no build target for: /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/Tables/UserActivityEventTable.scala
+2026.05.16 08:46:15 INFO  no build target found for /home/v-guhan-techy/projects/Notification-Scala-Pet/notification-server/app/models/Db/UserActivityEventRow.scala. Using presentation compiler with project's scala-library version: 2.13.18

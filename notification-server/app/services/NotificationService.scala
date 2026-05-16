@@ -18,29 +18,95 @@ class NotificationService @Inject() (
 
   import NotificationService._
 
-  def recordPublishedFromPayload(payload: String): Future[NotificationRow] = {
+  /**
+    * Parse inbound RabbitMQ payload and persist notification.
+    *
+    * Failure cases:
+    * - Invalid JSON
+    * - DB insert failure
+    * - Constraint violations
+    *
+    * Caller should ACK only after this succeeds.
+    */
+  def recordPublishedFromPayload(
+      payload: String
+  ): Future[NotificationRow] = {
+
+    logger.info(
+      s"Processing notification payload=$payload"
+    )
+
     val parsed: Either[Throwable, NotificationMessage] =
-      try Right(Json.parse(payload).as[NotificationMessage])
-      catch {
-        case t: Throwable => Left(t)
+      try {
+        Right(
+          Json.parse(payload).as[NotificationMessage]
+        )
+      } catch {
+        case t: Throwable =>
+          Left(t)
       }
 
     parsed match {
+
       case Right(msg) =>
-        repo.create(
-          notificationId = msg.notificationId,
-          userId = msg.userId,
-          eventType = msg.eventType,
-          message = msg.message,
-          status = Status.Published,
-          createdAt = parseInstantOrNow(msg.createdAt)
+
+        logger.info(
+          s"""
+             |Parsed notification:
+             |notificationId=${msg.notificationId}
+             |userId=${msg.userId}
+             |eventType=${msg.eventType}
+           """.stripMargin
         )
 
+        val createdAt =
+          parseInstantOrNow(msg.createdAt)
+
+        repo
+          .create(
+            notificationId = msg.notificationId,
+            userId = msg.userId,
+            eventType = msg.eventType,
+            message = msg.message,
+            status = Status.Published,
+            createdAt = createdAt
+          )
+          .map { insertedRow =>
+
+            logger.info(
+              s"""
+                 |Notification persisted successfully:
+                 |dbId=${insertedRow.id.getOrElse(-1)}
+                 |notificationId=${insertedRow.notificationId}
+               """.stripMargin
+            )
+
+            insertedRow
+          }
+          .recoverWith { case t =>
+
+            logger.error(
+              s"""
+                 |Failed to persist notification:
+                 |notificationId=${msg.notificationId}
+                 |payload=$payload
+               """.stripMargin,
+              t
+            )
+
+            Future.failed(t)
+          }
+
       case Left(t) =>
-        logger.warn(
-          s"Failed to parse NotificationMessage JSON; sending message to DLQ via NACK. payload=$payload",
+
+        logger.error(
+          s"""
+             |Invalid NotificationMessage JSON.
+             |payload=$payload
+           """.stripMargin,
           t
         )
+
         Future.failed(
           new IllegalArgumentException(
             "Invalid NotificationMessage JSON payload",
@@ -50,6 +116,9 @@ class NotificationService @Inject() (
     }
   }
 
+  /**
+    * Manual creation API.
+    */
   def create(
       notificationId: String,
       userId: String,
@@ -59,38 +128,162 @@ class NotificationService @Inject() (
   ): Future[NotificationRow] = {
 
     val status =
-      normalizeStatus(statusOpt.getOrElse(Status.Published))
-        .getOrElse(Status.Published)
+      normalizeStatus(
+        statusOpt.getOrElse(Status.Published)
+      ).getOrElse(Status.Published)
 
-    repo.create(
-      notificationId = notificationId,
-      userId = userId,
-      eventType = eventType,
-      message = message,
-      status = status
+    logger.info(
+      s"""
+         |Creating notification manually:
+         |notificationId=$notificationId
+         |userId=$userId
+         |status=$status
+       """.stripMargin
     )
+
+    repo
+      .create(
+        notificationId = notificationId,
+        userId = userId,
+        eventType = eventType,
+        message = message,
+        status = status
+      )
+      .map { row =>
+
+        logger.info(
+          s"""
+             |Manual notification persisted:
+             |dbId=${row.id.getOrElse(-1)}
+             |notificationId=${row.notificationId}
+           """.stripMargin
+        )
+
+        row
+      }
+      .recoverWith { case t =>
+
+        logger.error(
+          s"""
+             |Failed manual notification creation:
+             |notificationId=$notificationId
+           """.stripMargin,
+          t
+        )
+
+        Future.failed(t)
+      }
   }
 
+  /**
+    * List notifications with filters.
+    */
   def list(
       userIdOpt: Option[String],
       statusOpt: Option[String],
       limit: Int,
       offset: Int
   ): Future[Seq[NotificationRow]] = {
+
     val normalizedStatusOpt =
       statusOpt.flatMap(normalizeStatus)
-    repo.list(userIdOpt, normalizedStatusOpt, limit, offset)
+
+    logger.info(
+      s"""
+         |Listing notifications:
+         |userId=$userIdOpt
+         |status=$normalizedStatusOpt
+         |limit=$limit
+         |offset=$offset
+       """.stripMargin
+    )
+
+    repo.list(
+      userIdOpt,
+      normalizedStatusOpt,
+      limit,
+      offset
+    )
   }
 
-  def get(id: Long): Future[Option[NotificationRow]] =
-    repo.findById(id)
+  /**
+    * Get notification by DB id.
+    */
+  def get(
+      id: Long
+  ): Future[Option[NotificationRow]] = {
 
-  def updateStatus(id: Long, newStatus: String): Future[Boolean] = {
+    logger.info(
+      s"Fetching notification id=$id"
+    )
+
+    repo.findById(id)
+  }
+
+  /**
+    * Update notification status.
+    */
+  def updateStatus(
+      id: Long,
+      newStatus: String
+  ): Future[Boolean] = {
+
+    logger.info(
+      s"""
+         |Updating notification status:
+         |id=$id
+         |newStatus=$newStatus
+       """.stripMargin
+    )
+
     normalizeStatus(newStatus) match {
+
       case None =>
+
+        logger.warn(
+          s"Invalid notification status=$newStatus"
+        )
+
         Future.successful(false)
+
       case Some(status) =>
-        repo.updateStatus(id, status).map(_ > 0)
+
+        repo
+          .updateStatus(id, status)
+          .map { updatedRows =>
+
+            val success =
+              updatedRows > 0
+
+            if (success) {
+              logger.info(
+                s"""
+                   |Notification status updated:
+                   |id=$id
+                   |status=$status
+                 """.stripMargin
+              )
+            } else {
+              logger.warn(
+                s"No notification found for id=$id"
+              )
+            }
+
+            success
+          }
+          .recoverWith { case t =>
+
+            logger.error(
+              s"""
+                 |Failed updating notification status:
+                 |id=$id
+                 |status=$status
+               """.stripMargin,
+              t
+            )
+
+            Future.failed(t)
+          }
     }
   }
 }
@@ -98,24 +291,53 @@ class NotificationService @Inject() (
 object NotificationService {
 
   object Status {
+
     val Published = "published"
+
     val Ignored = "ignored"
+
     val Clicked = "clicked"
 
     val Allowed: Set[String] =
-      Set(Published, Ignored, Clicked)
+      Set(
+        Published,
+        Ignored,
+        Clicked
+      )
   }
 
-  def normalizeStatus(raw: String): Option[String] = {
-    val normalized = Option(raw).map(_.trim.toLowerCase).getOrElse("")
-    if (Status.Allowed.contains(normalized)) Some(normalized)
-    else None
+  /**
+    * Normalize incoming status values.
+    */
+  def normalizeStatus(
+      raw: String
+  ): Option[String] = {
+
+    val normalized =
+      Option(raw)
+        .map(_.trim.toLowerCase)
+        .getOrElse("")
+
+    if (Status.Allowed.contains(normalized))
+      Some(normalized)
+    else
+      None
   }
 
-  def parseInstantOrNow(raw: String): Instant = {
-    try Instant.parse(raw)
-    catch {
-      case _: Throwable => Instant.now()
+  /**
+    * Parse ISO-8601 timestamp.
+    * Fallback to Instant.now() if invalid.
+    */
+  def parseInstantOrNow(
+      raw: String
+  ): Instant = {
+
+    try {
+      Instant.parse(raw)
+    } catch {
+
+      case _: Throwable =>
+        Instant.now()
     }
   }
 }

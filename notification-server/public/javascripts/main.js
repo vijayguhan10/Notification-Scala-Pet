@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault()
     const fd = new FormData(stopForm)
     const streamId = fd.get('streamId')
-    const res = await fetch(`/api/events/stop/${encodeURIComponent(streamId)}`, { method: 'POST' })
+    // Include Content-Type to satisfy Play CSRF check for POST
+    const res = await fetch(`/api/events/stop/${encodeURIComponent(streamId)}`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({}) })
     const text = await res.text()
     logApi(`POST /api/events/stop/${streamId} -> ${res.status} ${text}`)
   })
@@ -59,5 +60,42 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('wsDisconnect').addEventListener('click', () => {
     if (!socket) return
     socket.close()
+  })
+
+  // Notifications API handlers
+  document.getElementById('listNotifications').addEventListener('click', async () => {
+    const res = await fetch('/api/notifications')
+    const text = await res.text()
+    logApi(`GET /api/notifications -> ${res.status} ${text}`)
+  })
+
+  const getNotifForm = document.getElementById('getNotificationForm')
+  getNotifForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const id = new FormData(getNotifForm).get('id')
+    const res = await fetch(`/api/notifications/${encodeURIComponent(id)}`)
+    const text = await res.text()
+    logApi(`GET /api/notifications/${id} -> ${res.status} ${text}`)
+  })
+
+  const createNotifForm = document.getElementById('createNotificationForm')
+  createNotifForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const data = Object.fromEntries(new FormData(createNotifForm))
+    data.createdAt = new Date().toISOString()
+    const res = await fetch('/api/notifications', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) })
+    const text = await res.text()
+    logApi(`POST /api/notifications -> ${res.status} ${text}`)
+  })
+
+  const updateStatusForm = document.getElementById('updateStatusForm')
+  updateStatusForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const fd = new FormData(updateStatusForm)
+    const id = fd.get('id')
+    const status = fd.get('status')
+    const res = await fetch(`/api/notifications/${encodeURIComponent(id)}/status`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({status}) })
+    const text = await res.text()
+    logApi(`PUT /api/notifications/${id}/status -> ${res.status} ${text}`)
   })
 })

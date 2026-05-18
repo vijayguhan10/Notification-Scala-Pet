@@ -53,6 +53,33 @@
       </section>
 
       <section class="card">
+        <h2>Notifications API</h2>
+
+        <div class="row">
+          <button id="listNotifications">List Notifications</button>
+        </div>
+
+        <form id="getNotificationForm">
+          <div class="row"><label>Get by ID<input name="id" type="number" value="1"/></label></div>
+          <div class="actions"><button type="submit">Get Notification</button></div>
+        </form>
+
+        <form id="createNotificationForm">
+          <div class="row"><label>User ID<input name="userId" value="user_123"/></label></div>
+          <div class="row"><label>Event Type<input name="eventType" value="INTENT_HIGH"/></label></div>
+          <div class="row"><label>Message<input name="message" value="Test notification"/></label></div>
+          <div class="actions"><button type="submit">Create Notification</button></div>
+        </form>
+
+        <form id="updateStatusForm">
+          <div class="row"><label>ID<input name="id" type="number" value="1"/></label></div>
+          <div class="row"><label>Status<input name="status" value="sent"/></label></div>
+          <div class="actions"><button type="submit">Update Status</button></div>
+        </form>
+
+      </section>
+
+      <section class="card">
         <h2>Responses / Logs</h2>
         <pre id="apiLog" class="log"></pre>
       </section>

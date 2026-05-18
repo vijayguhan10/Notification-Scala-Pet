@@ -4,6 +4,7 @@ import play.api.Logging
 import play.api.libs.ws.WSClient
 import play.api.libs.json.Json
 import models.UserActivityEvent
+import models.NotificationMessage
 import services.EmailPublisher
 
 import javax.inject.{Inject, Singleton}
@@ -31,8 +32,18 @@ class NotificationPushService @Inject() (
     // is generated from the incoming payload and any failures can be DLQ'd
     // by the RabbitMQ consumer behavior.
     try {
-      val event = Json.parse(payload).as[UserActivityEvent]
-      EmailPublisher.sendEventEmail(event)
+      val json = Json.parse(payload)
+      // Try parsing full UserActivityEvent first (when publisher sends raw event)
+      if (json.asOpt[UserActivityEvent].isDefined) {
+        val event = json.as[UserActivityEvent]
+        EmailPublisher.sendEventEmail(event)
+      } else if (json.asOpt[NotificationMessage].isDefined) {
+        // Fallback: payload is a NotificationMessage (most common)
+        val notif = json.as[NotificationMessage]
+        EmailPublisher.sendNotificationEmail(notif)
+      } else {
+        logger.warn("EmailPublisher: unknown payload shape, skipping email")
+      }
     } catch {
       case ex: Throwable =>
         logger.warn("EmailPublisher failed for outbound payload", ex)

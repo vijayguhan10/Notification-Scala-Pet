@@ -324,7 +324,7 @@ class KafkaDbConsumer @Inject() (
                     slotViews = event.slotViews,
                     bookingAttempts = event.bookingAttempts,
                     avgScrollDepth = event.avgScrollDepth,
-                    lastLocation = event.lastLocation,
+                    location = event.location,
                     lastActivity = Instant.parse(event.lastActivity),
                     sessionDuration = event.sessionDuration
                   )

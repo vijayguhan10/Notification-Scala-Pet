@@ -6,7 +6,7 @@ case class UserActivityEventRow(
     slotViews: Int,
     bookingAttempts: Int,
     avgScrollDepth: Int,
-    lastLocation: String,
+    location: String,
     lastActivity: Instant,
     sessionDuration: Int
 )

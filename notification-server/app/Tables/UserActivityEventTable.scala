@@ -11,7 +11,7 @@ class UserActivityEventTable(tag: Tag)
   def slotViews = column[Int]("slot_views")
   def bookingAttempts = column[Int]("booking_attempts")
   def avgScrollDepth = column[Int]("avg_scroll_depth")
-  def lastLocation = column[String]("last_location")
+  def location = column[String]("last_location")
   def lastActivity = column[Instant]("last_activity")
   def sessionDuration = column[Int]("session_duration")
 
@@ -21,7 +21,7 @@ class UserActivityEventTable(tag: Tag)
     slotViews,
     bookingAttempts,
     avgScrollDepth,
-    lastLocation,
+    location,
     lastActivity,
     sessionDuration
   ) <> (UserActivityEventRow.tupled, UserActivityEventRow.unapply)

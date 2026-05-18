@@ -99,7 +99,7 @@ class IntentScoringEngine @Inject() (
     Signal(
       bitOffset = 4,
       weight = 15,
-      active = e => Option(e.lastLocation).exists(_.trim.nonEmpty)
+      active = e => Option(e.location).exists(_.trim.nonEmpty)
     ),
 
     // User spent meaningful session time

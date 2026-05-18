@@ -123,9 +123,9 @@ object EmailPublisher extends Logging {
          |    <div class="kv">
          |      <div class="label">Last location</div>
          |      <div>${if (
-          event.lastLocation != null &&
-          event.lastLocation.nonEmpty
-        ) event.lastLocation
+          event.location != null &&
+          event.location.nonEmpty
+        ) event.location
         else "-"}</div>
          |    </div>
          |

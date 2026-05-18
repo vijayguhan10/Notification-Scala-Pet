@@ -27,7 +27,7 @@ class EventGenerator @Inject() () {
       slotViews = random.between(0, 80),
       bookingAttempts = random.between(0, 6),
       avgScrollDepth = random.between(0, 101),
-      lastLocation = pick(locations),
+      location = pick(locations),
       lastActivity = Instant.now().toString,
       sessionDuration = random.between(0, 1800)
     )

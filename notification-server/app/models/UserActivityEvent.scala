@@ -8,7 +8,7 @@ final case class UserActivityEvent(
     slotViews: Int,
     bookingAttempts: Int,
     avgScrollDepth: Int,
-    lastLocation: String,
+    location: String,
     lastActivity: String,
     sessionDuration: Int
 )

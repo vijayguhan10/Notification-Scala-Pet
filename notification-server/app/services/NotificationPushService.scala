@@ -2,6 +2,10 @@ package services
 
 import play.api.Logging
 import play.api.libs.ws.WSClient
+import play.api.libs.json.Json
+import models.UserActivityEvent
+import models.NotificationMessage
+import services.EmailPublisher
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.Await
@@ -23,6 +27,20 @@ class NotificationPushService @Inject() (
     logger.info(
       s"Pushing outbound notification=$payload"
     )
+
+    // Send an email notification BEFORE persisting. If sending fails
+    // the exception will propagate to the dispatcher which will NACK
+    // and (with requeue=false) cause the message to be moved to DLQ.
+    val json = Json.parse(payload)
+    if (json.asOpt[UserActivityEvent].isDefined) {
+      val event = json.as[UserActivityEvent]
+      EmailPublisher.sendEventEmail(event)
+    } else if (json.asOpt[NotificationMessage].isDefined) {
+      val notif = json.as[NotificationMessage]
+      EmailPublisher.sendNotificationEmail(notif)
+    } else {
+      logger.warn("EmailPublisher: unknown payload shape, skipping email")
+    }
 
     // Persist notification before ACK so failures can DLQ the message.
     // Default status = published.

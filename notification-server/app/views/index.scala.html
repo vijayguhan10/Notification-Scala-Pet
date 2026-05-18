@@ -10,16 +10,80 @@
     <link rel="stylesheet" media="screen" href='@routes.Assets.versioned("stylesheets/main.css")'>
   </head>
   <body>
-    <main>
-      <h1>Notification Server</h1>
-      <p>Server is running.</p>
-      <p>Event endpoints:</p>
-      <ul>
-        <li><code>POST /api/events</code></li>
-        <li><code>POST /api/events/stop/:streamId</code></li>
-        <li><code>GET /api/events/status/:streamId</code></li>
-        <li><code>GET /api/events/ws</code></li>
-      </ul>
+    <main class="container">
+      <h1>Notification Server — API Tester</h1>
+
+      <section class="card">
+        <h2>Create Event (POST /api/events)</h2>
+        <form id="createEventForm">
+          <div class="row"><label>User ID<input name="userId" required value="user_123"/></label></div>
+          <div class="row"><label>Parking Searches<input name="parkingSearches" type="number" value="0"/></label></div>
+          <div class="row"><label>Slot Views<input name="slotViews" type="number" value="0"/></label></div>
+          <div class="row"><label>Booking Attempts<input name="bookingAttempts" type="number" value="0"/></label></div>
+          <div class="row"><label>Avg Scroll Depth<input name="avgScrollDepth" type="number" value="0"/></label></div>
+          <div class="row"><label>Location<input name="location" value="City Center"/></label></div>
+          <div class="row"><label>Last Activity (ISO)<input name="lastActivity" value="" placeholder="2026-05-18T12:00:00Z"/></label></div>
+          <div class="row"><label>Session Duration (sec)<input name="sessionDuration" type="number" value="0"/></label></div>
+          <div class="actions"><button type="submit">Send Event</button></div>
+        </form>
+      </section>
+
+      <section class="card two-col">
+        <div>
+          <h2>Stop Stream (POST /api/events/stop/:streamId)</h2>
+          <form id="stopStreamForm">
+            <div class="row"><label>Stream ID<input name="streamId" required value="stream_1"/></label></div>
+            <div class="actions"><button type="submit">Stop Stream</button></div>
+          </form>
+        </div>
+
+        <div>
+          <h2>Stream Status (GET /api/events/status/:streamId)</h2>
+          <form id="statusForm">
+            <div class="row"><label>Stream ID<input name="streamId" required value="stream_1"/></label></div>
+            <div class="actions"><button type="submit">Get Status</button></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>WebSocket</h2>
+        <div class="row"><label>Connect to real-time events: <button id="wsConnect">Connect</button> <button id="wsDisconnect" disabled>Disconnect</button></label></div>
+        <pre id="wsLog" class="log"></pre>
+      </section>
+
+      <section class="card">
+        <h2>Notifications API</h2>
+
+        <div class="row">
+          <button id="listNotifications">List Notifications</button>
+        </div>
+
+        <form id="getNotificationForm">
+          <div class="row"><label>Get by ID<input name="id" type="number" value="1"/></label></div>
+          <div class="actions"><button type="submit">Get Notification</button></div>
+        </form>
+
+        <form id="createNotificationForm">
+          <div class="row"><label>User ID<input name="userId" value="user_123"/></label></div>
+          <div class="row"><label>Event Type<input name="eventType" value="INTENT_HIGH"/></label></div>
+          <div class="row"><label>Message<input name="message" value="Test notification"/></label></div>
+          <div class="actions"><button type="submit">Create Notification</button></div>
+        </form>
+
+        <form id="updateStatusForm">
+          <div class="row"><label>ID<input name="id" type="number" value="1"/></label></div>
+          <div class="row"><label>Status<input name="status" value="sent"/></label></div>
+          <div class="actions"><button type="submit">Update Status</button></div>
+        </form>
+
+      </section>
+
+      <section class="card">
+        <h2>Responses / Logs</h2>
+        <pre id="apiLog" class="log"></pre>
+      </section>
+
     </main>
 
     <script src='@routes.Assets.versioned("javascripts/main.js")' type="text/javascript"></script>

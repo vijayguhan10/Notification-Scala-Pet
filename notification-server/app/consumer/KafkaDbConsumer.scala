@@ -11,7 +11,6 @@ import play.api.{Configuration, Logging}
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
 import repositories.UserActivityEventRepository
-import services.EmailPublisher
 
 import java.time.{Duration, Instant}
 import java.util.{Collections, Properties}
@@ -325,7 +324,7 @@ class KafkaDbConsumer @Inject() (
                     slotViews = event.slotViews,
                     bookingAttempts = event.bookingAttempts,
                     avgScrollDepth = event.avgScrollDepth,
-                    lastLocation = event.lastLocation,
+                    location = event.location,
                     lastActivity = Instant.parse(event.lastActivity),
                     sessionDuration = event.sessionDuration
                   )
@@ -356,22 +355,8 @@ class KafkaDbConsumer @Inject() (
 
             try {
 
-              // ==================================================
-              // Send HTML email notifications for each event
-              // (compose neat raw HTML/CSS and send or fallback)
-              // ==================================================
-              batch.foreach { record =>
-                try {
-                  val event = Json.parse(record.value()).as[UserActivityEvent]
-                  EmailPublisher.sendEventEmail(event)
-                } catch {
-                  case ex: Throwable =>
-                    logger.warn(
-                      s"EmailPublisher failed for record offset=${record.offset()}",
-                      ex
-                    )
-                }
-              }
+              // notifications are now handled by the RabbitMQ dispatcher
+              // (do not send emails here)
 
               val start =
                 System.currentTimeMillis()

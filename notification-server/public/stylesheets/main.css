@@ -1,0 +1,35 @@
+(body) {
+	font-family: Inter, Arial, sans-serif;
+	margin: 0;
+	background: #f4f7fb;
+	color: #0f172a;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 28px auto;
+	padding: 0 16px;
+}
+
+h1 { margin: 0 0 12px 0 }
+
+.card {
+	background: #fff;
+	border-radius: 10px;
+	padding: 16px;
+	margin-bottom: 16px;
+	box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+	border: 1px solid #e6eef6;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+
+.row { margin: 8px 0 }
+.row label { display: flex; gap: 12px; align-items: center }
+.row input, .row textarea { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #dbe7f2 }
+
+.actions { margin-top: 12px }
+.actions button { padding: 8px 12px; border-radius: 6px; border: none; background: #2563eb; color: #fff }
+
+.log { max-height: 220px; overflow: auto; background: #0b1726; color: #d1e8ff; padding: 12px; border-radius: 6px }
+

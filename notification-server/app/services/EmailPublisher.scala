@@ -5,6 +5,13 @@ import play.api.Logging
 
 import java.nio.file.{Files, Paths, StandardOpenOption}
 import java.time.Instant
+import java.util.Properties
+
+import jakarta.mail.Message.RecipientType
+import jakarta.mail.Session
+import jakarta.mail.Transport
+import jakarta.mail.internet.InternetAddress
+import jakarta.mail.internet.MimeMessage
 
 object EmailPublisher extends Logging {
 
@@ -39,8 +46,10 @@ object EmailPublisher extends Logging {
       |    <div class=\"kv\"><div class=\"label\">Slot views</div><div>${event.slotViews}</div></div>
       |    <div class=\"kv\"><div class=\"label\">Booking attempts</div><div>${event.bookingAttempts}</div></div>
       |    <div class=\"kv\"><div class=\"label\">Avg scroll depth</div><div>${event.avgScrollDepth}</div></div>
-      |    <div class=\"kv\"><div class=\"label\">Last location</div><div>${event.lastLocation
-          .getOrElse("-")}</div></div>
+      |    <div class=\"kv\"><div class=\"label\">Last location</div><div>${if (
+          event.lastLocation != null && event.lastLocation.nonEmpty
+        ) event.lastLocation
+        else "-"}</div></div>
       |    <div class=\"kv\"><div class=\"label\">Last activity</div><div>${event.lastActivity}</div></div>
       |    <div style=\"margin-top:12px;color:#475569;font-size:13px\">Raw payload:</div>
       |    <pre style=\"white-space:pre-wrap;background:#f1f5f9;padding:10px;border-radius:6px;margin-top:8px;color:#0b1726\">${event.toString}</pre>
@@ -48,27 +57,24 @@ object EmailPublisher extends Logging {
       |</body>
       |</html>""".stripMargin
 
-    val recipient = "notifications@example.com"
+    val recipient = "vijayguhan10@gmail.com"
     val subject = s"Notification for user ${event.userId}"
 
     try {
-      // attempt to use system sendmail if available
-      val sendmailPath = "/usr/sbin/sendmail"
-      val pb = new ProcessBuilder(sendmailPath, "-t")
-      val proc = pb.start()
+      // attempt to send via Jakarta Mail (SMTP). Assumes localhost SMTP or configured relay.
+      val props = new Properties()
+      props.put("mail.smtp.host", "localhost")
+      props.put("mail.smtp.port", "25")
 
-      val out = new java.io.BufferedWriter(
-        new java.io.OutputStreamWriter(proc.getOutputStream, "UTF-8")
-      )
-      out.write(s"To: $recipient\n")
-      out.write(s"Subject: $subject\n")
-      out.write("MIME-Version: 1.0\n")
-      out.write("Content-Type: text/html; charset=\"utf-8\"\n\n")
-      out.write(html)
-      out.flush()
-      out.close()
+      val session = Session.getInstance(props)
+      val message = new MimeMessage(session)
+      message.setFrom(new InternetAddress("vijayguhan10@gmail.com"))
+      message.setRecipients(RecipientType.TO, InternetAddress.parse(recipient))
+      message.setReplyTo(Array(new InternetAddress("vijayguhan10@gmail.com")))
+      message.setSubject(subject)
+      message.setContent(html, "text/html; charset=utf-8")
 
-      proc.waitFor()
+      Transport.send(message)
 
       logger.info(
         s"EmailPublisher: attempted send to $recipient for user ${event.userId}"

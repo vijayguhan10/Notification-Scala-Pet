@@ -55,3 +55,6 @@ libraryDependencies ++= Seq(
   "org.flywaydb" % "flyway-core" % flywayVersion,
   "org.flywaydb" % "flyway-database-postgresql" % flywayVersion
 )
+
+// Jakarta Mail for sending HTML emails
+libraryDependencies += "com.sun.mail" % "jakarta.mail" % "2.0.1"

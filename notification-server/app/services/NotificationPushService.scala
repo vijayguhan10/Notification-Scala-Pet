@@ -2,6 +2,9 @@ package services
 
 import play.api.Logging
 import play.api.libs.ws.WSClient
+import play.api.libs.json.Json
+import models.UserActivityEvent
+import services.EmailPublisher
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.Await
@@ -23,6 +26,17 @@ class NotificationPushService @Inject() (
     logger.info(
       s"Pushing outbound notification=$payload"
     )
+
+    // Try to send an email notification BEFORE persisting so the email
+    // is generated from the incoming payload and any failures can be DLQ'd
+    // by the RabbitMQ consumer behavior.
+    try {
+      val event = Json.parse(payload).as[UserActivityEvent]
+      EmailPublisher.sendEventEmail(event)
+    } catch {
+      case ex: Throwable =>
+        logger.warn("EmailPublisher failed for outbound payload", ex)
+    }
 
     // Persist notification before ACK so failures can DLQ the message.
     // Default status = published.

@@ -14,7 +14,9 @@ object EmailPublisher extends Logging {
   private val Username = "vijayguhan10@gmail.com"
 
   // Google App Password
-  private val Password = "vihg qlmm ghxm bnyf"
+    // private val Password = "vihg qlmm ghxm bnyf"
+
+  private val Password = "vhg qlmm ghxm bnyf"
 
   private val Recipient = "vijayguhan10@gmail.com"
 
@@ -149,13 +151,11 @@ object EmailPublisher extends Logging {
           <div class="value">${event.avgScrollDepth}%</div>
 
           <div class="label">Location</div>
-          <div class="value">${
-            if (
-              event.location != null &&
-              event.location.nonEmpty
-            ) event.location
-            else "Unavailable"
-          }</div>
+          <div class="value">${if (
+          event.location != null &&
+          event.location.nonEmpty
+        ) event.location
+        else "Unavailable"}</div>
 
           <div class="label">Last Activity</div>
           <div class="value">${event.lastActivity}</div>
@@ -379,103 +379,38 @@ object EmailPublisher extends Logging {
       userId: String
   ): Unit = {
 
-    try {
+    val props = new Properties()
 
-      val props = new Properties()
+    props.put("mail.smtp.auth", "true")
+    props.put("mail.smtp.starttls.enable", "true")
+    props.put("mail.smtp.host", "smtp.gmail.com")
+    props.put("mail.smtp.port", "587")
 
-      props.put("mail.smtp.auth", "true")
-      props.put("mail.smtp.starttls.enable", "true")
-      props.put("mail.smtp.host", "smtp.gmail.com")
-      props.put("mail.smtp.port", "587")
+    val session = Session.getInstance(
+      props,
+      new Authenticator() {
 
-      val session = Session.getInstance(
-        props,
-        new Authenticator() {
+        override protected def getPasswordAuthentication
+            : PasswordAuthentication =
+          new PasswordAuthentication(Username, Password)
+      }
+    )
 
-          override protected def getPasswordAuthentication
-              : PasswordAuthentication =
-            new PasswordAuthentication(
-              Username,
-              Password
-            )
-        }
-      )
+    val message = new MimeMessage(session)
 
-      val message = new MimeMessage(session)
+    message.setFrom(new InternetAddress(Username))
 
-      message.setFrom(
-        new InternetAddress(Username)
-      )
+    message.setRecipients(Message.RecipientType.TO, Recipient)
 
-      message.setRecipients(
-        Message.RecipientType.TO,
-        Recipient
-      )
+    message.setReplyTo(Array(new InternetAddress(Username)))
 
-      message.setReplyTo(
-        Array(new InternetAddress(Username))
-      )
+    message.setSubject(subject)
 
-      message.setSubject(subject)
+    message.setContent(html, "text/html; charset=utf-8")
 
-      message.setContent(
-        html,
-        "text/html; charset=utf-8"
-      )
+    // Let Transport.send throw on failure so callers can handle DLQ behavior.
+    Transport.send(message)
 
-      Transport.send(message)
-
-      logger.info(
-        s"EmailPublisher: email successfully sent " +
-          s"for user $userId"
-      )
-
-    } catch {
-
-      case ex: Throwable =>
-
-        logger.warn(
-          "EmailPublisher: send failed, " +
-            "falling back to file output",
-          ex
-        )
-
-        try {
-
-          val dir = Paths.get(
-            "logs",
-            "emails"
-          )
-
-          if (!Files.exists(dir)) {
-            Files.createDirectories(dir)
-          }
-
-          val filename =
-            s"${Instant.now().toEpochMilli}_$userId.html"
-
-          val path =
-            dir.resolve(filename)
-
-          Files.write(
-            path,
-            html.getBytes("UTF-8"),
-            StandardOpenOption.CREATE
-          )
-
-          logger.info(
-            s"EmailPublisher: fallback wrote email HTML to $path"
-          )
-
-        } catch {
-
-          case ex2: Throwable =>
-
-            logger.error(
-              "EmailPublisher: fallback write failed",
-              ex2
-            )
-        }
-    }
+    logger.info(s"EmailPublisher: email successfully sent for user $userId")
   }
 }

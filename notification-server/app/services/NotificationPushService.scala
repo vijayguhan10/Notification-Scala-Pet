@@ -28,25 +28,18 @@ class NotificationPushService @Inject() (
       s"Pushing outbound notification=$payload"
     )
 
-    // Try to send an email notification BEFORE persisting so the email
-    // is generated from the incoming payload and any failures can be DLQ'd
-    // by the RabbitMQ consumer behavior.
-    try {
-      val json = Json.parse(payload)
-      // Try parsing full UserActivityEvent first (when publisher sends raw event)
-      if (json.asOpt[UserActivityEvent].isDefined) {
-        val event = json.as[UserActivityEvent]
-        EmailPublisher.sendEventEmail(event)
-      } else if (json.asOpt[NotificationMessage].isDefined) {
-        // Fallback: payload is a NotificationMessage (most common)
-        val notif = json.as[NotificationMessage]
-        EmailPublisher.sendNotificationEmail(notif)
-      } else {
-        logger.warn("EmailPublisher: unknown payload shape, skipping email")
-      }
-    } catch {
-      case ex: Throwable =>
-        logger.warn("EmailPublisher failed for outbound payload", ex)
+    // Send an email notification BEFORE persisting. If sending fails
+    // the exception will propagate to the dispatcher which will NACK
+    // and (with requeue=false) cause the message to be moved to DLQ.
+    val json = Json.parse(payload)
+    if (json.asOpt[UserActivityEvent].isDefined) {
+      val event = json.as[UserActivityEvent]
+      EmailPublisher.sendEventEmail(event)
+    } else if (json.asOpt[NotificationMessage].isDefined) {
+      val notif = json.as[NotificationMessage]
+      EmailPublisher.sendNotificationEmail(notif)
+    } else {
+      logger.warn("EmailPublisher: unknown payload shape, skipping email")
     }
 
     // Persist notification before ACK so failures can DLQ the message.

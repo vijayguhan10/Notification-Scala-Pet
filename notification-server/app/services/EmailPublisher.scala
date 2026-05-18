@@ -158,7 +158,7 @@ object EmailPublisher extends Logging {
       props.put("mail.smtp.port", "587")
 
       // Optional debug logs
-    //   props.put("mail.debug", "true")
+      //   props.put("mail.debug", "true")
 
       // Authenticated SMTP session
       val session = Session.getInstance(

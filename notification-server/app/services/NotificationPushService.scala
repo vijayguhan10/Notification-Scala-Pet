@@ -1,13 +1,14 @@
 package services
 
-import play.api.Logging
-import play.api.libs.ws.WSClient
-import play.api.libs.json.Json
-import models.UserActivityEvent
-import models.NotificationMessage
-import services.EmailPublisher
-
 import javax.inject.{Inject, Singleton}
+
+import models.NotificationMessage
+import models.UserActivityEvent
+
+import play.api.Logging
+import play.api.libs.json.Json
+import play.api.libs.ws.WSClient
+
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
@@ -22,36 +23,66 @@ class NotificationPushService @Inject() (
   def push(
       payload: String
   ): Unit = {
-    println(s"Pushing outbound notification=$payload");
 
     logger.info(
-      s"Pushing outbound notification=$payload"
+      s"NotificationPushService: processing payload=$payload"
     )
 
-    // Send an email notification BEFORE persisting. If sending fails
-    // the exception will propagate to the dispatcher which will NACK
-    // and (with requeue=false) cause the message to be moved to DLQ.
-    val json = Json.parse(payload)
-    if (json.asOpt[UserActivityEvent].isDefined) {
-      val event = json.as[UserActivityEvent]
-      EmailPublisher.sendEventEmail(event)
-    } else if (json.asOpt[NotificationMessage].isDefined) {
-      val notif = json.as[NotificationMessage]
-      EmailPublisher.sendNotificationEmail(notif)
-    } else {
-      logger.warn("EmailPublisher: unknown payload shape, skipping email")
-    }
-
-    // Persist notification before ACK so failures can DLQ the message.
-    // Default status = published.
-    // NOTE: This blocks the RabbitMQ consumer thread intentionally so
-    // ACK/NACK is aligned with DB persistence.
     Await.result(
       notificationService.recordPublishedFromPayload(payload),
       5.seconds
     )
 
-    // Example outbound API push
-    // ws.url(endpoint).post(payload)
+    logger.info(
+      "NotificationPushService: notification persisted successfully"
+    )
+
+    try {
+
+      val json = Json.parse(payload)
+
+      if (json.asOpt[UserActivityEvent].isDefined) {
+
+        val event =
+          json.as[UserActivityEvent]
+
+        EmailPublisher.sendEventEmail(event)
+
+        logger.info(
+          s"NotificationPushService: activity email sent " +
+            s"for user=${event.userId}"
+        )
+
+      } else if (
+        json.asOpt[NotificationMessage].isDefined
+      ) {
+
+        val notif =
+          json.as[NotificationMessage]
+
+        EmailPublisher.sendNotificationEmail(notif)
+
+        logger.info(
+          s"NotificationPushService: notification email sent " +
+            s"for user=${notif.userId}"
+        )
+
+      } else {
+
+        logger.warn(
+          "NotificationPushService: unknown payload shape, " +
+            "skipping email"
+        )
+      }
+
+    } catch {
+
+      case ex: Throwable =>
+
+        logger.error(
+          "NotificationPushService: email delivery failed",
+          ex
+        )
+    }
   }
 }

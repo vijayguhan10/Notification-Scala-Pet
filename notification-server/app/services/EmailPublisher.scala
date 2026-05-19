@@ -13,8 +13,7 @@ object EmailPublisher extends Logging {
 
   private val Username = "vijayguhan10@gmail.com"
 
-
-  private val Password = "vhg qlmm ghxm bnyf"
+  private val Password = "igte liuz arhm zkki"
 
   private val Recipient = "vijayguhan10@gmail.com"
 

@@ -5,6 +5,7 @@ import com.rabbitmq.client._
 import config.RabbitMqConfig
 
 import play.api.Logging
+import play.api.inject.ApplicationLifecycle
 
 import services.NotificationPushService
 
@@ -12,12 +13,14 @@ import java.nio.charset.StandardCharsets
 
 import javax.inject.{Inject, Singleton}
 
+import scala.concurrent.Future
+
 @Singleton
 class RabbitMqNotificationDispatcher @Inject() (
     rabbitConfig: RabbitMqConfig,
-    pushService: NotificationPushService
+    pushService: NotificationPushService,
+    lifecycle: ApplicationLifecycle
 ) extends Logging {
-
 
   private val factory =
     new ConnectionFactory()
@@ -31,21 +34,16 @@ class RabbitMqNotificationDispatcher @Inject() (
   factory.setAutomaticRecoveryEnabled(true)
   factory.setNetworkRecoveryInterval(5000)
 
-
   private val connection =
     factory.newConnection()
-
 
   private val channel =
     connection.createChannel()
 
-
   channel.basicQos(1)
-
 
   private val consumer =
     new DefaultConsumer(channel) {
-
 
       override def handleDelivery(
           consumerTag: String,
@@ -53,7 +51,6 @@ class RabbitMqNotificationDispatcher @Inject() (
           properties: AMQP.BasicProperties,
           body: Array[Byte]
       ): Unit = {
-
 
         val payload =
           new String(
@@ -63,9 +60,7 @@ class RabbitMqNotificationDispatcher @Inject() (
 
         try {
 
-
           pushService.push(payload)
-
 
           channel.basicAck(
             envelope.getDeliveryTag,
@@ -81,7 +76,6 @@ class RabbitMqNotificationDispatcher @Inject() (
               t
             )
 
-
             channel.basicNack(
               envelope.getDeliveryTag,
               false,
@@ -91,11 +85,37 @@ class RabbitMqNotificationDispatcher @Inject() (
       }
     }
 
+  private val consumerTag =
+    channel.basicConsume(
+      rabbitConfig.queue,
+      false,
+      consumer
+    )
 
-  channel.basicConsume(
-    rabbitConfig.queue,
-    false,
-    consumer
-  )
+  lifecycle.addStopHook { () =>
+    try {
+      if (channel.isOpen) {
+        try channel.basicCancel(consumerTag)
+        catch {
+          case _: Throwable => // ignore; channel may already be closing
+        }
+      }
+    } catch {
+      case t: Throwable => logger.warn("RabbitMQ consumer cancel failed", t)
+    }
+
+    try {
+      if (channel.isOpen) channel.close()
+    } catch {
+      case t: Throwable => logger.warn("RabbitMQ channel close failed", t)
+    }
+
+    try {
+      if (connection.isOpen) connection.close()
+    } catch {
+      case t: Throwable => logger.warn("RabbitMQ connection close failed", t)
+    }
+
+    Future.successful(())
+  }
 }
-

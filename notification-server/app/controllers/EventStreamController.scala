@@ -28,12 +28,26 @@ class EventStreamController @Inject() (
 
   def start() = Action { implicit request =>
     val bodyJson: Option[JsValue] = request.body.asJson
+    val formBody: Option[Map[String, Seq[String]]] =
+      request.body.asFormUrlEncoded.map(_.toMap)
 
-    val ratePerSecond =
-      bodyJson.flatMap(js => (js \ "ratePerSecond").asOpt[Int])
-    val topic = bodyJson.flatMap(js => (js \ "topic").asOpt[String])
-    val batchEveryMillis =
-      bodyJson.flatMap(js => (js \ "batchEveryMillis").asOpt[Int])
+    def getInt(name: String): Option[Int] = {
+      bodyJson.flatMap(js => (js \ name).asOpt[Int]) orElse
+        formBody.flatMap(m =>
+          m.get(name)
+            .flatMap(_.headOption)
+            .flatMap(s => scala.util.Try(s.toInt).toOption)
+        )
+    }
+
+    def getString(name: String): Option[String] = {
+      bodyJson.flatMap(js => (js \ name).asOpt[String]) orElse
+        formBody.flatMap(m => m.get(name).flatMap(_.headOption))
+    }
+
+    val ratePerSecond = getInt("ratePerSecond")
+    val topic = getString("topic")
+    val batchEveryMillis = getInt("batchEveryMillis")
 
     val session = manager.start(
       ratePerSecondOpt = ratePerSecond,

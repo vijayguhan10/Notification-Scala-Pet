@@ -2,12 +2,16 @@
 
 function logApi(msg) {
   const el = document.getElementById('apiLog')
-  el.textContent = `${new Date().toISOString()} - ${msg}\n` + el.textContent
+  el.textContent = el.textContent + `${new Date().toISOString()} - ${msg}\n`
+  const container = el.parentElement
+  if (container) container.scrollTop = container.scrollHeight
 }
 
 function logWs(msg) {
   const el = document.getElementById('wsLog')
-  el.textContent = `${new Date().toISOString()} - ${msg}\n` + el.textContent
+  el.textContent = el.textContent + `${new Date().toISOString()} - ${msg}\n`
+  const container = el.parentElement
+  if (container) container.scrollTop = container.scrollHeight
 }
 
 document.addEventListener('DOMContentLoaded', () => {

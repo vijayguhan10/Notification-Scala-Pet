@@ -78,6 +78,8 @@ class EventStreamManager @Inject() (
       batchEveryMillis.millis
     ) { () =>
       try {
+        // Performance: use a simple while-loop to avoid allocating iterator
+        // objects on hot paths when generating large batches of events.
         var i = 0
         while (i < batchSize) {
           val event = generator.generate()

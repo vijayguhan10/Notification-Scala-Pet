@@ -79,6 +79,11 @@ class IntentScoringEngine @Inject() (
 
         var delta = 0L
 
+        // Use Redis bitset to deduplicate signals per user. We rely on the
+        // boolean return value of SETBIT to detect new signals and increment
+        // the score only when a bit flips from 0->1. Note: concurrent
+        // writers may race and produce slightly different deltas; this is an
+        // accepted trade-off for low-latency scoring.
         signals.foreach { signal =>
           if (signal.active(event)) {
 

@@ -62,7 +62,6 @@ class NotificationService @Inject() (
             createdAt = createdAt
           )
           .map { insertedRow =>
-
             logger.info(
               s"""
                  |Notification persisted successfully:
@@ -137,7 +136,6 @@ class NotificationService @Inject() (
         status = status
       )
       .map { row =>
-
         logger.info(
           s"""
              |Manual notification persisted:
@@ -229,7 +227,6 @@ class NotificationService @Inject() (
         repo
           .updateStatus(id, status)
           .map { updatedRows =>
-
             val success =
               updatedRows > 0
 
@@ -288,6 +285,8 @@ object NotificationService {
       raw: String
   ): Option[String] = {
 
+    // Business constraint: only a strict set of statuses is accepted —
+    // normalize and validate to enforce domain rules.
     val normalized =
       Option(raw)
         .map(_.trim.toLowerCase)

@@ -28,6 +28,9 @@ class NotificationPushService @Inject() (
       s"NotificationPushService: processing payload=$payload"
     )
 
+    // Blocking call: we wait up to 5s for persistence to complete. This
+    // intentionally blocks the caller to ensure the notification is recorded
+    // before attempting email delivery. Keep timeout small to limit impact.
     Await.result(
       notificationService.recordPublishedFromPayload(payload),
       5.seconds
@@ -53,9 +56,7 @@ class NotificationPushService @Inject() (
             s"for user=${event.userId}"
         )
 
-      } else if (
-        json.asOpt[NotificationMessage].isDefined
-      ) {
+      } else if (json.asOpt[NotificationMessage].isDefined) {
 
         val notif =
           json.as[NotificationMessage]

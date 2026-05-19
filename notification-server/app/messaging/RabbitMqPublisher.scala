@@ -13,8 +13,8 @@ import scala.concurrent.Future
 
 @Singleton
 class RabbitMqPublisher @Inject() (
-  config: RabbitMqConfig,
-  lifecycle: ApplicationLifecycle
+    config: RabbitMqConfig,
+    lifecycle: ApplicationLifecycle
 ) extends Logging {
 
   private val factory =
@@ -40,13 +40,15 @@ class RabbitMqPublisher @Inject() (
     try {
       if (channel.isOpen) channel.close()
     } catch {
-      case t: Throwable => logger.warn("RabbitMQ publisher channel close failed", t)
+      case t: Throwable =>
+        logger.warn("RabbitMQ publisher channel close failed", t)
     }
 
     try {
       if (connection.isOpen) connection.close()
     } catch {
-      case t: Throwable => logger.warn("RabbitMQ publisher connection close failed", t)
+      case t: Throwable =>
+        logger.warn("RabbitMQ publisher connection close failed", t)
     }
 
     Future.successful(())

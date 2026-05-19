@@ -34,7 +34,6 @@ class KafkaDbConsumer @Inject() (
   logger.info("KafkaDbConsumer starting")
   println("[kafka-db-consumer] starting")
 
-
   private val kafka =
     config.get[Configuration]("kafka")
 
@@ -61,7 +60,6 @@ class KafkaDbConsumer @Inject() (
       .getOptional[Int]("maxPollRecords")
       .getOrElse(batchSize)
 
-
   private val fetchMaxBytes =
     kafka.get[Int]("fetchMaxBytes")
 
@@ -83,10 +81,8 @@ class KafkaDbConsumer @Inject() (
   private val maxPollIntervalMs =
     kafka.get[Int]("maxPollIntervalMs")
 
-
   private val running =
     new AtomicBoolean(true)
-
 
   private val props =
     new Properties()
@@ -161,10 +157,8 @@ class KafkaDbConsumer @Inject() (
     maxPollIntervalMs.toString
   )
 
-
   private val consumer =
     new KafkaConsumer[String, String](props)
-
 
   private val rebalanceListener =
     new ConsumerRebalanceListener {
@@ -172,7 +166,6 @@ class KafkaDbConsumer @Inject() (
       override def onPartitionsAssigned(
           partitions: java.util.Collection[TopicPartition]
       ): Unit = {
-
 
         logger.info(
           s"Partitions assigned: ${partitions.asScala.mkString(", ")}"
@@ -182,7 +175,6 @@ class KafkaDbConsumer @Inject() (
       override def onPartitionsRevoked(
           partitions: java.util.Collection[TopicPartition]
       ): Unit = {
-
 
         logger.warn(
           s"Partitions revoked: ${partitions.asScala.mkString(", ")}"
@@ -197,18 +189,19 @@ class KafkaDbConsumer @Inject() (
     rebalanceListener
   )
 
-
   private val thread =
     new Thread(
       () => consumeLoop(),
       "kafka-db-consumer"
     )
 
-
   thread.setDaemon(false)
 
-  thread.start()
+  // Intentionally non-daemon: keep this consumer thread alive so it can
+  // complete in-flight work during shutdown. Daemon threads may be
+  // terminated abruptly by the JVM which risks lost work.
 
+  thread.start()
 
   private def consumeLoop(): Unit = {
 
@@ -217,7 +210,6 @@ class KafkaDbConsumer @Inject() (
       while (running.get()) {
 
         try {
-
 
           val records =
             consumer.poll(
@@ -229,7 +221,6 @@ class KafkaDbConsumer @Inject() (
           val batch =
             records.asScala.toList
 
-
           val assignments =
             consumer.assignment().asScala.toList
 
@@ -238,16 +229,11 @@ class KafkaDbConsumer @Inject() (
               s"$partition -> ${consumer.position(partition)}"
             }
 
-
-
-          if (batch.isEmpty) {
-          }
-
+          if (batch.isEmpty) {}
 
           if (batch.nonEmpty) {
 
-            batch.take(5).foreach { record =>
-            }
+            batch.take(5).foreach { record => }
 
             val rows =
               batch.map { record =>
@@ -289,12 +275,15 @@ class KafkaDbConsumer @Inject() (
                 }
               }
 
-
             try {
-
 
               val start =
                 System.currentTimeMillis()
+
+              // Blocking DB write: we synchronously wait up to 30s for the
+              // batch insert to complete. This will block the consumer thread
+              // and is a deliberate trade-off to keep at-least-once ordering.
+              // Consider async writes if throughput/latency become problematic.
 
               Await.result(
                 repository.insertBatch(rows),
@@ -304,11 +293,9 @@ class KafkaDbConsumer @Inject() (
               val elapsed =
                 System.currentTimeMillis() - start
 
-
               logger.info(
                 s"DB inserted batchSize=${rows.size}"
               )
-
 
               if (!enableAutoCommit) {
 
@@ -319,7 +306,6 @@ class KafkaDbConsumer @Inject() (
             } catch {
 
               case ex: Throwable =>
-
 
                 ex.printStackTrace()
 
@@ -332,13 +318,11 @@ class KafkaDbConsumer @Inject() (
 
         } catch {
 
-
           case _: WakeupException if !running.get() =>
 
             println(
               "[kafka-db-consumer] wakeup received, shutting down"
             )
-
 
           case ex: Throwable =>
 
@@ -364,7 +348,6 @@ class KafkaDbConsumer @Inject() (
 
     } finally {
 
-
       println(
         "[kafka-db-consumer] closing kafka consumer"
       )
@@ -382,7 +365,6 @@ class KafkaDbConsumer @Inject() (
     }
   }
 
-
   lifecycle.addStopHook { () =>
     println(
       "[kafka-db-consumer] application shutdown initiated"
@@ -394,6 +376,9 @@ class KafkaDbConsumer @Inject() (
 
     Future {
 
+      // Graceful shutdown: wait up to 5s for the consumer thread to finish.
+      // This bounded join avoids hanging shutdowns while allowing in-flight
+      // work to complete where possible.
       blocking {
         thread.join(5000)
       }

@@ -26,6 +26,9 @@ class RedisClientProvider @Inject() (
     )
 
   lifecycle.addStopHook { () =>
+    // Ensure the pool is closed on shutdown; failures are logged but do not
+    // prevent shutdown. Closing the pool can surface harmless network/IO
+    // errors which we intentionally swallow to avoid blocking shutdown.
     try pool.close()
     catch {
       case t: Throwable =>
@@ -38,6 +41,8 @@ class RedisClientProvider @Inject() (
     val jedis = pool.getResource
 
     try {
+      // Select the configured DB (non-zero means non-default). This mutates
+      // the connection state so callers should not assume a default DB.
       if (redisConfig.database != 0) {
         jedis.select(redisConfig.database)
       }

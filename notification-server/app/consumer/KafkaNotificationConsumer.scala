@@ -40,7 +40,6 @@ class KafkaNotificationConsumer @Inject() (
 
   logger.info("KafkaNotificationConsumer starting")
 
-
   private val kafka =
     config.get[Configuration]("kafka")
 
@@ -81,7 +80,6 @@ class KafkaNotificationConsumer @Inject() (
       )
       .getOrElse(batchSize)
 
-
   private val fetchMaxBytes =
     kafka.get[Int]("fetchMaxBytes")
 
@@ -115,10 +113,8 @@ class KafkaNotificationConsumer @Inject() (
       "maxPollIntervalMs"
     )
 
-
   private val running =
     new AtomicBoolean(true)
-
 
   private val props =
     new Properties()
@@ -193,12 +189,10 @@ class KafkaNotificationConsumer @Inject() (
     maxPollIntervalMs.toString
   )
 
-
   private val consumer =
     new KafkaConsumer[String, String](
       props
     )
-
 
   private val rebalanceListener =
     new ConsumerRebalanceListener {
@@ -233,7 +227,6 @@ class KafkaNotificationConsumer @Inject() (
     rebalanceListener
   )
 
-
   private val thread =
     new Thread(
       () => consumeLoop(),
@@ -242,8 +235,10 @@ class KafkaNotificationConsumer @Inject() (
 
   thread.setDaemon(false)
 
-  thread.start()
+  // Intentionally non-daemon to allow orderly processing of notifications
+  // during shutdown; prevents abrupt JVM termination of this thread.
 
+  thread.start()
 
   private def consumeLoop(): Unit = {
 
@@ -275,6 +270,9 @@ class KafkaNotificationConsumer @Inject() (
                     .parse(record.value())
                     .as[UserActivityEvent]
 
+                // Redis-backed intent scoring: failures are tolerated by design
+                // (business rule) — if Redis is unavailable we continue processing
+                // without applying a delay so notifications are not blocked.
                 val intent =
                   try {
                     behavioralStateStore.store(event)
@@ -362,7 +360,6 @@ class KafkaNotificationConsumer @Inject() (
     }
   }
 
-
   lifecycle.addStopHook { () =>
     logger.info(
       "Kafka notification shutdown initiated"
@@ -374,6 +371,8 @@ class KafkaNotificationConsumer @Inject() (
 
     Future {
 
+      // Graceful shutdown: bounded join to wait for consumer thread
+      // completion without blocking the shutdown indefinitely.
       blocking {
 
         thread.join(5000)

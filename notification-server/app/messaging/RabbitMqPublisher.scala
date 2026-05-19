@@ -4,13 +4,17 @@ import com.rabbitmq.client._
 import config.RabbitMqConfig
 import models.NotificationMessage
 import play.api.Logging
+import play.api.inject.ApplicationLifecycle
 import play.api.libs.json.Json
 
 import javax.inject.{Inject, Singleton}
 
+import scala.concurrent.Future
+
 @Singleton
 class RabbitMqPublisher @Inject() (
-    config: RabbitMqConfig
+    config: RabbitMqConfig,
+    lifecycle: ApplicationLifecycle
 ) extends Logging {
 
   private val factory =
@@ -31,6 +35,24 @@ class RabbitMqPublisher @Inject() (
     channel,
     config
   )
+
+  lifecycle.addStopHook { () =>
+    try {
+      if (channel.isOpen) channel.close()
+    } catch {
+      case t: Throwable =>
+        logger.warn("RabbitMQ publisher channel close failed", t)
+    }
+
+    try {
+      if (connection.isOpen) connection.close()
+    } catch {
+      case t: Throwable =>
+        logger.warn("RabbitMQ publisher connection close failed", t)
+    }
+
+    Future.successful(())
+  }
 
   def publish(
       notification: NotificationMessage,

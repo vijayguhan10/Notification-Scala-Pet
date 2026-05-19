@@ -11,22 +11,43 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
+import scala.concurrent.Future
+import java.time.{Instant, Duration => JDuration, LocalDateTime}
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import repositories.UserActivityEventRepository
+import play.api.libs.json.JsObject
 
 @Singleton
 class EventStreamController @Inject() (
     val controllerComponents: ControllerComponents,
-    manager: EventStreamManager
+    manager: EventStreamManager,
+    userRepo: UserActivityEventRepository
 )(implicit ec: ExecutionContext, mat: Materializer)
     extends BaseController {
 
   def start() = Action { implicit request =>
     val bodyJson: Option[JsValue] = request.body.asJson
+    val formBody: Option[Map[String, Seq[String]]] =
+      request.body.asFormUrlEncoded.map(_.toMap)
 
-    val ratePerSecond =
-      bodyJson.flatMap(js => (js \ "ratePerSecond").asOpt[Int])
-    val topic = bodyJson.flatMap(js => (js \ "topic").asOpt[String])
-    val batchEveryMillis =
-      bodyJson.flatMap(js => (js \ "batchEveryMillis").asOpt[Int])
+    def getInt(name: String): Option[Int] = {
+      bodyJson.flatMap(js => (js \ name).asOpt[Int]) orElse
+        formBody.flatMap(m =>
+          m.get(name)
+            .flatMap(_.headOption)
+            .flatMap(s => scala.util.Try(s.toInt).toOption)
+        )
+    }
+
+    def getString(name: String): Option[String] = {
+      bodyJson.flatMap(js => (js \ name).asOpt[String]) orElse
+        formBody.flatMap(m => m.get(name).flatMap(_.headOption))
+    }
+
+    val ratePerSecond = getInt("ratePerSecond")
+    val topic = getString("topic")
+    val batchEveryMillis = getInt("batchEveryMillis")
 
     val session = manager.start(
       ratePerSecondOpt = ratePerSecond,
@@ -103,6 +124,89 @@ class EventStreamController @Inject() (
           running.set(false)
           manager.stop(session.streamId)
         }
+    }
+  }
+
+  /** Traffic analytics endpoint: returns event counts grouped by hour for the
+    * given time range (query params: `start` and `end` as ISO instants). If not
+    * provided, defaults to last 24 hours.
+    */
+  def trafficAnalytics() = Action.async { implicit request =>
+    val qs = request.queryString
+    val now = Instant.now()
+    val start = request
+      .getQueryString("start")
+      .flatMap(s => scala.util.Try(Instant.parse(s)).toOption)
+      .getOrElse(now.minus(1, ChronoUnit.DAYS))
+    val end = request
+      .getQueryString("end")
+      .flatMap(s => scala.util.Try(Instant.parse(s)).toOption)
+      .getOrElse(now)
+
+    userRepo.countByHour(start, end).map { rows =>
+      // rows: Seq[(hourIsoString, count)] where hourIsoString is like 2026-05-19T03:00:00
+
+      def dayPart(hourOfDay: Int): String =
+        if (hourOfDay >= 5 && hourOfDay < 12) "Morning"
+        else if (hourOfDay >= 12 && hourOfDay < 17) "Afternoon"
+        else if (hourOfDay >= 17 && hourOfDay < 21) "Evening"
+        else "Night"
+
+      // Group rows by date and produce a days array where each day contains
+      // the date, a label, and the list of hours for that day.
+      val parseFmt = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+      val outHourFmt = DateTimeFormatter.ofPattern("h:mm a")
+      val outDateFmt = DateTimeFormatter.ofPattern("MMM d, yyyy (EEEE)")
+
+      val parsed: Seq[(LocalDateTime, Int)] = rows.map { case (hourIso, cnt) =>
+        val ldt =
+          try LocalDateTime.parse(hourIso, parseFmt)
+          catch {
+            case _: Throwable =>
+              LocalDateTime.ofInstant(Instant.now(), java.time.ZoneOffset.UTC)
+          }
+        (ldt, cnt)
+      }
+
+      val grouped = parsed.groupBy { case (ldt, _) => ldt.toLocalDate }
+
+      val days = grouped.toSeq.sortBy(_._1).map { case (date, entries) =>
+        val hours = entries.sortBy(_._1.getHour).map { case (ldt, cnt) =>
+          Json.obj(
+            "hourIso" -> ldt.toString,
+            "label" -> ldt.format(outHourFmt),
+            "dayPart" -> dayPart(ldt.getHour),
+            "count" -> cnt
+          )
+        }
+        Json.obj(
+          "dateIso" -> date.toString,
+          "dateLabel" -> date.atStartOfDay().format(outDateFmt),
+          "hours" -> hours
+        )
+      }
+
+      val total = rows.map(_._2).sum
+
+      val peakOpt = parsed.sortBy(-_._2).headOption.map { case (ldt, cnt) =>
+        Json.obj(
+          "hourIso" -> ldt.toString,
+          "dateIso" -> ldt.toLocalDate.toString,
+          "dateLabel" -> ldt.toLocalDate.atStartOfDay().format(outDateFmt),
+          "dayPart" -> dayPart(ldt.getHour),
+          "count" -> cnt
+        )
+      }
+
+      Ok(
+        Json.obj(
+          "start" -> start.toString,
+          "end" -> end.toString,
+          "totalEvents" -> total,
+          "peakHour" -> peakOpt,
+          "days" -> days
+        )
+      )
     }
   }
 }

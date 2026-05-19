@@ -18,16 +18,6 @@ class NotificationService @Inject() (
 
   import NotificationService._
 
-  /**
-    * Parse inbound RabbitMQ payload and persist notification.
-    *
-    * Failure cases:
-    * - Invalid JSON
-    * - DB insert failure
-    * - Constraint violations
-    *
-    * Caller should ACK only after this succeeds.
-    */
   def recordPublishedFromPayload(
       payload: String
   ): Future[NotificationRow] = {
@@ -116,9 +106,6 @@ class NotificationService @Inject() (
     }
   }
 
-  /**
-    * Manual creation API.
-    */
   def create(
       notificationId: String,
       userId: String,
@@ -175,9 +162,6 @@ class NotificationService @Inject() (
       }
   }
 
-  /**
-    * List notifications with filters.
-    */
   def list(
       userIdOpt: Option[String],
       statusOpt: Option[String],
@@ -206,9 +190,6 @@ class NotificationService @Inject() (
     )
   }
 
-  /**
-    * Get notification by DB id.
-    */
   def get(
       id: Long
   ): Future[Option[NotificationRow]] = {
@@ -220,9 +201,6 @@ class NotificationService @Inject() (
     repo.findById(id)
   }
 
-  /**
-    * Update notification status.
-    */
   def updateStatus(
       id: Long,
       newStatus: String
@@ -306,9 +284,6 @@ object NotificationService {
       )
   }
 
-  /**
-    * Normalize incoming status values.
-    */
   def normalizeStatus(
       raw: String
   ): Option[String] = {
@@ -324,10 +299,6 @@ object NotificationService {
       None
   }
 
-  /**
-    * Parse ISO-8601 timestamp.
-    * Fallback to Instant.now() if invalid.
-    */
   def parseInstantOrNow(
       raw: String
   ): Instant = {

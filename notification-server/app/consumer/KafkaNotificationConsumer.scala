@@ -40,9 +40,6 @@ class KafkaNotificationConsumer @Inject() (
 
   logger.info("KafkaNotificationConsumer starting")
 
-  // ============================================================
-  // Kafka Configuration
-  // ============================================================
 
   private val kafka =
     config.get[Configuration]("kafka")
@@ -84,9 +81,6 @@ class KafkaNotificationConsumer @Inject() (
       )
       .getOrElse(batchSize)
 
-  // ============================================================
-  // Advanced Kafka Config
-  // ============================================================
 
   private val fetchMaxBytes =
     kafka.get[Int]("fetchMaxBytes")
@@ -121,16 +115,10 @@ class KafkaNotificationConsumer @Inject() (
       "maxPollIntervalMs"
     )
 
-  // ============================================================
-  // Running State
-  // ============================================================
 
   private val running =
     new AtomicBoolean(true)
 
-  // ============================================================
-  // Kafka Consumer Properties
-  // ============================================================
 
   private val props =
     new Properties()
@@ -205,18 +193,12 @@ class KafkaNotificationConsumer @Inject() (
     maxPollIntervalMs.toString
   )
 
-  // ============================================================
-  // Kafka Consumer
-  // ============================================================
 
   private val consumer =
     new KafkaConsumer[String, String](
       props
     )
 
-  // ============================================================
-  // Rebalance Listener
-  // ============================================================
 
   private val rebalanceListener =
     new ConsumerRebalanceListener {
@@ -251,9 +233,6 @@ class KafkaNotificationConsumer @Inject() (
     rebalanceListener
   )
 
-  // ============================================================
-  // Consumer Thread
-  // ============================================================
 
   private val thread =
     new Thread(
@@ -265,9 +244,6 @@ class KafkaNotificationConsumer @Inject() (
 
   thread.start()
 
-  // ============================================================
-  // Consume Loop
-  // ============================================================
 
   private def consumeLoop(): Unit = {
 
@@ -386,9 +362,6 @@ class KafkaNotificationConsumer @Inject() (
     }
   }
 
-  // ============================================================
-  // Graceful Shutdown Hook
-  // ============================================================
 
   lifecycle.addStopHook { () =>
     logger.info(

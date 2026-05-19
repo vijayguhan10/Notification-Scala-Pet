@@ -34,9 +34,6 @@ class KafkaDbConsumer @Inject() (
   logger.info("KafkaDbConsumer starting")
   println("[kafka-db-consumer] starting")
 
-  // ============================================================
-  // Kafka Configuration
-  // ============================================================
 
   private val kafka =
     config.get[Configuration]("kafka")
@@ -64,9 +61,6 @@ class KafkaDbConsumer @Inject() (
       .getOptional[Int]("maxPollRecords")
       .getOrElse(batchSize)
 
-  // ============================================================
-  // Advanced Kafka Config
-  // ============================================================
 
   private val fetchMaxBytes =
     kafka.get[Int]("fetchMaxBytes")
@@ -89,16 +83,10 @@ class KafkaDbConsumer @Inject() (
   private val maxPollIntervalMs =
     kafka.get[Int]("maxPollIntervalMs")
 
-  // ============================================================
-  // Running State
-  // ============================================================
 
   private val running =
     new AtomicBoolean(true)
 
-  // ============================================================
-  // Kafka Consumer Properties
-  // ============================================================
 
   private val props =
     new Properties()
@@ -173,16 +161,10 @@ class KafkaDbConsumer @Inject() (
     maxPollIntervalMs.toString
   )
 
-  // ============================================================
-  // Kafka Consumer
-  // ============================================================
 
   private val consumer =
     new KafkaConsumer[String, String](props)
 
-  // ============================================================
-  // Rebalance Listener
-  // ============================================================
 
   private val rebalanceListener =
     new ConsumerRebalanceListener {
@@ -191,9 +173,6 @@ class KafkaDbConsumer @Inject() (
           partitions: java.util.Collection[TopicPartition]
       ): Unit = {
 
-        // println(
-        //   s"[kafka-db-consumer] partitions assigned = ${partitions.asScala.mkString(", ")}"
-        // )
 
         logger.info(
           s"Partitions assigned: ${partitions.asScala.mkString(", ")}"
@@ -204,9 +183,6 @@ class KafkaDbConsumer @Inject() (
           partitions: java.util.Collection[TopicPartition]
       ): Unit = {
 
-        // println(
-        //   s"[kafka-db-consumer] partitions revoked = ${partitions.asScala.mkString(", ")}"
-        // )
 
         logger.warn(
           s"Partitions revoked: ${partitions.asScala.mkString(", ")}"
@@ -221,9 +197,6 @@ class KafkaDbConsumer @Inject() (
     rebalanceListener
   )
 
-  // ============================================================
-  // Consumer Thread
-  // ============================================================
 
   private val thread =
     new Thread(
@@ -231,16 +204,11 @@ class KafkaDbConsumer @Inject() (
       "kafka-db-consumer"
     )
 
-  // IMPORTANT:
-  // non-daemon thread is safer for Kafka consumers
 
   thread.setDaemon(false)
 
   thread.start()
 
-  // ============================================================
-  // Consume Loop
-  // ============================================================
 
   private def consumeLoop(): Unit = {
 
@@ -250,9 +218,6 @@ class KafkaDbConsumer @Inject() (
 
         try {
 
-          // ====================================================
-          // Poll Kafka
-          // ====================================================
 
           val records =
             consumer.poll(
@@ -264,9 +229,6 @@ class KafkaDbConsumer @Inject() (
           val batch =
             records.asScala.toList
 
-          // ====================================================
-          // Debug Consumer State
-          // ====================================================
 
           val assignments =
             consumer.assignment().asScala.toList
@@ -276,37 +238,15 @@ class KafkaDbConsumer @Inject() (
               s"$partition -> ${consumer.position(partition)}"
             }
 
-          // println(
-          //   s"""
-          //      |====================================================
-          //      |[kafka-db-consumer]
-          //      |polledRecords=${batch.size}
-          //      |assignments=$assignments
-          //      |positions=$positions
-          //      |====================================================
-          //      |""".stripMargin
-          // )
 
-          // ====================================================
-          // Empty Poll
-          // ====================================================
 
           if (batch.isEmpty) {
-            // println(
-            //   "[kafka-db-consumer] no records polled"
-            // )
           }
 
-          // ====================================================
-          // Process Batch
-          // ====================================================
 
           if (batch.nonEmpty) {
 
             batch.take(5).foreach { record =>
-              // println(
-              //   s"[kafka-db-consumer] received=${record.value()}"
-              // )
             }
 
             val rows =
@@ -349,14 +289,9 @@ class KafkaDbConsumer @Inject() (
                 }
               }
 
-            // ==================================================
-            // DB INSERT
-            // ==================================================
 
             try {
 
-              // notifications are now handled by the RabbitMQ dispatcher
-              // (do not send emails here)
 
               val start =
                 System.currentTimeMillis()
@@ -369,51 +304,22 @@ class KafkaDbConsumer @Inject() (
               val elapsed =
                 System.currentTimeMillis() - start
 
-              // println(
-              //   s"""
-              //      |====================================================
-              //      |DB INSERT SUCCESS
-              //      |batchSize=${rows.size}
-              //      |insertTimeMs=$elapsed
-              //      |====================================================
-              //      |""".stripMargin
-              // )
 
               logger.info(
                 s"DB inserted batchSize=${rows.size}"
               )
 
-              // ================================================
-              // Manual Offset Commit
-              // ================================================
 
               if (!enableAutoCommit) {
 
                 consumer.commitSync()
 
-                // println(
-                //   s"""
-                //      |====================================================
-                //      |OFFSET COMMIT SUCCESS
-                //      |committedBatchSize=${rows.size}
-                //      |====================================================
-                //      |""".stripMargin
-                // )
               }
 
             } catch {
 
               case ex: Throwable =>
 
-                // println(
-                //   s"""
-                //      |====================================================
-                //      |DB INSERT FAILED
-                //      |batchSize=${rows.size}
-                //      |error=${ex.getMessage}
-                //      |====================================================
-                //      |""".stripMargin
-                // )
 
                 ex.printStackTrace()
 
@@ -426,9 +332,6 @@ class KafkaDbConsumer @Inject() (
 
         } catch {
 
-          // ====================================================
-          // Graceful Shutdown
-          // ====================================================
 
           case _: WakeupException if !running.get() =>
 
@@ -436,9 +339,6 @@ class KafkaDbConsumer @Inject() (
               "[kafka-db-consumer] wakeup received, shutting down"
             )
 
-          // ====================================================
-          // Kafka Poll Failure
-          // ====================================================
 
           case ex: Throwable =>
 
@@ -458,16 +358,12 @@ class KafkaDbConsumer @Inject() (
               ex
             )
 
-            // Prevent tight infinite error loop
             Thread.sleep(2000)
         }
       }
 
     } finally {
 
-      // ========================================================
-      // Cleanup
-      // ========================================================
 
       println(
         "[kafka-db-consumer] closing kafka consumer"
@@ -486,9 +382,6 @@ class KafkaDbConsumer @Inject() (
     }
   }
 
-  // ============================================================
-  // Graceful Shutdown Hook
-  // ============================================================
 
   lifecycle.addStopHook { () =>
     println(
@@ -497,7 +390,6 @@ class KafkaDbConsumer @Inject() (
 
     running.set(false)
 
-    // Safe cross-thread interruption
     consumer.wakeup()
 
     Future {

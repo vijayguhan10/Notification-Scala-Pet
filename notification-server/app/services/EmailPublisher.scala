@@ -13,16 +13,11 @@ object EmailPublisher extends Logging {
 
   private val Username = "vijayguhan10@gmail.com"
 
-  // Google App Password
-    // private val Password = "vihg qlmm ghxm bnyf"
 
   private val Password = "vhg qlmm ghxm bnyf"
 
   private val Recipient = "vijayguhan10@gmail.com"
 
-  // ============================================================
-  // USER ACTIVITY EMAIL
-  // ============================================================
 
   def sendEventEmail(event: UserActivityEvent): Unit = {
 
@@ -184,9 +179,6 @@ object EmailPublisher extends Logging {
     sendHtmlEmail(subject, html, event.userId)
   }
 
-  // ============================================================
-  // NOTIFICATION EMAIL
-  // ============================================================
 
   def sendNotificationEmail(notif: NotificationMessage): Unit = {
 
@@ -369,9 +361,6 @@ object EmailPublisher extends Logging {
     sendHtmlEmail(subject, html, notif.userId)
   }
 
-  // ============================================================
-  // COMMON SMTP SEND LOGIC
-  // ============================================================
 
   private def sendHtmlEmail(
       subject: String,
@@ -408,7 +397,6 @@ object EmailPublisher extends Logging {
 
     message.setContent(html, "text/html; charset=utf-8")
 
-    // Let Transport.send throw on failure so callers can handle DLQ behavior.
     Transport.send(message)
 
     logger.info(s"EmailPublisher: email successfully sent for user $userId")

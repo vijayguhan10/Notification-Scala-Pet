@@ -5,8 +5,6 @@ import javax.inject.Singleton
 @Singleton
 class NotificationDelayPolicy {
 
-  // Delay is computed from intent score category.
-  // Higher intent -> lower delay.
   def delayMs(intentCategory: String): Long = {
     intentCategory match {
       case "low"       => 10L * 60L * 1000L

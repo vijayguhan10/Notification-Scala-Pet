@@ -8,13 +8,11 @@ import java.io.File
 
 import javax.inject._
 
-// Module to register FlywayRunner
 class DatabaseModule
     extends SimpleModule(
       bind[FlywayRunner].toSelf.eagerly() // run on startup
     )
 
-// Runner class
 @Singleton
 class FlywayRunner @Inject() (
     config: Configuration,
@@ -75,7 +73,6 @@ class FlywayRunner @Inject() (
         .dataSource(dbUrl, dbUser, dbPassword)
         .locations(resolvedLocations: _*)
 
-    // Flyway disables clean by default; only enable if explicitly requested.
     if (cleanOnStart && environment.mode == Mode.Dev) base.cleanDisabled(false)
     else base
   }

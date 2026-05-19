@@ -58,9 +58,6 @@ class EventStreamController @Inject() (
     }
   }
 
-  /** WebSocket endpoint: connecting starts publishing; disconnect stops. Send
-    * "stop" to terminate from the client side.
-    */
   def ws() = WebSocket.accept[String, String] { request =>
     val running = new AtomicBoolean(true)
 

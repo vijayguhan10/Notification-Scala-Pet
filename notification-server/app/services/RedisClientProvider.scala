@@ -34,24 +34,16 @@ class RedisClientProvider @Inject() (
     Future.successful(())
   }
 
-  /** Borrows a Jedis connection from the pool, switches to the configured Redis
-    * database (if not default DB 0), executes the given operation, and safely
-    * returns the connection back to the pool.
-    *
-    * Usage: withJedis { jedis => jedis.set("key", "value") }
-    */
   def withJedis[A](f: Jedis => A): A = {
     val jedis = pool.getResource
 
     try {
-      // Redis connections start in DB 0 by default
       if (redisConfig.database != 0) {
         jedis.select(redisConfig.database)
       }
 
       f(jedis)
     } finally {
-      // In pooled mode, close() returns connection to pool
       try jedis.close()
       catch { case _: Throwable => () }
     }

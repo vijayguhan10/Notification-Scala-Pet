@@ -21,11 +21,9 @@ class RedisConfig @Inject() (
   val database: Int =
     redis.getOptional[Int]("database").getOrElse(0)
 
-  // Store the raw behavioral state snapshot
   val stateTtlSeconds: Int =
     redis.getOptional[Int]("stateTtlSeconds").getOrElse(86400)
 
-  // Store intent bits + score
   val intentTtlSeconds: Int =
     redis.getOptional[Int]("intentTtlSeconds").getOrElse(86400)
 }

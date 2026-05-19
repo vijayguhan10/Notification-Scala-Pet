@@ -12,6 +12,9 @@ POST    /api/events/stop/:streamId   controllers.EventStreamController.stop(stre
 GET     /api/events/status/:streamId controllers.EventStreamController.status(streamId: String)
 GET     /api/events/ws               controllers.EventStreamController.ws()
 
+# Traffic analytics (historical)
+GET     /api/analytics/traffic       controllers.EventStreamController.trafficAnalytics()
+
 # Notifications
 GET     /api/notifications                   controllers.NotificationController.list()
 GET     /api/notifications/:id               controllers.NotificationController.get(id: Long)

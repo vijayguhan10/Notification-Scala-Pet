@@ -11,11 +11,18 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
+import scala.concurrent.Future
+import java.time.{Instant, Duration => JDuration, LocalDateTime}
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import repositories.UserActivityEventRepository
+import play.api.libs.json.JsObject
 
 @Singleton
 class EventStreamController @Inject() (
     val controllerComponents: ControllerComponents,
-    manager: EventStreamManager
+    manager: EventStreamManager,
+    userRepo: UserActivityEventRepository
 )(implicit ec: ExecutionContext, mat: Materializer)
     extends BaseController {
 
@@ -103,6 +110,62 @@ class EventStreamController @Inject() (
           running.set(false)
           manager.stop(session.streamId)
         }
+    }
+  }
+
+  /** Traffic analytics endpoint: returns event counts grouped by hour for the
+    * given time range (query params: `start` and `end` as ISO instants). If not
+    * provided, defaults to last 24 hours.
+    */
+  def trafficAnalytics() = Action.async { implicit request =>
+    val qs = request.queryString
+    val now = Instant.now()
+    val start = request
+      .getQueryString("start")
+      .flatMap(s => scala.util.Try(Instant.parse(s)).toOption)
+      .getOrElse(now.minus(1, ChronoUnit.DAYS))
+    val end = request
+      .getQueryString("end")
+      .flatMap(s => scala.util.Try(Instant.parse(s)).toOption)
+      .getOrElse(now)
+
+    userRepo.countByHour(start, end).map { rows =>
+      // rows: Seq[(hourIsoString, count)] where hourIsoString is like 2026-05-19T03:00:00
+      val parseFmt = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+      val outFmt = DateTimeFormatter.ofPattern("MMM d, EEEE h:mm a")
+
+      def dayPart(hourOfDay: Int): String =
+        if (hourOfDay >= 5 && hourOfDay < 12) "Morning"
+        else if (hourOfDay >= 12 && hourOfDay < 17) "Afternoon"
+        else if (hourOfDay >= 17 && hourOfDay < 21) "Evening"
+        else "Night"
+
+      val enriched = rows.map { case (hourIso, cnt) =>
+        val ldt = try LocalDateTime.parse(hourIso, parseFmt) catch { case _: Throwable => LocalDateTime.ofInstant(Instant.now(), java.time.ZoneOffset.UTC) }
+        val label = ldt.format(outFmt)
+        Json.obj(
+          "hourIso" -> hourIso,
+          "label" -> label,
+          "dayPart" -> dayPart(ldt.getHour),
+          "count" -> cnt
+        )
+      }
+
+      val total = rows.map(_._2).sum
+      val avg = if (rows.nonEmpty) total.toDouble / rows.size else 0.0
+
+      val peak = enriched.headOption
+
+      Ok(
+        Json.obj(
+          "start" -> start.toString,
+          "end" -> end.toString,
+          "totalEvents" -> total,
+          "averagePerHour" -> BigDecimal(avg).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble,
+          "peakHour" -> peak,
+          "hours" -> enriched
+        )
+      )
     }
   }
 }

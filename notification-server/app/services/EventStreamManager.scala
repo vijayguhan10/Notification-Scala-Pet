@@ -4,10 +4,11 @@ import akka.actor.{ActorSystem, Cancellable}
 import play.api.{Configuration, Logging}
 import play.api.libs.json.Json
 
-import java.time.Instant
+import java.time.{Instant, ZoneOffset}
+import java.time.format.DateTimeFormatter
 import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicLong
+import scala.jdk.CollectionConverters._
+import scala.collection.mutable
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
@@ -31,7 +32,8 @@ class EventStreamManager @Inject() (
     actorSystem: ActorSystem,
     config: Configuration,
     generator: EventGenerator,
-    kafka: KafkaPublisher
+    kafka: KafkaPublisher,
+    redis: RedisClientProvider
 )(implicit ec: ExecutionContext)
     extends Logging {
 
@@ -41,11 +43,16 @@ class EventStreamManager @Inject() (
       startedAt: Instant,
       ratePerSecond: Int,
       batchEveryMillis: Int,
-      published: AtomicLong,
       cancellable: Cancellable
   )
 
-  private val sessions = new ConcurrentHashMap[String, Session]()
+  // Keep minimal in-memory control data (cancellable) only. All analytics
+  // counters and metadata are stored in Redis so that websockets and other
+  // processes can read them in real time.
+  private val sessions = mutable.Map.empty[String, Session]
+
+  private val hourFormatter =
+    DateTimeFormatter.ofPattern("yyyyMMddHH").withZone(ZoneOffset.UTC)
 
   private val defaultTopic = config.get[String]("kafka.topic")
   private val defaultRatePerSecond =
@@ -65,7 +72,6 @@ class EventStreamManager @Inject() (
     val batchEveryMillis =
       batchEveryMillisOpt.getOrElse(defaultBatchEveryMillis)
 
-    val published = new AtomicLong(0L)
     val startedAt = Instant.now()
 
     val batchSize = math.max(
@@ -85,7 +91,22 @@ class EventStreamManager @Inject() (
           val event = generator.generate()
           val payload = Json.toJson(event).toString()
           kafka.publish(topic, event.userId, payload)
-          published.incrementAndGet()
+
+          // Update analytics counters in Redis: per-stream, per-topic total,
+          // and per-topic-per-hour. These are lightweight increments that
+          // external viewers (websockets) can read.
+          try {
+            redis.withJedis { jedis =>
+              jedis.incr(s"stream:published:$streamId")
+              jedis.incr(s"topic:total:$topic")
+              val hourKey = hourFormatter.format(Instant.now())
+              jedis.incr(s"topic:hour:$topic:$hourKey")
+            }
+          } catch {
+            case t: Throwable =>
+              logger.warn("Failed updating Redis analytics", t)
+          }
+
           i += 1
         }
       } catch {
@@ -100,11 +121,30 @@ class EventStreamManager @Inject() (
       startedAt = startedAt,
       ratePerSecond = ratePerSecond,
       batchEveryMillis = batchEveryMillis,
-      published = published,
       cancellable = cancellable
     )
 
-    sessions.put(streamId, session)
+    sessions.synchronized { sessions.put(streamId, session) }
+
+    // Persist session metadata and initialize counters in Redis
+    try {
+      redis.withJedis { jedis =>
+        val metaKey = s"stream:meta:$streamId"
+        jedis.hset(
+          metaKey,
+          Map(
+            "topic" -> topic,
+            "ratePerSecond" -> ratePerSecond.toString,
+            "batchEveryMillis" -> batchEveryMillis.toString,
+            "startedAt" -> startedAt.toString
+          ).asJava
+        )
+        jedis.set(s"stream:published:$streamId", "0")
+      }
+    } catch {
+      case t: Throwable =>
+        logger.warn("Failed writing stream metadata to Redis", t)
+    }
 
     StreamSessionStatus(
       streamId = streamId,
@@ -118,10 +158,10 @@ class EventStreamManager @Inject() (
   }
 
   def stop(streamId: String): Boolean = {
-    val removed = sessions.remove(streamId)
-    if (removed == null) return false
+    val removedOpt = sessions.synchronized { sessions.remove(streamId) }
+    if (removedOpt.isEmpty) return false
 
-    try removed.cancellable.cancel()
+    try removedOpt.get.cancellable.cancel()
     catch {
       case t: Throwable =>
         logger.warn(s"Failed cancelling streamId=$streamId", t)
@@ -131,20 +171,45 @@ class EventStreamManager @Inject() (
   }
 
   def status(streamId: String): Option[StreamSessionStatus] = {
-    val s = sessions.get(streamId)
-    if (s == null) None
-    else {
-      Some(
-        StreamSessionStatus(
-          streamId = s.streamId,
-          topic = s.topic,
-          startedAt = s.startedAt.toString,
-          ratePerSecond = s.ratePerSecond,
-          batchEveryMillis = s.batchEveryMillis,
-          published = s.published.get(),
-          running = true
-        )
-      )
+    // Read metadata and counters from Redis when available; fall back to
+    // in-memory session for configuration data.
+    try {
+      redis.withJedis { jedis =>
+        val metaKey = s"stream:meta:$streamId"
+        val meta = Option(jedis.hgetAll(metaKey)).filter(_.size() > 0)
+        val published = Option(jedis.get(s"stream:published:$streamId"))
+          .flatMap(s => scala.util.Try(s.toLong).toOption)
+          .getOrElse(0L)
+
+        meta.map { m =>
+          StreamSessionStatus(
+            streamId = streamId,
+            topic = m.getOrDefault("topic", ""),
+            startedAt = m.getOrDefault("startedAt", ""),
+            ratePerSecond = m.getOrDefault("ratePerSecond", "0").toInt,
+            batchEveryMillis = m.getOrDefault("batchEveryMillis", "0").toInt,
+            published = published,
+            running = sessions.synchronized { sessions.contains(streamId) }
+          )
+        }
+      }
+    } catch {
+      case t: Throwable =>
+        logger.warn("Failed reading stream status from Redis", t)
+        // Fallback: check in-memory session
+        sessions.synchronized {
+          sessions.get(streamId).map { s =>
+            StreamSessionStatus(
+              streamId = s.streamId,
+              topic = s.topic,
+              startedAt = s.startedAt.toString,
+              ratePerSecond = s.ratePerSecond,
+              batchEveryMillis = s.batchEveryMillis,
+              published = 0L,
+              running = true
+            )
+          }
+        }
     }
   }
 }

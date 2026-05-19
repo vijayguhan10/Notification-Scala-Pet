@@ -18,7 +18,6 @@ GET     /api/analytics/traffic       controllers.EventStreamController.trafficAn
 # Notifications
 GET     /api/notifications                   controllers.NotificationController.list()
 GET     /api/notifications/:id               controllers.NotificationController.get(id: Long)
-POST    /api/notifications                   controllers.NotificationController.create()
 PUT     /api/notifications/:id/status        controllers.NotificationController.updateStatus(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

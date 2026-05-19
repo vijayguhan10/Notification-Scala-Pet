@@ -131,8 +131,6 @@ class EventStreamController @Inject() (
 
     userRepo.countByHour(start, end).map { rows =>
       // rows: Seq[(hourIsoString, count)] where hourIsoString is like 2026-05-19T03:00:00
-      val parseFmt = DateTimeFormatter.ISO_LOCAL_DATE_TIME
-      val outFmt = DateTimeFormatter.ofPattern("MMM d, EEEE h:mm a")
 
       def dayPart(hourOfDay: Int): String =
         if (hourOfDay >= 5 && hourOfDay < 12) "Morning"
@@ -140,30 +138,59 @@ class EventStreamController @Inject() (
         else if (hourOfDay >= 17 && hourOfDay < 21) "Evening"
         else "Night"
 
-      val enriched = rows.map { case (hourIso, cnt) =>
-        val ldt = try LocalDateTime.parse(hourIso, parseFmt) catch { case _: Throwable => LocalDateTime.ofInstant(Instant.now(), java.time.ZoneOffset.UTC) }
-        val label = ldt.format(outFmt)
+      // Group rows by date and produce a days array where each day contains
+      // the date, a label, and the list of hours for that day.
+      val parseFmt = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+      val outHourFmt = DateTimeFormatter.ofPattern("h:mm a")
+      val outDateFmt = DateTimeFormatter.ofPattern("MMM d, yyyy (EEEE)")
+
+      val parsed: Seq[(LocalDateTime, Int)] = rows.map { case (hourIso, cnt) =>
+        val ldt =
+          try LocalDateTime.parse(hourIso, parseFmt)
+          catch {
+            case _: Throwable =>
+              LocalDateTime.ofInstant(Instant.now(), java.time.ZoneOffset.UTC)
+          }
+        (ldt, cnt)
+      }
+
+      val grouped = parsed.groupBy { case (ldt, _) => ldt.toLocalDate }
+
+      val days = grouped.toSeq.sortBy(_._1).map { case (date, entries) =>
+        val hours = entries.sortBy(_._1.getHour).map { case (ldt, cnt) =>
+          Json.obj(
+            "hourIso" -> ldt.toString,
+            "label" -> ldt.format(outHourFmt),
+            "dayPart" -> dayPart(ldt.getHour),
+            "count" -> cnt
+          )
+        }
         Json.obj(
-          "hourIso" -> hourIso,
-          "label" -> label,
-          "dayPart" -> dayPart(ldt.getHour),
-          "count" -> cnt
+          "dateIso" -> date.toString,
+          "dateLabel" -> date.atStartOfDay().format(outDateFmt),
+          "hours" -> hours
         )
       }
 
       val total = rows.map(_._2).sum
-      val avg = if (rows.nonEmpty) total.toDouble / rows.size else 0.0
 
-      val peak = enriched.headOption
+      val peakOpt = parsed.sortBy(-_._2).headOption.map { case (ldt, cnt) =>
+        Json.obj(
+          "hourIso" -> ldt.toString,
+          "dateIso" -> ldt.toLocalDate.toString,
+          "dateLabel" -> ldt.toLocalDate.atStartOfDay().format(outDateFmt),
+          "dayPart" -> dayPart(ldt.getHour),
+          "count" -> cnt
+        )
+      }
 
       Ok(
         Json.obj(
           "start" -> start.toString,
           "end" -> end.toString,
           "totalEvents" -> total,
-          "averagePerHour" -> BigDecimal(avg).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble,
-          "peakHour" -> peak,
-          "hours" -> enriched
+          "peakHour" -> peakOpt,
+          "days" -> days
         )
       )
     }

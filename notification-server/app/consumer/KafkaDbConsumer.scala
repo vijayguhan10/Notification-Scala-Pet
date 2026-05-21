@@ -221,13 +221,7 @@ class KafkaDbConsumer @Inject() (
           val batch =
             records.asScala.toList
 
-          val assignments =
-            consumer.assignment().asScala.toList
-
-          val positions =
-            assignments.map { partition =>
-              s"$partition -> ${consumer.position(partition)}"
-            }
+          
 
           if (batch.isEmpty) {}
 

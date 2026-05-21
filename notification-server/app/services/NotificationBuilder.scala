@@ -36,8 +36,9 @@ class NotificationBuilder {
       event: UserActivityEvent
   ): String = {
 
+    
     score match {
-
+     
       case s if s >= 0 && s < 30 =>
         s"Parking spaces available near ${event.location}. Park anytime."
 

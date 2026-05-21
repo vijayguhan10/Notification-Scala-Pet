@@ -371,8 +371,7 @@ class KafkaNotificationConsumer @Inject() (
 
     Future {
 
-      // Graceful shutdown: bounded join to wait for consumer thread
-      // completion without blocking the shutdown indefinitely.
+    
       blocking {
 
         thread.join(5000)
@@ -386,3 +385,9 @@ class KafkaNotificationConsumer @Inject() (
     }
   }
 }
+
+
+// When the Play application starts (like via sbt run),
+// this addStopHook callback gets registered inside Play's
+// ApplicationLifecycle manager, which itself is connected
+// to JVM shutdown handling internally.

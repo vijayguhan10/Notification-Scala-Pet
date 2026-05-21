@@ -15,7 +15,7 @@
                          ┌────────────────────────────────┐
                          │             Kafka              │
                          │────────────────────────────────│
-                         │ Broker-1                      │
+                         │ Broker-1                       │
                          │                                │
                          │ Topic: user-events             │
                          │ ┌────────────────────────────┐ │
@@ -36,7 +36,7 @@
         ┌──────────────────────────┐          ┌──────────────────────────┐
         │ Consumer Group - A       │          │ Consumer Group - B       │
         │--------------------------│          │--------------------------│
-        │ Event Log Consumer       │          │ Intent Score Consumer    │
+        │ Event Log Consumer       │          │ Intent Score Consumer-DB │
         └─────────────┬────────────┘          └─────────────┬────────────┘
                       │                                     │
                       │ Batch Processing                    │ Real-Time Processing

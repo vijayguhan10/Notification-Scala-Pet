@@ -1,6 +1,5 @@
 # Redis Internal Processing Architecture
 
-
                               ┌──────────────────────┐
                               │    Kafka Consumer    │
                               │----------------------│
@@ -47,7 +46,7 @@
  └──────────┬──────────┘   │ Real-Time Insights  │   └─────────────────────┘
             │              └─────────────────────┘
             │
-            ▼
+            ▼  
 
  ┌──────────────────────────────────────┐
  │ Notification Builder Service         │

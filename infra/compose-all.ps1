@@ -26,7 +26,7 @@ function Show-Usage {
     Write-Host "  .\compose-all.ps1 up"
     Write-Host "  .\compose-all.ps1 down"
     Write-Host "`nNotes:"
-    Write-Host "  - Runs docker compose in: infra\kafka, infra\rabbitmq, infra\redis"
+    Write-Host "  - Runs docker compose in: infra\kafka, infra\rabbitmq, infra\redis, infra\postgres"
     exit 2
 }
 
@@ -71,7 +71,7 @@ switch -Exact ($Cmd.ToLower()) {
     "up" {
         Write-Host "Starting infrastructure services..." -ForegroundColor Green
         
-        $Services = @("kafka", "rabbitmq", "redis")
+        $Services = @("kafka", "rabbitmq", "redis", "postgres")
         foreach ($Service in $Services) {
             $Ec = Invoke-Compose -ServiceDir $Service -Action "up" -AdditionalArgs $ExtraArgs
             if ($Ec -ne 0) { exit $Ec }
@@ -81,8 +81,8 @@ switch -Exact ($Cmd.ToLower()) {
     "down" {
         Write-Host "Stopping infrastructure services..." -ForegroundColor Yellow
         
-        # Stops in reverse order: redis, rabbitmq, kafka
-        $Services = @("redis", "rabbitmq", "kafka")
+        # Stops in reverse order: postgres, redis, rabbitmq, kafka
+        $Services = @("postgres", "redis", "rabbitmq", "kafka")
         foreach ($Service in $Services) {
             Invoke-Compose -ServiceDir $Service -Action "down" -AdditionalArgs $ExtraArgs
         }

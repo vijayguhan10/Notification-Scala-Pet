@@ -1,560 +1,318 @@
-@()
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Notification Server Dashboard</title>
-
-    <link
-      rel="stylesheet"
-      media="screen"
-      href='@routes.Assets.versioned("stylesheets/main.css")'
-    />
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: #0f172a;
-        color: #e2e8f0;
-        min-height: 100vh;
-      }
-
-      .background-glow {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-        z-index: -1;
-      }
-
-      .background-glow::before,
-      .background-glow::after {
-        content: "";
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        filter: blur(120px);
-        opacity: 0.18;
-      }
-
-      .background-glow::before {
-        background: #3b82f6;
-        top: -120px;
-        left: -120px;
-      }
-
-      .background-glow::after {
-        background: #8b5cf6;
-        bottom: -120px;
-        right: -120px;
-      }
-
-      .container {
-        width: 100%;
-        max-width: 1400px;
-        margin: auto;
-        padding: 40px 24px 80px;
-      }
-
-      .hero {
-        margin-bottom: 36px;
-      }
-
-      .hero h1 {
-        font-size: 42px;
-        font-weight: 800;
-        letter-spacing: -1px;
-        margin-bottom: 10px;
-      }
-
-      .hero p {
-        color: #94a3b8;
-        font-size: 16px;
-      }
-
-      .dashboard-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-        gap: 24px;
-      }
-
-      .card {
-        background: rgba(15, 23, 42, 0.85);
-        border: 1px solid rgba(148, 163, 184, 0.15);
-        border-radius: 24px;
-        padding: 28px;
-        backdrop-filter: blur(12px);
-        box-shadow:
-          0 10px 30px rgba(0, 0, 0, 0.35),
-          inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      }
-
-      .card h2 {
-        font-size: 20px;
-        margin-bottom: 8px;
-      }
-
-      .card-subtitle {
-        color: #94a3b8;
-        font-size: 14px;
-        margin-bottom: 24px;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .input-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .input-group label {
-        font-size: 14px;
-        color: #cbd5e1;
-        font-weight: 500;
-      }
-
-      input,
-      textarea,
-      select {
-        width: 100%;
-        border: 1px solid rgba(148, 163, 184, 0.18);
-        background: rgba(15, 23, 42, 0.9);
-        color: #f8fafc;
-        border-radius: 14px;
-        padding: 14px 16px;
-        font-size: 15px;
-        outline: none;
-        transition: 0.2s ease;
-      }
-
-      input:focus,
-      textarea:focus,
-      select:focus {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-      }
-
-      textarea {
-        min-height: 110px;
-        resize: vertical;
-      }
-
-      .button-row {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-
-      button {
-        border: none;
-        outline: none;
-        padding: 13px 20px;
-        border-radius: 14px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.2s ease;
-      }
-
-      .primary-btn {
-        background: linear-gradient(135deg, #2563eb, #7c3aed);
-        color: white;
-      }
-
-      .primary-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(59, 130, 246, 0.25);
-      }
-
-      .secondary-btn {
-        background: rgba(148, 163, 184, 0.12);
-        color: #e2e8f0;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-      }
-
-      .secondary-btn:hover {
-        background: rgba(148, 163, 184, 0.18);
-      }
-
-      .danger-btn {
-        background: linear-gradient(135deg, #dc2626, #ef4444);
-        color: white;
-      }
-
-      .danger-btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .log-container {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .log-box {
-        background: #020617;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-        border-radius: 18px;
-        padding: 18px;
-        height: 260px;
-        max-height: 260px;
-        overflow-y: auto;
-      }
-
-      pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        font-size: 13px;
-        line-height: 1.6;
-        color: #cbd5e1;
-      }
-
-      .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        background: rgba(34, 197, 94, 0.12);
-        color: #4ade80;
-        font-size: 13px;
-        font-weight: 600;
-        width: fit-content;
-        margin-bottom: 18px;
-      }
-
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #4ade80;
-        box-shadow: 0 0 12px #4ade80;
-      }
-
-      .full-width {
-        grid-column: 1 / -1;
-      }
-
-      @@media (max-width: 768px) {
-        .dashboard-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .hero h1 {
-          font-size: 32px;
-        }
-
-        .container {
-          padding: 24px 16px 60px;
-        }
-
-        .card {
-          padding: 22px;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="background-glow"></div>
-
-    <main class="container">
-
-      <section class="hero">
-        <h1>Notification Server Dashboard</h1>
-        <p>
-          Real-time event simulation, notification testing, WebSocket monitoring,
-          and stream management.
-        </p>
-      </section>
-
-      <div class="dashboard-grid">
-
-        <!-- CREATE EVENT -->
-        <section class="card">
-          <div class="status-badge">
-            <span class="dot"></span>
-            Event Pipeline Active
-          </div>
-
-          <h2>Create Event</h2>
-          <p class="card-subtitle">
-            Push simulated activity events into Kafka and trigger downstream processing.
-          </p>
-
-          <form id="createEventForm">
-
-            <div class="input-group">
-              <label>User ID</label>
-              <input
-                name="userId"
-                required
-                value="user_123"
-                placeholder="Enter user id"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Location</label>
-              <input
-                name="location"
-                value="City Center"
-                placeholder="User location"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Message Payload</label>
-              <textarea
-                name="message"
-                placeholder='{
-  "event": "USER_ACTIVITY",
-  "intentScore": 87,
-  "category": "HIGH"
-}'
-              ></textarea>
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="primary-btn">
-                Send Event
-              </button>
-            </div>
-
-          </form>
-        </section>
-
-        <!-- STREAM MANAGEMENT -->
-        <section class="card">
-
-          <h2>Stream Management</h2>
-          <p class="card-subtitle">
-            Control stream lifecycle and inspect stream state in real-time.
-          </p>
-
-          <form id="stopStreamForm">
-
-            <div class="input-group">
-              <label>Stream ID</label>
-              <input
-                name="streamId"
-                required
-                value="stream_1"
-              />
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="danger-btn">
-                Stop Stream
-              </button>
-            </div>
-
-          </form>
-
-          <br />
-
-          <form id="statusForm">
-
-            <div class="input-group">
-              <label>Stream ID</label>
-              <input
-                name="streamId"
-                required
-                value="stream_1"
-              />
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="secondary-btn">
-                Get Status
-              </button>
-            </div>
-
-          </form>
-
-        </section>
-
-        <!-- WEBSOCKET -->
-        <section class="card">
-
-          <h2>WebSocket Monitor</h2>
-          <p class="card-subtitle">
-            Listen to live notification delivery events and queue updates.
-          </p>
-
-          <div class="button-row" style="margin-bottom: 18px;">
-            <button id="wsConnect" class="primary-btn">
-              Connect
-            </button>
-
-            <button
-              id="wsDisconnect"
-              class="secondary-btn"
-              disabled
-            >
-              Disconnect
-            </button>
-          </div>
-
-          <div class="log-box">
-            <pre id="wsLog">Waiting for WebSocket connection...</pre>
-          </div>
-
-        </section>
-
-        <!-- NOTIFICATIONS -->
-        <section class="card">
-
-          <h2>Notifications API</h2>
-
-          <p class="card-subtitle">
-            Create, inspect, and update notification delivery state.
-          </p>
-
-          <div class="button-row" style="margin-bottom: 24px;">
-            <button
-              id="listNotifications"
-              class="primary-btn"
-            >
-              List Notifications
-            </button>
-          </div>
-
-          <form id="getNotificationForm">
-
-            <div class="input-group">
-              <label>Notification ID</label>
-              <input
-                name="id"
-                type="number"
-                value="1"
-              />
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="secondary-btn">
-                Get Notification
-              </button>
-            </div>
-
-          </form>
-
-          <br />
-
-          <form id="createNotificationForm">
-
-            <div class="input-group">
-              <label>User ID</label>
-              <input
-                name="userId"
-                value="user_123"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Event Type</label>
-              <input
-                name="eventType"
-                value="INTENT_HIGH"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Message</label>
-              <textarea
-                name="message"
-              >Parking availability updated for your preferred zone.</textarea>
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="primary-btn">
-                Create Notification
-              </button>
-            </div>
-
-          </form>
-
-          <br />
-
-          <form id="updateStatusForm">
-
-            <div class="input-group">
-              <label>Notification ID</label>
-              <input
-                name="id"
-                type="number"
-                value="1"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Status</label>
-              <select name="status">
-                <option value="queued">queued</option>
-                <option value="processing">processing</option>
-                <option value="sent" selected>sent</option>
-                <option value="failed">failed</option>
-              </select>
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="secondary-btn">
-                Update Status
-              </button>
-            </div>
-
-          </form>
-
-        </section>
-
-        <!-- LOGS -->
-        <section class="card full-width">
-
-          <h2>API Responses & Logs</h2>
-
-          <p class="card-subtitle">
-            Centralized visibility into API responses, Kafka events,
-            RabbitMQ pushes, and notification delivery logs.
-          </p>
-
-          <div class="log-container">
-
-            <div class="log-box">
-              <pre id="apiLog">
-System initialized...
-
-[Kafka] Producer connected
-[RabbitMQ] Queue listener active
-[Notification-Service] Awaiting events
-              </pre>
-            </div>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    </main>
-
-    <script
-      src='@routes.Assets.versioned("javascripts/main.js")'
-      type="text/javascript">
-    </script>
-
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metropolis Technologies</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@@300;400;500;600;700&family=Cormorant+Garamond:wght@@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#0a0a0a;
+    --surface:#111111;
+    --text:#f5f5f5;
+    --muted:#9d9d9d;
+    --border:#232323;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px;
+    position:relative;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at top right,
+        rgba(255,255,255,.08),
+        transparent 35%);
+    pointer-events:none;
+}
+
+.logo{
+    width:240px;
+    margin-bottom:60px;
+    filter:brightness(0) invert(1);
+    opacity:.95;
+}
+
+.tag{
+    letter-spacing:6px;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-size:.8rem;
+    margin-bottom:25px;
+}
+
+h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(4rem,8vw,7rem);
+    font-weight:500;
+    line-height:1;
+    margin-bottom:30px;
+}
+
+.hero p{
+    max-width:750px;
+    font-size:1.15rem;
+    color:#cfcfcf;
+    line-height:1.8;
+}
+
+.btn-group{
+    margin-top:50px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:16px 34px;
+    border:1px solid #fff;
+    color:#fff;
+    text-decoration:none;
+    transition:.4s ease;
+    letter-spacing:1px;
+}
+
+.btn:hover{
+    background:#fff;
+    color:#000;
+}
+
+.btn.secondary{
+    border-color:#333;
+    background:#111;
+}
+
+.section{
+    padding:120px 8%;
+}
+
+.section-header{
+    margin-bottom:70px;
+}
+
+.section-header span{
+    color:var(--muted);
+    letter-spacing:3px;
+    text-transform:uppercase;
+    font-size:.8rem;
+}
+
+.section-header h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:4rem;
+    margin-top:15px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:40px;
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#555;
+}
+
+.card h3{
+    font-size:1.3rem;
+    margin-bottom:20px;
+}
+
+.card p{
+    color:#b9b9b9;
+    line-height:1.8;
+}
+
+.statement{
+    padding:140px 10%;
+    text-align:center;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+}
+
+.statement h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3rem,6vw,5rem);
+    max-width:1000px;
+    margin:auto;
+    line-height:1.2;
+}
+
+footer{
+    padding:80px 8%;
+}
+
+.footer-content{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:30px;
+}
+
+.footer-content h4{
+    margin-bottom:10px;
+}
+
+.footer-content p{
+    color:var(--muted);
+}
+
+.line{
+    width:120px;
+    height:1px;
+    background:#fff;
+    margin:35px auto;
+}
+
+@@media(max-width:768px){
+
+    h1{
+        font-size:3.5rem;
+    }
+
+    .section-header h2{
+        font-size:2.8rem;
+    }
+
+    .statement h2{
+        font-size:2.5rem;
+    }
+
+    .footer-content{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+    <img
+        src="https://images.squarespace-cdn.com/content/v1/63f5420164157b677f73c82c/2e4bd485-e7ee-4f14-bea8-f1268e65152b/Metropolis_FullLogo_Black_08302019.png"
+        alt="Metropolis Technologies"
+        class="logo"
+    >
+
+    <div class="tag">
+        Engineering • Innovation • Excellence
+    </div>
+
+    <h1>
+        Building Technology<br>
+        That Endures
+    </h1>
+
+    <div class="line"></div>
+
+    <p>
+        Metropolis Technologies delivers sophisticated engineering
+        solutions, modern digital experiences, and scalable technology
+        platforms designed for organizations that demand precision,
+        reliability, and long-term impact.
+    </p>
+
+    <div class="btn-group">
+        <a href="#" class="btn">Explore</a>
+        <a href="#" class="btn secondary">Contact</a>
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="section-header">
+        <span>Capabilities</span>
+        <h2>What We Create</h2>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Digital Products</h3>
+            <p>
+                Elegant software experiences engineered for performance,
+                usability, and scale.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Enterprise Systems</h3>
+            <p>
+                Mission-critical platforms designed with reliability,
+                security, and operational excellence.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Technology Consulting</h3>
+            <p>
+                Strategic guidance that aligns innovation with measurable
+                business outcomes.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="statement">
+
+    <h2>
+        Technology should not merely function.
+        It should inspire confidence, elevate experiences,
+        and create lasting value.
+    </h2>
+
+</section>
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+            <h4>Metropolis Technologies</h4>
+            <p>Engineering the future through thoughtful innovation.</p>
+        </div>
+
+        
+
+    </div>
+
+</footer>
+
+</body>
 </html>

@@ -6785,3 +6785,28 @@ WARNING: Unmatched cancel notification for request id 12
 2026.05.20 20:35:36 INFO  shutting down Metals
 2026.05.20 20:35:36 INFO  Shut down connection with build server.
 2026.05.20 20:35:36 INFO  Exiting server
+2026.06.02 14:48:43 INFO  Started: Metals version 1.6.7 in folders 'C:\Users\vijay\projects\Notification-Scala-Pet' for client Visual Studio Code 1.122.1.
+2026.06.02 14:48:44 INFO  Memory monitor started
+2026.06.02 14:48:44 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.06.02 14:48:45 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 2:50:23 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 02, 2026 2:51:00 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2026.06.02 14:57:00 INFO  Started: Metals version 1.6.7 in folders 'C:\Users\vijay\projects\Notification-Scala-Pet' for client Visual Studio Code 1.122.1.
+2026.06.02 14:57:00 INFO  Memory monitor started
+2026.06.02 14:57:10 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.06.02 14:57:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 14:59:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 14:59:42 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 15:00:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 15:00:13 WARN  no build target for: C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala
+2026.06.02 15:00:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 15:01:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 15:02:14 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\models\Db\NotificationRow.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 3:06:55 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 02, 2026 3:08:31 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 02, 2026 3:11:06 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace

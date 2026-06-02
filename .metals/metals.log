@@ -6858,3 +6858,452 @@ WARNING: Unmatched cancel notification for request id 71
 2026.06.02 16:04:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
 2026.06.02 16:04:34 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
 2026.06.02 16:06:07 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:09:39 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:09:39 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:09:39 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:09:39 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:11:44 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:13:50 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 154
+2026.06.02 16:13:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:13:53 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 168
+2026.06.02 16:13:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:13:56 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:36 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:41 INFO  Created report: Optional[file:///C:/Users/vijay/projects/Notification-Scala-Pet/notification-server/app/views/index.scala.html]
+2026.06.02 16:14:41 INFO  empty definition using pc, found symbol in pc:  (full report at: "C:\Users\vijay\projects\Notification-Scala-Pet\.metals\.reports\metals-full\2026-06-02\r_empty-definition_16-14-41-681.md")
+2026.06.02 16:14:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:14:42 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:15:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:16:02 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 280
+2026.06.02 16:16:02 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:02 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:03 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:03 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:06 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:07 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:16:14 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:17:46 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:19:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:19:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:19:14 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:19:14 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 334
+2026.06.02 16:19:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:19:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:19:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:19:30 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:20:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:06 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:09 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:15 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:15 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:16 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:15 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:16 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 394
+Jun 02, 2026 4:21:16 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 397
+Jun 02, 2026 4:21:16 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 398
+2026.06.02 16:21:18 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:18 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:19 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:21 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:22 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 440
+2026.06.02 16:21:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:23 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:24 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 452
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 455
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 456
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 457
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 458
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 460
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 462
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 463
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 459
+Jun 02, 2026 4:21:25 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 461
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:27 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:29 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:29 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:48 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:48 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:51 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:53 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 541
+Jun 02, 2026 4:21:53 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 542
+2026.06.02 16:21:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:54 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 555
+2026.06.02 16:21:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:55 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 557
+Jun 02, 2026 4:21:55 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 558
+Jun 02, 2026 4:21:55 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 559
+2026.06.02 16:21:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:56 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:56 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:21:57 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 580
+Jun 02, 2026 4:21:57 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 582
+2026.06.02 16:21:57 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:56 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:57 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:21:59 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:22:01 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 608
+Jun 02, 2026 4:22:01 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 609
+2026.06.02 16:22:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:22:01 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 614
+2026.06.02 16:22:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:08 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:08 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:23 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:43 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:44 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:44 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:44 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:44 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:44 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:47 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:47 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:48 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:48 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:48 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:48 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:22:51 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 681
+Jun 02, 2026 4:22:51 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 683
+Jun 02, 2026 4:22:51 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 684
+2026.06.02 16:22:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:52 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:22:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:01 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:03 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:23:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 713
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:23:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 715
+Jun 02, 2026 4:23:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 716
+Jun 02, 2026 4:23:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 717
+Jun 02, 2026 4:23:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 718
+Jun 02, 2026 4:23:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 719
+Jun 02, 2026 4:23:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 722
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:05 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:23:45 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:24:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:24:12 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:24:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:24:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:24:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:25:06 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:25:21 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:25:21 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:25:21 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:25:21 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:25 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:26 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:26 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:28 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:29 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:29 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:29 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:35 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:42 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:43 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:44 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:45 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:45 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:45 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:45 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:46 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:45 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:50 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:54 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:54 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:54 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:54 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:55 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:57 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:57 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:57 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:57 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:59 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:59 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:26:59 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:00 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:00 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:00 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:11 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:13 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Jun 02, 2026 4:27:21 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 929
+2026.06.02 16:27:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:20 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:27:22 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:30:07 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:32:43 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:33:02 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:33:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:33:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:33:04 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:33:06 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:33:09 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:34:09 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:34:16 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:34:16 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:34 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:35 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:35 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:35 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:37 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:35:53 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:36:58 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:00 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:00 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:02 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:07 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:19 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:19 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:19 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:19 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:21 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:21 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:23 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+Exception in thread "pool-157-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026.06.02 16:37:23 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:23 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:23 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:37:24 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:38:36 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:10 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:31 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:32 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:33 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:39:49 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:40:40 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7
+2026.06.02 16:40:41 INFO  no build target found for C:\Users\vijay\projects\Notification-Scala-Pet\notification-server\app\views\index.scala.html. Using presentation compiler with project's scala-library version: 3.3.7

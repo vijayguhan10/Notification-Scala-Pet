@@ -18,8 +18,61 @@ final case class DynamicNotification(
 final case class IntentScoreResult(
     score: Int,
     category: String,
-    notification: Option[DynamicNotification]
+    notification: DynamicNotification
 )
+
+object IntentScoringEngine {
+
+  private def safeLocation(event: UserActivityEvent): String =
+    Option(event.location).map(_.trim).filter(_.nonEmpty).getOrElse("your area")
+
+  def defaultNotification(
+      intentLevel: String,
+      event: UserActivityEvent
+  ): DynamicNotification = {
+
+    val loc = safeLocation(event)
+
+    intentLevel match {
+      case "low" =>
+        DynamicNotification(
+          templateId = "default_low",
+          message = s"Parking spaces available near $loc. Park anytime.",
+          priority = "LOW"
+        )
+
+      case "medium" =>
+        DynamicNotification(
+          templateId = "default_medium",
+          message =
+            s"Parking demand increasing near $loc. Slots may fill soon.",
+          priority = "MEDIUM"
+        )
+
+      case "high" =>
+        DynamicNotification(
+          templateId = "default_high",
+          message = s"Hurry! Very few parking slots left near $loc.",
+          priority = "HIGH"
+        )
+
+      case "immediate" =>
+        DynamicNotification(
+          templateId = "default_immediate",
+          message =
+            s"Critical parking alert near $loc. Last slots remaining. Reach immediately.",
+          priority = "IMMEDIATE"
+        )
+
+      case other =>
+        DynamicNotification(
+          templateId = "default_unknown",
+          message = s"Parking update near $loc.",
+          priority = other.trim.toUpperCase
+        )
+    }
+  }
+}
 
 @Singleton
 class IntentScoringEngine @Inject() (
@@ -86,10 +139,19 @@ class IntentScoringEngine @Inject() (
         val contextualNotification =
           generateContextualNotification(searches, views, bookings)
 
+        val intentLevel =
+          category(calculatedScore)
+
+        val notification =
+          contextualNotification
+            .getOrElse(
+              IntentScoringEngine.defaultNotification(intentLevel, event)
+            )
+
         IntentScoreResult(
           score = calculatedScore,
-          category = category(calculatedScore),
-          notification = contextualNotification
+          category = intentLevel,
+          notification = notification
         )
       } catch {
         case NonFatal(e) =>
@@ -100,7 +162,7 @@ class IntentScoringEngine @Inject() (
           IntentScoreResult(
             score = 0,
             category = "low",
-            notification = None
+            notification = IntentScoringEngine.defaultNotification("low", event)
           )
       }
     }

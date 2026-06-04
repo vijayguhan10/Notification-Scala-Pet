@@ -283,30 +283,30 @@ class KafkaNotificationConsumer @Inject() (
                         s"Redis intent scoring failed (userId=${event.userId}); continuing without delay",
                         t
                       )
-                      services.IntentScoreResult(0, "low", None)
+                      services.IntentScoreResult(
+                        0,
+                        "low",
+                        services.IntentScoringEngine.defaultNotification(
+                          "low",
+                          event
+                        )
+                      )
                   }
 
                 val notification: NotificationMessage =
                   notificationBuilder
-                    .build(
-                      event,
-                      intent.score,
-                      intent.category,
-                      intent.notification
-                    )
+                    .build(event, intent)
 
                 val delayMs = {
                   val byCategory = delayPolicy.delayMs(intent.category)
 
-                  intent.notification
-                    .map(_.priority.trim.toUpperCase)
-                    .map {
-                      case "IMMEDIATE" => 0L
-                      case "HIGH"      => delayPolicy.delayMs("high")
-                      case "MEDIUM"    => delayPolicy.delayMs("medium")
-                      case _           => byCategory
-                    }
-                    .getOrElse(byCategory)
+                  intent.notification.priority.trim.toUpperCase match {
+                    case "IMMEDIATE" => 0L
+                    case "HIGH"      => delayPolicy.delayMs("high")
+                    case "MEDIUM"    => delayPolicy.delayMs("medium")
+                    case "LOW"       => delayPolicy.delayMs("low")
+                    case _           => byCategory
+                  }
                 }
 
                 rabbitPublisher.publish(notification, delayMs)

@@ -1,6 +1,5 @@
 package services
 
-
 import jakarta.mail._
 import jakarta.mail.internet._
 import models.{NotificationMessage, UserActivityEvent}
@@ -12,12 +11,11 @@ import java.util.Properties
 
 object EmailPublisher extends Logging {
 
-  private val Username = "vijayguhan10@gmail.com"   
+  private val Username = "vijayguhan10@gmail.com"
 
   private val Password = "igte liuz arhm zkki"
 
-  private val Recipient = "vijayguhan10@gmail.com"  
-
+  private val Recipient = "vijayguhan10@gmail.com"
 
   def sendEventEmail(event: UserActivityEvent): Unit = {
 
@@ -178,7 +176,6 @@ object EmailPublisher extends Logging {
 
     sendHtmlEmail(subject, html, event.userId)
   }
-
 
   def sendNotificationEmail(notif: NotificationMessage): Unit = {
 
@@ -362,7 +359,6 @@ object EmailPublisher extends Logging {
 
     sendHtmlEmail(subject, html, notif.userId)
   }
-
 
   private def sendHtmlEmail(
       subject: String,

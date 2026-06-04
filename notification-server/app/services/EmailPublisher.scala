@@ -17,7 +17,6 @@ object EmailPublisher extends Logging {
 
   private val Recipient = "vijayguhan10@gmail.com"
 
-
   def sendEventEmail(event: UserActivityEvent): Unit = {
 
     val html =
@@ -178,7 +177,6 @@ object EmailPublisher extends Logging {
     sendHtmlEmail(subject, html, event.userId)
   }
 
-
   def sendNotificationEmail(notif: NotificationMessage): Unit = {
 
     val badgeColor =
@@ -186,6 +184,7 @@ object EmailPublisher extends Logging {
         case "INTENT_IMMEDIATE" => "#dc2626"
         case "INTENT_HIGH"      => "#ea580c"
         case "INTENT_MEDIUM"    => "#2563eb"
+        case "INTENT_MODERATE"  => "#2563eb"
         case "INTENT_LOW"       => "#64748b"
         case _                  => "#0f172a"
       }
@@ -195,6 +194,7 @@ object EmailPublisher extends Logging {
         case "INTENT_IMMEDIATE" => "Immediate Attention"
         case "INTENT_HIGH"      => "High Demand Area"
         case "INTENT_MEDIUM"    => "Popular Parking Area"
+        case "INTENT_MODERATE"  => "Popular Parking Area"
         case "INTENT_LOW"       => "Parking Update"
         case _                  => "Parking Alert"
       }
@@ -359,7 +359,6 @@ object EmailPublisher extends Logging {
 
     sendHtmlEmail(subject, html, notif.userId)
   }
-
 
   private def sendHtmlEmail(
       subject: String,

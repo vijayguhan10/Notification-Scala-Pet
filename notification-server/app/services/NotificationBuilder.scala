@@ -11,45 +11,33 @@ class NotificationBuilder {
 
   def build(
       event: UserActivityEvent,
-      intentScore: Int,
-      intentCategory: String
+      intent: IntentScoreResult
   ): NotificationMessage = {
 
-    val realtimeMessage =
-      generateRealtimeMessage(intentScore, event)
+    // Event type drives EmailPublisher badge mapping.
+    // We prefer priority (IMMEDIATE/HIGH/MEDIUM/LOW) over category.
+    val normalizedLevel = {
+      val p = intent.notification.priority.trim.toUpperCase
+      p match {
+        case "IMMEDIATE" => "immediate"
+        case "HIGH"      => "high"
+        case "MEDIUM"    => "medium"
+        case "MODERATE"  => "medium"
+        case "LOW"       => "low"
+        case _           => intent.category.trim.toLowerCase
+      }
+    }
 
     NotificationMessage(
       notificationId = UUID.randomUUID().toString,
 
       userId = event.userId,
 
-      eventType = s"INTENT_${intentCategory.toUpperCase}",
+      eventType = s"INTENT_${normalizedLevel.toUpperCase}",
 
-      message = realtimeMessage,
+      message = intent.notification.message,
 
       createdAt = Instant.now().toString
     )
-  }
-
-  private def generateRealtimeMessage(
-      score: Int,
-      event: UserActivityEvent
-  ): String = {
-
-    
-    score match {
-     
-      case s if s >= 0 && s < 30 =>
-        s"Parking spaces available near ${event.location}. Park anytime."
-
-      case s if s >= 30 && s < 60 =>
-        s"Parking demand increasing near ${event.location}. Slots may fill soon."
-
-      case s if s >= 60 && s < 80 =>
-        s"Hurry! Very few parking slots left near ${event.location}."
-
-      case _ =>
-        s"Critical parking alert near ${event.location}. Last slots remaining. Reach immediately."
-    }
   }
 }

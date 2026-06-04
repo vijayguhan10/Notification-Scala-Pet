@@ -1,560 +1,310 @@
-@()
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html>
+<head>
+    <title>Metropolis Notification Server</title>
 
-    <title>Notification Server Dashboard</title>
-
-    <link
-      rel="stylesheet"
-      media="screen"
-      href='@routes.Assets.versioned("stylesheets/main.css")'
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: #0f172a;
-        color: #e2e8f0;
-        min-height: 100vh;
-      }
-
-      .background-glow {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-        z-index: -1;
-      }
-
-      .background-glow::before,
-      .background-glow::after {
-        content: "";
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        filter: blur(120px);
-        opacity: 0.18;
-      }
-
-      .background-glow::before {
-        background: #3b82f6;
-        top: -120px;
-        left: -120px;
-      }
-
-      .background-glow::after {
-        background: #8b5cf6;
-        bottom: -120px;
-        right: -120px;
-      }
-
-      .container {
-        width: 100%;
-        max-width: 1400px;
-        margin: auto;
-        padding: 40px 24px 80px;
-      }
-
-      .hero {
-        margin-bottom: 36px;
-      }
-
-      .hero h1 {
-        font-size: 42px;
-        font-weight: 800;
-        letter-spacing: -1px;
-        margin-bottom: 10px;
-      }
-
-      .hero p {
-        color: #94a3b8;
-        font-size: 16px;
-      }
-
-      .dashboard-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-        gap: 24px;
-      }
-
-      .card {
-        background: rgba(15, 23, 42, 0.85);
-        border: 1px solid rgba(148, 163, 184, 0.15);
-        border-radius: 24px;
-        padding: 28px;
-        backdrop-filter: blur(12px);
-        box-shadow:
-          0 10px 30px rgba(0, 0, 0, 0.35),
-          inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      }
-
-      .card h2 {
-        font-size: 20px;
-        margin-bottom: 8px;
-      }
-
-      .card-subtitle {
-        color: #94a3b8;
-        font-size: 14px;
-        margin-bottom: 24px;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .input-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .input-group label {
-        font-size: 14px;
-        color: #cbd5e1;
-        font-weight: 500;
-      }
-
-      input,
-      textarea,
-      select {
-        width: 100%;
-        border: 1px solid rgba(148, 163, 184, 0.18);
-        background: rgba(15, 23, 42, 0.9);
-        color: #f8fafc;
-        border-radius: 14px;
-        padding: 14px 16px;
-        font-size: 15px;
-        outline: none;
-        transition: 0.2s ease;
-      }
-
-      input:focus,
-      textarea:focus,
-      select:focus {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-      }
-
-      textarea {
-        min-height: 110px;
-        resize: vertical;
-      }
-
-      .button-row {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-
-      button {
-        border: none;
-        outline: none;
-        padding: 13px 20px;
-        border-radius: 14px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.2s ease;
-      }
-
-      .primary-btn {
-        background: linear-gradient(135deg, #2563eb, #7c3aed);
-        color: white;
-      }
-
-      .primary-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(59, 130, 246, 0.25);
-      }
-
-      .secondary-btn {
-        background: rgba(148, 163, 184, 0.12);
-        color: #e2e8f0;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-      }
-
-      .secondary-btn:hover {
-        background: rgba(148, 163, 184, 0.18);
-      }
-
-      .danger-btn {
-        background: linear-gradient(135deg, #dc2626, #ef4444);
-        color: white;
-      }
-
-      .danger-btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .log-container {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .log-box {
-        background: #020617;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-        border-radius: 18px;
-        padding: 18px;
-        height: 260px;
-        max-height: 260px;
-        overflow-y: auto;
-      }
-
-      pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        font-size: 13px;
-        line-height: 1.6;
-        color: #cbd5e1;
-      }
-
-      .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        background: rgba(34, 197, 94, 0.12);
-        color: #4ade80;
-        font-size: 13px;
-        font-weight: 600;
-        width: fit-content;
-        margin-bottom: 18px;
-      }
-
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #4ade80;
-        box-shadow: 0 0 12px #4ade80;
-      }
-
-      .full-width {
-        grid-column: 1 / -1;
-      }
-
-      @@media (max-width: 768px) {
-        .dashboard-grid {
-          grid-template-columns: 1fr;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        .hero h1 {
-          font-size: 32px;
+        body{
+            font-family:'Montserrat', Arial, Helvetica, sans-serif;
+            background:#ffffff;
+            color:#111111;
+            line-height:1.6;
         }
 
-        .container {
-          padding: 24px 16px 60px;
+        nav{
+            padding:30px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-bottom:1px solid #e5e5e5;
         }
 
-        .card {
-          padding: 22px;
+        .logo{
+            font-size:28px;
+            font-weight:700;
+            letter-spacing:2px;
         }
-      }
+
+        .hero{
+            min-height:80vh;
+            display:flex;
+            align-items:center;
+            padding:0 8%;
+            justify-content:space-between;
+            gap:60px;
+        }
+
+        .hero-content{
+            max-width:900px;
+        }
+
+        .hero-visual{
+            flex:1;
+            display:flex;
+            justify-content:flex-end;
+            align-items:center;
+        }
+
+        .hero-visual img{
+            width:min(340px, 40vw);
+            height:auto;
+            display:block;
+            opacity:0.92;
+        }
+
+        .tag{
+            text-transform:uppercase;
+            letter-spacing:4px;
+            color:#666;
+            margin-bottom:20px;
+            font-size:12px;
+        }
+
+        h1{
+            font-size:72px;
+            line-height:1;
+            margin-bottom:30px;
+            font-weight:800;
+        }
+
+        .description{
+            font-size:22px;
+            color:#555;
+            max-width:750px;
+            margin-bottom:40px;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:16px 32px;
+            background:#111;
+            color:white;
+            text-decoration:none;
+            border-radius:6px;
+            font-weight:600;
+        }
+
+        .stats{
+            padding:100px 8%;
+            border-top:1px solid #e5e5e5;
+            border-bottom:1px solid #e5e5e5;
+        }
+
+        .stats-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:40px;
+        }
+
+        .stat h2{
+            font-size:48px;
+            margin-bottom:10px;
+        }
+
+        .stat p{
+            color:#666;
+        }
+
+        .section{
+            padding:120px 8%;
+        }
+
+        .section-title{
+            font-size:52px;
+            margin-bottom:60px;
+            font-weight:800;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:30px;
+        }
+
+        .card{
+            border:1px solid #ececec;
+            padding:40px;
+            transition:0.3s;
+        }
+
+        .card:hover{
+            box-shadow:0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .card h3{
+            margin-bottom:20px;
+            font-size:24px;
+        }
+
+        .card p{
+            color:#666;
+        }
+
+        .banner{
+            padding:140px 8%;
+            text-align:center;
+            background:#f8f8f8;
+        }
+
+        .banner h2{
+            font-size:64px;
+            max-width:1000px;
+            margin:auto;
+            line-height:1.2;
+        }
+
+        footer{
+            padding:50px 8%;
+            border-top:1px solid #e5e5e5;
+            color:#666;
+        }
+
+        @@media (max-width: 900px){
+            .hero{
+                flex-direction:column;
+                align-items:flex-start;
+                padding:60px 8%;
+                gap:40px;
+            }
+
+            .hero-visual{
+                width:100%;
+                justify-content:flex-start;
+            }
+
+            .hero-visual img{
+                width:min(260px, 70vw);
+            }
+        }
     </style>
-  </head>
+</head>
+<body>
 
-  <body>
-    <div class="background-glow"></div>
+<nav>
+<img width="330" height="50" src="https://images.squarespace-cdn.com/content/v1/63f5420164157b677f73c82c/2e4bd485-e7ee-4f14-bea8-f1268e65152b/Metropolis_FullLogo_Black_08302019.png?format=1500w" alt="Metropolis Logo" class="logo">
+<div>Notification Infrastructure</div>
+</nav>
 
-    <main class="container">
+<section class="hero">
 
-      <section class="hero">
-        <h1>Notification Server Dashboard</h1>
-        <p>
-          Real-time event simulation, notification testing, WebSocket monitoring,
-          and stream management.
+    <div class="hero-content">
+
+        <div class="tag">
+            Enterprise Notification Platform
+        </div>
+
+        <h1 style="line-height:1.1; font-size:24px;">
+            Deliver Millions Of
+            Notifications Reliably.
+        </h1>
+
+        <p class="description">
+            A high-performance notification infrastructure powering
+            email, SMS, WhatsApp, push notifications and event-driven
+            communication for modern enterprises.
         </p>
-      </section>
 
-      <div class="dashboard-grid">
+        <a href="#" class="btn">
+            Explore Platform
+        </a>
 
-        <!-- CREATE EVENT -->
-        <section class="card">
-          <div class="status-badge">
-            <span class="dot"></span>
-            Event Pipeline Active
-          </div>
+    </div>
 
-          <h2>Create Event</h2>
-          <p class="card-subtitle">
-            Push simulated activity events into Kafka and trigger downstream processing.
-          </p>
+    <div class="hero-visual" aria-hidden="true">
+        <img width="400" height="100"
+            src="https://img.icons8.com/?size=5080&id=Vkm9s4Zn5V1X&format=png&color=000000"
+            alt=""
+        >
+    </div>
 
-          <form id="createEventForm">
+</section>
 
-            <div class="input-group">
-              <label>User ID</label>
-              <input
-                name="userId"
-                required
-                value="user_123"
-                placeholder="Enter user id"
-              />
-            </div>
+<section class="stats">
 
-            <div class="input-group">
-              <label>Location</label>
-              <input
-                name="location"
-                value="City Center"
-                placeholder="User location"
-              />
-            </div>
+    <div class="stats-grid">
 
-            <div class="input-group">
-              <label>Message Payload</label>
-              <textarea
-                name="message"
-                placeholder='{
-  "event": "USER_ACTIVITY",
-  "intentScore": 87,
-  "category": "HIGH"
-}'
-              ></textarea>
-            </div>
+        <div class="stat">
+            <h2>99.99%</h2>
+            <p>Uptime</p>
+        </div>
 
-            <div class="button-row">
-              <button type="submit" class="primary-btn">
-                Send Event
-              </button>
-            </div>
+        <div class="stat">
+            <h2>10M+</h2>
+            <p>Messages Delivered</p>
+        </div>
 
-          </form>
-        </section>
+        <div class="stat">
+            <h2>&lt;50ms</h2>
+            <p>Processing Latency</p>
+        </div>
 
-        <!-- STREAM MANAGEMENT -->
-        <section class="card">
+        <div class="stat">
+            <h2>24/7</h2>
+            <p>Monitoring</p>
+        </div>
 
-          <h2>Stream Management</h2>
-          <p class="card-subtitle">
-            Control stream lifecycle and inspect stream state in real-time.
-          </p>
+    </div>
 
-          <form id="stopStreamForm">
+</section>
 
-            <div class="input-group">
-              <label>Stream ID</label>
-              <input
-                name="streamId"
-                required
-                value="stream_1"
-              />
-            </div>
+<section class="section">
 
-            <div class="button-row">
-              <button type="submit" class="danger-btn">
-                Stop Stream
-              </button>
-            </div>
+    <h2 class="section-title">
+        Built For Scale
+    </h2>
 
-          </form>
+    <div class="cards">
 
-          <br />
+        <div class="card">
+            <h3>Email Delivery</h3>
+            <p>
+                High-volume transactional and marketing email
+                infrastructure with delivery tracking.
+            </p>
+        </div>
 
-          <form id="statusForm">
+        <div class="card">
+            <h3>WhatsApp Messaging</h3>
+            <p>
+                Enterprise-grade WhatsApp integrations for automated
+                customer communication.
+            </p>
+        </div>
 
-            <div class="input-group">
-              <label>Stream ID</label>
-              <input
-                name="streamId"
-                required
-                value="stream_1"
-              />
-            </div>
+        <div class="card">
+            <h3>Event Processing</h3>
+            <p>
+                Kafka and queue-driven architecture built for
+                mission-critical workloads.
+            </p>
+        </div>
 
-            <div class="button-row">
-              <button type="submit" class="secondary-btn">
-                Get Status
-              </button>
-            </div>
+    </div>
 
-          </form>
+</section>
 
-        </section>
+<section class="banner">
 
-        <!-- WEBSOCKET -->
-        <section class="card">
+    <h2>
+        Modern Notification Infrastructure
+        For Enterprise Systems.
+    </h2>
 
-          <h2>WebSocket Monitor</h2>
-          <p class="card-subtitle">
-            Listen to live notification delivery events and queue updates.
-          </p>
+</section>
 
-          <div class="button-row" style="margin-bottom: 18px;">
-            <button id="wsConnect" class="primary-btn">
-              Connect
-            </button>
+<footer>
+    © 2026 Metropolis Technologies — Notification Server Platform
+</footer>
 
-            <button
-              id="wsDisconnect"
-              class="secondary-btn"
-              disabled
-            >
-              Disconnect
-            </button>
-          </div>
-
-          <div class="log-box">
-            <pre id="wsLog">Waiting for WebSocket connection...</pre>
-          </div>
-
-        </section>
-
-        <!-- NOTIFICATIONS -->
-        <section class="card">
-
-          <h2>Notifications API</h2>
-
-          <p class="card-subtitle">
-            Create, inspect, and update notification delivery state.
-          </p>
-
-          <div class="button-row" style="margin-bottom: 24px;">
-            <button
-              id="listNotifications"
-              class="primary-btn"
-            >
-              List Notifications
-            </button>
-          </div>
-
-          <form id="getNotificationForm">
-
-            <div class="input-group">
-              <label>Notification ID</label>
-              <input
-                name="id"
-                type="number"
-                value="1"
-              />
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="secondary-btn">
-                Get Notification
-              </button>
-            </div>
-
-          </form>
-
-          <br />
-
-          <form id="createNotificationForm">
-
-            <div class="input-group">
-              <label>User ID</label>
-              <input
-                name="userId"
-                value="user_123"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Event Type</label>
-              <input
-                name="eventType"
-                value="INTENT_HIGH"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Message</label>
-              <textarea
-                name="message"
-              >Parking availability updated for your preferred zone.</textarea>
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="primary-btn">
-                Create Notification
-              </button>
-            </div>
-
-          </form>
-
-          <br />
-
-          <form id="updateStatusForm">
-
-            <div class="input-group">
-              <label>Notification ID</label>
-              <input
-                name="id"
-                type="number"
-                value="1"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Status</label>
-              <select name="status">
-                <option value="queued">queued</option>
-                <option value="processing">processing</option>
-                <option value="sent" selected>sent</option>
-                <option value="failed">failed</option>
-              </select>
-            </div>
-
-            <div class="button-row">
-              <button type="submit" class="secondary-btn">
-                Update Status
-              </button>
-            </div>
-
-          </form>
-
-        </section>
-
-        <!-- LOGS -->
-        <section class="card full-width">
-
-          <h2>API Responses & Logs</h2>
-
-          <p class="card-subtitle">
-            Centralized visibility into API responses, Kafka events,
-            RabbitMQ pushes, and notification delivery logs.
-          </p>
-
-          <div class="log-container">
-
-            <div class="log-box">
-              <pre id="apiLog">
-System initialized...
-
-[Kafka] Producer connected
-[RabbitMQ] Queue listener active
-[Notification-Service] Awaiting events
-              </pre>
-            </div>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    </main>
-
-    <script
-      src='@routes.Assets.versioned("javascripts/main.js")'
-      type="text/javascript">
-    </script>
-
-  </body>
+</body>
 </html>

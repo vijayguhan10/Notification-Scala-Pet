@@ -9,21 +9,39 @@ import javax.inject.Singleton
 @Singleton
 class NotificationBuilder {
 
+  private def normalizeLevel(level: String): String = {
+    level.trim.toLowerCase match {
+      case "moderate" => "medium"
+      case other      => other
+    }
+  }
+
   def build(
       event: UserActivityEvent,
       intentScore: Int,
-      intentCategory: String
+      intentCategory: String,
+      dynamicNotificationOpt: Option[DynamicNotification] = None
   ): NotificationMessage = {
 
+    val levelForEventType =
+      dynamicNotificationOpt
+        .map(_.priority)
+        .getOrElse(intentCategory)
+
+    val normalizedLevel =
+      normalizeLevel(levelForEventType)
+
     val realtimeMessage =
-      generateRealtimeMessage(intentScore, event)
+      dynamicNotificationOpt
+        .map(_.message)
+        .getOrElse(generateRealtimeMessage(normalizedLevel, event))
 
     NotificationMessage(
       notificationId = UUID.randomUUID().toString,
 
       userId = event.userId,
 
-      eventType = s"INTENT_${intentCategory.toUpperCase}",
+      eventType = s"INTENT_${normalizedLevel.toUpperCase}",
 
       message = realtimeMessage,
 
@@ -32,21 +50,22 @@ class NotificationBuilder {
   }
 
   private def generateRealtimeMessage(
-      score: Int,
+      intentLevel: String,
       event: UserActivityEvent
   ): String = {
+    intentLevel match {
 
-    
-    score match {
-     
-      case s if s >= 0 && s < 30 =>
+      case "low" =>
         s"Parking spaces available near ${event.location}. Park anytime."
 
-      case s if s >= 30 && s < 60 =>
+      case "medium" =>
         s"Parking demand increasing near ${event.location}. Slots may fill soon."
 
-      case s if s >= 60 && s < 80 =>
+      case "high" =>
         s"Hurry! Very few parking slots left near ${event.location}."
+
+      case "immediate" =>
+        s"Critical parking alert near ${event.location}. Last slots remaining. Reach immediately."
 
       case _ =>
         s"Critical parking alert near ${event.location}. Last slots remaining. Reach immediately."

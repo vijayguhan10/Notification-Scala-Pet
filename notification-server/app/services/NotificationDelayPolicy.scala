@@ -9,6 +9,7 @@ class NotificationDelayPolicy {
     intentCategory match {
       case "low"       => 10L * 60L * 1000L
       case "moderate"  => 2L * 60L * 1000L
+      case "medium"    => 2L * 60L * 1000L
       case "high"      => 30L * 1000L
       case "immediate" => 0L
       case _           => 0L

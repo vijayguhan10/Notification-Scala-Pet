@@ -283,15 +283,31 @@ class KafkaNotificationConsumer @Inject() (
                         s"Redis intent scoring failed (userId=${event.userId}); continuing without delay",
                         t
                       )
-                      services.IntentScoreResult(0, "low")
+                      services.IntentScoreResult(0, "low", None)
                   }
 
                 val notification: NotificationMessage =
                   notificationBuilder
-                    .build(event, intent.score, intent.category)
+                    .build(
+                      event,
+                      intent.score,
+                      intent.category,
+                      intent.notification
+                    )
 
-                val delayMs =
-                  delayPolicy.delayMs(intent.category)
+                val delayMs = {
+                  val byCategory = delayPolicy.delayMs(intent.category)
+
+                  intent.notification
+                    .map(_.priority.trim.toUpperCase)
+                    .map {
+                      case "IMMEDIATE" => 0L
+                      case "HIGH"      => delayPolicy.delayMs("high")
+                      case "MEDIUM"    => delayPolicy.delayMs("medium")
+                      case _           => byCategory
+                    }
+                    .getOrElse(byCategory)
+                }
 
                 rabbitPublisher.publish(notification, delayMs)
 
@@ -371,7 +387,6 @@ class KafkaNotificationConsumer @Inject() (
 
     Future {
 
-    
       blocking {
 
         thread.join(5000)
@@ -385,7 +400,6 @@ class KafkaNotificationConsumer @Inject() (
     }
   }
 }
-
 
 // When the Play application starts (like via sbt run),
 // this addStopHook callback gets registered inside Play's

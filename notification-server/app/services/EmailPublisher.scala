@@ -1,5 +1,6 @@
 package services
 
+
 import jakarta.mail._
 import jakarta.mail.internet._
 import models.{NotificationMessage, UserActivityEvent}
@@ -11,11 +12,11 @@ import java.util.Properties
 
 object EmailPublisher extends Logging {
 
-  private val Username = "vijayguhan10@gmail.com"
+  private val Username = "vijayguhan10@gmail.com"   
 
   private val Password = "igte liuz arhm zkki"
 
-  private val Recipient = "vijayguhan10@gmail.com"
+  private val Recipient = "vijayguhan10@gmail.com"  
 
 
   def sendEventEmail(event: UserActivityEvent): Unit = {
@@ -186,6 +187,7 @@ object EmailPublisher extends Logging {
         case "INTENT_IMMEDIATE" => "#dc2626"
         case "INTENT_HIGH"      => "#ea580c"
         case "INTENT_MEDIUM"    => "#2563eb"
+        case "INTENT_MODERATE"  => "#2563eb"
         case "INTENT_LOW"       => "#64748b"
         case _                  => "#0f172a"
       }
@@ -195,6 +197,7 @@ object EmailPublisher extends Logging {
         case "INTENT_IMMEDIATE" => "Immediate Attention"
         case "INTENT_HIGH"      => "High Demand Area"
         case "INTENT_MEDIUM"    => "Popular Parking Area"
+        case "INTENT_MODERATE"  => "Popular Parking Area"
         case "INTENT_LOW"       => "Parking Update"
         case _                  => "Parking Alert"
       }

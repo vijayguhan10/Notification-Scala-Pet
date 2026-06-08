@@ -1,4 +1,4 @@
-package models.db
+package models
 
 import java.time.LocalDateTime
 import play.api.libs.json.{Json, OFormat}

@@ -172,7 +172,6 @@ class RabbitMqNotificationDispatcher @Inject() (
 
   private val scheduler: ScheduledExecutorService =
     Executors.newSingleThreadScheduledExecutor(schedulerThreadFactory)
-
   // Kick off connection attempts in the background (immediate, then every 5s).
   scheduler.scheduleWithFixedDelay(
     new Runnable {

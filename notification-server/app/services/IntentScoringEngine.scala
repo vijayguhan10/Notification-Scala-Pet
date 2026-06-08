@@ -77,7 +77,8 @@ object IntentScoringEngine {
 @Singleton
 class IntentScoringEngine @Inject() (
     redis: RedisClientProvider,
-    redisConfig: RedisConfig
+    redisConfig: RedisConfig 
+    
 ) extends Logging {
 
   // Field identifiers used inside the Redis hash

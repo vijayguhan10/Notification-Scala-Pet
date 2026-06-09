@@ -52,8 +52,8 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % postgresDriverVersion,
 
   // Flyway
-  "org.flywaydb" % "flyway-core" % flywayVersion,
-  "org.flywaydb" % "flyway-database-postgresql" % flywayVersion
+  // "org.flywaydb" % "flyway-core" % flywayVersion,
+  // "org.flywaydb" % "flyway-database-postgresql" % flywayVersion
 )
 
 // Jakarta Mail for sending HTML emails

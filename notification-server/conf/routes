@@ -21,11 +21,17 @@ GET     /api/notifications/:id               controllers.NotificationController.
 PUT     /api/notifications/:id/status        controllers.NotificationController.updateStatus(id: Long)
 
 # Event Metadata Endpoints
-POST    /api/location_type/events                  controllers.Parking_Map.EventMetadataController.create()
-GET     /api/location_type/events/active           controllers.Parking_Map.EventMetadataController.getActiveByLocation(locationId: String)
-GET     /api/location_type/events/:id              controllers.Parking_Map.EventMetadataController.getById(id: Int)
-GET     /api/location_type/events                  controllers.Parking_Map.EventMetadataController.list(limit: Int ?= 50, offset: Int ?= 0)
-DELETE  /api/location_type/events/:id              controllers.Parking_Map.EventMetadataController.delete(id: Int)
+POST    /api/event-metadata/events                  controllers.Parking_Map.EventMetadataController.create()
+GET     /api/event-metadata/events/active           controllers.Parking_Map.EventMetadataController.getActiveByLocation(locationId: String)
+GET     /api/event-metadata/events/:id              controllers.Parking_Map.EventMetadataController.getById(id: Int)
+GET     /api/event-metadata/events                  controllers.Parking_Map.EventMetadataController.list(limit: Int ?= 50, offset: Int ?= 0)
+DELETE  /api/event-metadata/events/:id              controllers.Parking_Map.EventMetadataController.delete(id: Int)
 
+# Location Type Management Endpoints
+POST    /api/location-types          controllers.Parking_Map.LocationTypeController.create()
+GET     /api/location-types/:id      controllers.Parking_Map.LocationTypeController.getById(id: Int)
+GET     /api/location-types          controllers.Parking_Map.LocationTypeController.list(limit: Int ?= 50, offset: Int ?= 0)
+PATCH   /api/location-types/:id/name controllers.Parking_Map.LocationTypeController.updateName(id: Int)
+DELETE  /api/location-types/:id      controllers.Parking_Map.LocationTypeController.delete(id: Int)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

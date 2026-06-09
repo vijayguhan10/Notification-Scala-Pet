@@ -20,5 +20,12 @@ GET     /api/notifications                   controllers.NotificationController.
 GET     /api/notifications/:id               controllers.NotificationController.get(id: Long)
 PUT     /api/notifications/:id/status        controllers.NotificationController.updateStatus(id: Long)
 
+# Event Metadata Endpoints
+POST    /api/events                  controllers.Parking_Map.EventMetadataController.create()
+GET     /api/events/active           controllers.Parking_Map.EventMetadataController.getActiveByLocation(locationId: String)
+GET     /api/events/:id              controllers.Parking_Map.EventMetadataController.getById(id: Int)
+GET     /api/events                  controllers.Parking_Map.EventMetadataController.list(limit: Int ?= 50, offset: Int ?= 0)
+DELETE  /api/events/:id              controllers.Parking_Map.EventMetadataController.delete(id: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

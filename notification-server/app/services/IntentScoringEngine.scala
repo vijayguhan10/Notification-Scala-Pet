@@ -77,13 +77,14 @@ object IntentScoringEngine {
 @Singleton
 class IntentScoringEngine @Inject() (
     redis: RedisClientProvider,
-    redisConfig: RedisConfig
+    redisConfig: RedisConfig 
+    
 ) extends Logging {
 
   // Field identifiers used inside the Redis hash
   private val FieldSearches = "searches"
-  private val FieldViews = "views"
-  private val FieldBookings = "bookings"
+  private val FieldViews = "views"  
+  private val FieldBookings = "bookings" 
 
   // Weights assigned to each interaction type
   private val WeightSearch = 10
@@ -176,7 +177,7 @@ class IntentScoringEngine @Inject() (
 
     (searches, views, bookings) match {
 
-      // High friction: tried booking but didn't complete.
+      // High friction: tried booking but didn't complete.   
       case (_, _, b) if b >= 1 =>
         Some(
           DynamicNotification(
@@ -187,7 +188,7 @@ class IntentScoringEngine @Inject() (
           )
         )
 
-      // High comparison behavior.
+      // High comparison behavior.   
       case (s, v, 0) if s >= 3 && v >= 3 =>
         Some(
           DynamicNotification(

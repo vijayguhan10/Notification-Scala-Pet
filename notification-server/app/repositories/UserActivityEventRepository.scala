@@ -2,7 +2,7 @@ package repositories
 
 import Tables.UserActivityEventTable
 import models.db.UserActivityEventRow
-import play.api.{Configuration, Logging}
+import play.api.Configuration
 import play.api.inject.ApplicationLifecycle
 import slick.jdbc.PostgresProfile.api._
 
@@ -19,21 +19,7 @@ class UserActivityEventRepository @Inject() (
     config: Configuration,
     lifecycle: ApplicationLifecycle
 )(implicit ec: ExecutionContext)
-    extends Logging {
-
-  private val db =
-    Database.forConfig(
-      "slick.dbs.default.db",
-      config.underlying
-    )
-
-  lifecycle.addStopHook { () =>
-    try db.close()
-    catch {
-      case t: Throwable => logger.warn("DB close failed", t)
-    }
-    Future.successful(())
-  }
+    extends RepositoryBase(config, lifecycle) {
 
   private val userActivityEvents =
     TableQuery[UserActivityEventTable]
@@ -41,7 +27,7 @@ class UserActivityEventRepository @Inject() (
   def insertBatch(
       events: Seq[UserActivityEventRow]
   ): Future[Option[Int]] = {
-    db.run(userActivityEvents ++= events)
+    run(userActivityEvents ++= events)
   }
 
   /** Returns event counts grouped by hour between start and end (inclusive).
@@ -66,6 +52,6 @@ class UserActivityEventRepository @Inject() (
       ORDER BY cnt DESC
     """.as[(String, Int)]
 
-    db.run(q)
+    run(q)
   }
 }

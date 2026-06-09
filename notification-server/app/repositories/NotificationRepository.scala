@@ -2,7 +2,7 @@ package repositories
 
 import Tables.NotificationTable
 import models.db.NotificationRow
-import play.api.{Configuration, Logging}
+import play.api.Configuration
 import play.api.inject.ApplicationLifecycle
 import slick.jdbc.PostgresProfile.api._
 
@@ -15,21 +15,7 @@ class NotificationRepository @Inject() (
     config: Configuration,
     lifecycle: ApplicationLifecycle
 )(implicit ec: ExecutionContext)
-    extends Logging {
-
-  private val db =
-    Database.forConfig(
-      "slick.dbs.default.db",
-      config.underlying
-    )
-
-  lifecycle.addStopHook { () =>
-    try db.close()
-    catch {
-      case t: Throwable => logger.warn("DB close failed", t)
-    }
-    Future.successful(())
-  }
+    extends RepositoryBase(config, lifecycle) {
 
   private val notifications =
     TableQuery[NotificationTable]
@@ -41,7 +27,7 @@ class NotificationRepository @Inject() (
   def insert(
       notification: NotificationRow
   ): Future[NotificationRow] = {
-    db.run(insertWithId += notification)
+    run(insertWithId += notification)
   }
 
   def create(
@@ -69,7 +55,7 @@ class NotificationRepository @Inject() (
   }
 
   def findById(id: Long): Future[Option[NotificationRow]] = {
-    db.run(
+    run(
       notifications
         .filter(_.id === id)
         .result
@@ -80,7 +66,7 @@ class NotificationRepository @Inject() (
   def findByNotificationId(
       notificationId: String
   ): Future[Option[NotificationRow]] = {
-    db.run(
+    run(
       notifications
         .filter(_.notificationId === notificationId)
         .result
@@ -114,11 +100,11 @@ class NotificationRepository @Inject() (
     val safeLimit = Math.max(1, Math.min(limit, 500))
     val safeOffset = Math.max(0, offset)
 
-    db.run(withStatus.drop(safeOffset).take(safeLimit).result)
+    run(withStatus.drop(safeOffset).take(safeLimit).result)
   }
 
   def updateStatus(id: Long, status: String): Future[Int] = {
-    db.run(
+    run(
       notifications
         .filter(_.id === id)
         .map(_.status)
@@ -130,7 +116,7 @@ class NotificationRepository @Inject() (
       notificationId: String,
       status: String
   ): Future[Int] = {
-    db.run(
+    run(
       notifications
         .filter(_.notificationId === notificationId)
         .map(_.status)

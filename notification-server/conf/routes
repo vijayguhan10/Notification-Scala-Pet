@@ -44,3 +44,24 @@ GET     /api/locations               controllers.Parking_Map.LocationController.
 PATCH   /api/locations/:id/status    controllers.Parking_Map.LocationController.updateStatus(id: String)
 PUT     /api/locations/:id           controllers.Parking_Map.LocationController.update(id: String)
 DELETE  /api/locations/:id           controllers.Parking_Map.LocationController.delete(id: String)
+
+# Vehicle Types
+POST    /api/vehicle-types           controllers.Parking_Map.VehicleTypeController.create()
+GET     /api/vehicle-types/:id       controllers.Parking_Map.VehicleTypeController.getById(id: Int)
+GET     /api/vehicle-types           controllers.Parking_Map.VehicleTypeController.list()
+DELETE  /api/vehicle-types/:id       controllers.Parking_Map.VehicleTypeController.delete(id: Int)
+
+# Reservation Classes
+POST    /api/reservation-classes     controllers.Parking_Map.ReservationClassController.create()
+GET     /api/reservation-classes/:id controllers.Parking_Map.ReservationClassController.getById(id: Int)
+GET     /api/reservation-classes     controllers.Parking_Map.ReservationClassController.list()
+DELETE  /api/reservation-classes/:id controllers.Parking_Map.ReservationClassController.delete(id: Int)
+
+# Parking Slots
+POST    /api/slots                   controllers.Parking_Map.ParkingSlotController.create()
+GET     /api/slots/:id               controllers.Parking_Map.ParkingSlotController.getById(id: Int)
+GET     /api/slots/sensor/:sensorId  controllers.Parking_Map.ParkingSlotController.getBySensorId(sensorId: String)
+GET     /api/slots                   controllers.Parking_Map.ParkingSlotController.list(locationId: Option[String], status: Option[String], limit: Int ?= 50, offset: Int ?= 0)
+PATCH   /api/slots/:id/status        controllers.Parking_Map.ParkingSlotController.updateStatus(id: Int)
+PUT     /api/slots/:id               controllers.Parking_Map.ParkingSlotController.update(id: Int)
+DELETE  /api/slots/:id               controllers.Parking_Map.ParkingSlotController.delete(id: Int)

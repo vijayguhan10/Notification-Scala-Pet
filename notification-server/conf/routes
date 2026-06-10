@@ -35,3 +35,12 @@ PATCH   /api/location-types/:id/name controllers.Parking_Map.LocationTypeControl
 DELETE  /api/location-types/:id      controllers.Parking_Map.LocationTypeController.delete(id: Int)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+# Physical Location Management Routes
+POST    /api/locations               controllers.Parking_Map.LocationController.create()
+GET     /api/locations/:id           controllers.Parking_Map.LocationController.getById(id: String)
+GET     /api/locations               controllers.Parking_Map.LocationController.list(city: Option[String], status: Option[String], limit: Int ?= 50, offset: Int ?= 0)
+PATCH   /api/locations/:id/status    controllers.Parking_Map.LocationController.updateStatus(id: String)
+PUT     /api/locations/:id           controllers.Parking_Map.LocationController.update(id: String)
+DELETE  /api/locations/:id           controllers.Parking_Map.LocationController.delete(id: String)

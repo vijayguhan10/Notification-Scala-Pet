@@ -20,5 +20,48 @@ GET     /api/notifications                   controllers.NotificationController.
 GET     /api/notifications/:id               controllers.NotificationController.get(id: Long)
 PUT     /api/notifications/:id/status        controllers.NotificationController.updateStatus(id: Long)
 
+# Event Metadata Endpoints
+POST    /api/event-metadata/events                  controllers.Parking_Map.EventMetadataController.create()
+GET     /api/event-metadata/events/active           controllers.Parking_Map.EventMetadataController.getActiveByLocation(locationId: String)
+GET     /api/event-metadata/events/:id              controllers.Parking_Map.EventMetadataController.getById(id: Int)
+GET     /api/event-metadata/events                  controllers.Parking_Map.EventMetadataController.list(limit: Int ?= 50, offset: Int ?= 0)
+DELETE  /api/event-metadata/events/:id              controllers.Parking_Map.EventMetadataController.delete(id: Int)
+
+# Location Type Management Endpoints
+POST    /api/location-types          controllers.Parking_Map.LocationTypeController.create()
+GET     /api/location-types/:id      controllers.Parking_Map.LocationTypeController.getById(id: Int)
+GET     /api/location-types          controllers.Parking_Map.LocationTypeController.list(limit: Int ?= 50, offset: Int ?= 0)
+PATCH   /api/location-types/:id/name controllers.Parking_Map.LocationTypeController.updateName(id: Int)
+DELETE  /api/location-types/:id      controllers.Parking_Map.LocationTypeController.delete(id: Int)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+# Physical Location Management Routes
+POST    /api/locations               controllers.Parking_Map.LocationController.create()
+GET     /api/locations/:id           controllers.Parking_Map.LocationController.getById(id: String)
+GET     /api/locations               controllers.Parking_Map.LocationController.list(city: Option[String], status: Option[String], limit: Int ?= 50, offset: Int ?= 0)
+PATCH   /api/locations/:id/status    controllers.Parking_Map.LocationController.updateStatus(id: String)
+PUT     /api/locations/:id           controllers.Parking_Map.LocationController.update(id: String)
+DELETE  /api/locations/:id           controllers.Parking_Map.LocationController.delete(id: String)
+
+# Vehicle Types
+POST    /api/vehicle-types           controllers.Parking_Map.VehicleTypeController.create()
+GET     /api/vehicle-types/:id       controllers.Parking_Map.VehicleTypeController.getById(id: Int)
+GET     /api/vehicle-types           controllers.Parking_Map.VehicleTypeController.list()
+DELETE  /api/vehicle-types/:id       controllers.Parking_Map.VehicleTypeController.delete(id: Int)
+
+# Reservation Classes
+POST    /api/reservation-classes     controllers.Parking_Map.ReservationClassController.create()
+GET     /api/reservation-classes/:id controllers.Parking_Map.ReservationClassController.getById(id: Int)
+GET     /api/reservation-classes     controllers.Parking_Map.ReservationClassController.list()
+DELETE  /api/reservation-classes/:id controllers.Parking_Map.ReservationClassController.delete(id: Int)
+
+# Parking Slots
+POST    /api/slots                   controllers.Parking_Map.ParkingSlotController.create()
+GET     /api/slots/:id               controllers.Parking_Map.ParkingSlotController.getById(id: Int)
+GET     /api/slots/sensor/:sensorId  controllers.Parking_Map.ParkingSlotController.getBySensorId(sensorId: String)
+GET     /api/slots                   controllers.Parking_Map.ParkingSlotController.list(locationId: Option[String], status: Option[String], limit: Int ?= 50, offset: Int ?= 0)
+PATCH   /api/slots/:id/status        controllers.Parking_Map.ParkingSlotController.updateStatus(id: Int)
+PUT     /api/slots/:id               controllers.Parking_Map.ParkingSlotController.update(id: Int)
+DELETE  /api/slots/:id               controllers.Parking_Map.ParkingSlotController.delete(id: Int)
